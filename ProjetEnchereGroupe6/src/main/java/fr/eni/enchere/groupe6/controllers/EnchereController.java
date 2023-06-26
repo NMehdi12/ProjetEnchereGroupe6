@@ -1,12 +1,9 @@
 package fr.eni.enchere.groupe6.controllers;
 
-
-
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
-
 
 
 
@@ -38,7 +35,7 @@ public class EnchereController {
 		return "PageListeEncheresConnecte";
 	}
 	
-	@PostMapping ("/encheres")
+	@GetMapping ("/encheresMesVentes")
 	public String afficherMesVentes() {
 	return "PageListeEnchereMesVentes";
 	}
@@ -47,6 +44,10 @@ public class EnchereController {
 	@GetMapping ("/profil")
 	public String consulterProfil() {
 		return "PageProfil";
+	}
+	@GetMapping ("/monProfil")
+	public String vueModifierProfil() {
+		return "PageMonProfil";
 	}
 	
 	@PostMapping ("/monProfil")
@@ -64,15 +65,15 @@ public class EnchereController {
 		return "redirect:/encheresConnecte";
 	}
 	
-	@GetMapping ("/vente")
+	@GetMapping ("/modifierVente")
 	public String modifierVente() {
 		return "PageEnchereNonCommencee";
 	}
 	
 	
-	@PostMapping ("/enchere")
+	@PostMapping ("/encheresMesVentes")
 	public String enregistrerVente() {
-		return "redirect:/encheres";
+		return "redirect:/encheresConnecte";
 	}
 	
 	
