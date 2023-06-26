@@ -8,6 +8,20 @@ public class Retrait {
 	
 	
 	
+	public Retrait() {
+		super();
+	}
+	
+	
+	//Constructeur sans article car rapport 0..1
+	public Retrait(String rue, String ville, int codePostal) {
+		super();
+		this.rue = rue;
+		this.ville = ville;
+		this.codePostal = codePostal;
+		
+	}
+	
 	public Retrait(String rue, String ville, int codePostal,ArticleVendu articleVendu) {
 		super();
 		this.rue = rue;

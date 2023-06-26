@@ -17,7 +17,7 @@ public class Utilisateur {
 	private int credit;
 	private List<ArticleVendu> articleVendu; // faire l'injection par constructeur
 	private boolean administrateur;
-	
+	private List<Enchere>enchere;
 	
 	
 	
@@ -25,9 +25,9 @@ public class Utilisateur {
 		super();
 	}
 
-	//Constructeur avec tous les attributs (List d'article de 0 à *) 
+	//Constructeur avec tous les attributs (List d'article de 0 à * et List d'enchere) 
 	public Utilisateur(int noUtilisateur, int telephone, int codePostal, String pseudo, String nom, String prenom,
-			String email, String rue, String ville, String motDePasse, int credit, boolean administrateur,List<ArticleVendu> articleVendu) {
+			String email, String rue, String ville, String motDePasse, int credit, boolean administrateur,List<ArticleVendu> articleVendu, List<Enchere>enchere) {
 		this.noUtilisateur = noUtilisateur;
 		this.telephone = telephone;
 		this.codePostal = codePostal;
@@ -43,7 +43,7 @@ public class Utilisateur {
 		this.articleVendu= articleVendu;
 	}
 	
-	//Constructeur sans la liste d'article dans le doute)
+	//Constructeur sans la liste d'article ni d'enchere dans le doute)
 	public Utilisateur(int noUtilisateur, int telephone, int codePostal, String pseudo, String nom, String prenom,
 			String email, String rue, String ville, String motDePasse, int credit, boolean administrateur) {
 		super();

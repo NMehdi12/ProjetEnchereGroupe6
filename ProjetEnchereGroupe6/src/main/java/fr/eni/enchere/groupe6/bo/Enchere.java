@@ -10,7 +10,22 @@ public class Enchere {
 	private List<Utilisateur> utilisateur;
 	
 
+	
+	
+	
 
+	public Enchere() {
+		super();
+	}
+	
+	public Enchere(Date dateEnchere, int montantEnchere, List<ArticleVendu> articleVendu,
+			List<Utilisateur> utilisateur) {
+		super();
+		this.dateEnchere = dateEnchere;
+		this.montantEnchere = montantEnchere;
+		this.articleVendu = articleVendu;
+		this.utilisateur = utilisateur;
+	}
 	public Date getDateEnchere() {
 		return dateEnchere;
 	}

@@ -18,6 +18,11 @@ public class ArticleVendu {
 	
 	
 	
+	public ArticleVendu() {
+		super();
+		
+	}
+
 	public ArticleVendu(Utilisateur utilisateur, int noArticle, String nomArticle, String description,
 			Date dateDebutEncheres, Date dateFinEncheres, int miseAPrix, int prixVente, String etatVente,Categorie categorie) {
 		
