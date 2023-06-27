@@ -22,7 +22,7 @@ public class EnchereController {
 	
 	@PostMapping ("/connexion")
 	public String seConnecter() {
-		return "redirect:/connexion";
+		return "redirect:/encheresConnecte";
 	}
 	
 	@GetMapping ("/inscription")
@@ -32,7 +32,7 @@ public class EnchereController {
 	
 	@PostMapping ("/inscription")
 	public String enregistrerCompte() {
-		return "redirect:/encheres";
+		return "redirect:/connexion";
 	}
 		
 	@GetMapping ("/encheresConnecte")
