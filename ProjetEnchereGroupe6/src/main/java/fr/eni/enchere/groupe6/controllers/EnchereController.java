@@ -76,6 +76,10 @@ public class EnchereController {
 		return "redirect:/encheresConnecte";
 	}
 	
+	@GetMapping ("/encherir")
+	public String vueEncherir() {
+		return "PageEncherir";
+	}
 	
 	
 }
