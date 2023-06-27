@@ -59,6 +59,18 @@ public class ArticleVendu {
 		super();
 		
 	}
+	public ArticleVendu(Utilisateur utilisateur, Integer noArticle, String nomArticle, String description,
+			Date dateDebutEncheres, Date dateFinEncheres, int miseAPrix, int prixVente,Categorie categorie) {
+		
+		this.utilisateur = utilisateur;
+		this.noArticle = noArticle;
+		this.nomArticle = nomArticle;
+		this.description = description;
+		this.dateDebutEncheres = dateDebutEncheres;
+		this.dateFinEncheres = dateFinEncheres;
+		this.miseAPrix = miseAPrix;
+		this.prixVente = prixVente;
+	}
 
 	public ArticleVendu(Utilisateur utilisateur, Integer noArticle, String nomArticle, String description,
 			Date dateDebutEncheres, Date dateFinEncheres, int miseAPrix, int prixVente, int etatVente,Categorie categorie) {
@@ -146,6 +158,34 @@ public class ArticleVendu {
 	public void setEtatVente(int etatVente) {
 		this.etatVente = etatVente;
 	}
+	
+	public Categorie getCategorie() {
+		return categorie;
+	}
+	public void setCategorie(Categorie categorie) {
+		this.categorie = categorie;
+	}
+	public Retrait getRetrait() {
+		return retrait;
+	}
+	public void setRetrait(Retrait retrait) {
+		this.retrait = retrait;
+	}
+	public Enchere getEnchere() {
+		return enchere;
+	}
+	public void setEnchere(Enchere enchere) {
+		this.enchere = enchere;
+	}
+	public void setMiseAPrix(Integer miseAPrix) {
+		this.miseAPrix = miseAPrix;
+	}
+	public void setPrixVente(Integer prixVente) {
+		this.prixVente = prixVente;
+	}
+	
+	
+	
 
 	@Override
 	public String toString() {

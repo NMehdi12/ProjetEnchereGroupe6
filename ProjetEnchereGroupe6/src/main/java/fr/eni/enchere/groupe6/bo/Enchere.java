@@ -7,7 +7,7 @@ import java.util.List;
 public class Enchere {
 	private Timestamp dateEnchere;
 	private Integer montantEnchere;
-	private List<ArticleVendu> articleVendu;
+	private ArticleVendu articleVendu;
 	private Utilisateur utilisateur;
 	
 
@@ -19,7 +19,7 @@ public class Enchere {
 		super();
 	}
 	
-	public Enchere(Timestamp dateEnchere, Integer montantEnchere, List<ArticleVendu> articleVendu,
+	public Enchere(Timestamp dateEnchere, Integer montantEnchere, ArticleVendu articleVendu,
 			Utilisateur utilisateur) {
 		super();
 		this.dateEnchere = dateEnchere;
@@ -43,10 +43,10 @@ public class Enchere {
 	}
 
 
-	public List<ArticleVendu> getArticleVendu() {
+	public ArticleVendu getArticleVendu() {
 		return articleVendu;
 	}
-	public void setArticleVendu(List<ArticleVendu> articleVendu) {
+	public void setArticleVendu(ArticleVendu articleVendu) {
 		this.articleVendu = articleVendu;
 	}
 

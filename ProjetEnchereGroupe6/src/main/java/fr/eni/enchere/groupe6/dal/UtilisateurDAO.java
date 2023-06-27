@@ -7,10 +7,7 @@ import fr.eni.enchere.groupe6.bo.Utilisateur;
 
 public interface UtilisateurDAO {
 	List<Utilisateur> findAll();
-	
-	Utilisateur findById(Integer id);
-
+	Utilisateur findByNoUtilisateur(Integer id);
 	void save(Utilisateur utilisateur);
-	
-	void delete(Utilisateur utilisateur);
+	void delete(Integer noUtilisateur);
 }

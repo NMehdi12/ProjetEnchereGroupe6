@@ -50,6 +50,10 @@ public class Retrait {
 	public ArticleVendu getArticleVendu() {
 		return articleVendu;
 	}
+	public void setArticleVendu(ArticleVendu articleVendu) {
+		this.articleVendu = articleVendu;
+	}
+	
 	
 	
 }
