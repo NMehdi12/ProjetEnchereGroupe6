@@ -16,8 +16,13 @@ public class EnchereController {
 	}
 	
 	@GetMapping ("/connexion")
-	public String seConnecter() {
+	public String vueSeConnecter() {
 		return "PageConnexion";
+	}
+	
+	@PostMapping ("/connexion")
+	public String seConnecter() {
+		return "redirect:/connexion";
 	}
 	
 	@GetMapping ("/inscription")
@@ -27,7 +32,7 @@ public class EnchereController {
 	
 	@PostMapping ("/inscription")
 	public String enregistrerCompte() {
-		return "redirect:/inscription";
+		return "redirect:/encheres";
 	}
 		
 	@GetMapping ("/encheresConnecte")
