@@ -1,12 +1,18 @@
-<!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
-<head>
-<meta charset="UTF-8">
-<title>Profil</title>
-</head>
-<body>
-<h1>Page Profil</h1>
+<!doctype html>
 
+<html lang="fr" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+
+<meta charset="utf-8" />
+
+</head>
+
+<body>
+
+<header>TODO</header>
+
+<main layout:fragment="main">
 	<p>Pseudo : <span data-th-text="${pseudo}"></span><p>
 	<p>Nom : <span data-th-text="nom"></span><p>
 	<p>Prénom : <span data-th-text="${prenom}"></span><p>
@@ -15,6 +21,13 @@
 	<p>Rue : <span data-th-text="${ville}"></span><p>
 	<p>Code postal : <span data-th-text="${codePostal}"></span><p>
 	<p>Ville : <span data-th-text="${ville}"></span><p>
+	
+	<button>Modifier</button>
+	
+</main>
+
+<footer>TODO</footer>
 
 </body>
+
 </html>
