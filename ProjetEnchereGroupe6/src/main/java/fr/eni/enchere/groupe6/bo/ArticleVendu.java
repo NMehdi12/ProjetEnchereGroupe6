@@ -2,9 +2,12 @@ package fr.eni.enchere.groupe6.bo;
 
 import java.util.Date;
 
+import jakarta.validation.constraints.Future;
 import jakarta.validation.constraints.FutureOrPresent;
+import jakarta.validation.constraints.Min;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.PositiveOrZero;
 
 public class ArticleVendu {
 	
@@ -12,19 +15,38 @@ public class ArticleVendu {
 	@NotNull
 	@NotBlank (message="Le nom de votre article doit ètre renseigné")
 	private String nomArticle;
+	@NotNull
 	@NotBlank (message="Renseignez une description")
 	private String description;
+	@NotNull
 	@NotBlank 
 	@FutureOrPresent (message = "renseignez une date valide")
 	private Date dateDebutEncheres;
-	
+/////////////////////Ajouter contraintye date superieure à la date de début/////////////
+	@NotNull
+	@Future(message = "renseignez une date superieur à la date de début")
 	private Date dateFinEncheres;
+	@NotNull
+	@NotBlank
+	@Min (1)
 	private Integer miseAPrix;
+	@NotNull
+	@NotBlank
+	@PositiveOrZero
+	@Min (1)            //////////////ajouter prix superieur au prix de mise en vente
 	private Integer prixVente;
+	
 	private int etatVente; //3 etats possible ?? (en cour d'enchere, vendu, en attente)
+	@NotNull
+	@NotBlank
 	private Utilisateur utilisateur;
+	@NotNull
+	@NotNull
 	private Categorie categorie;
+	@NotNull
+	@NotNull
 	private Retrait retrait;
+	@NotNull
 	private Enchere enchere;
 	
 	private static final int EN_ATTENTE = 0;

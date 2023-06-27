@@ -2,21 +2,48 @@ package fr.eni.enchere.groupe6.bo;
 
 import java.util.List;
 
+import org.hibernate.validator.constraints.Email;
+
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.Pattern;
+import jakarta.validation.constraints.Size;
+
 public class Utilisateur {
 
 	private Integer noUtilisateur;
+	@NotNull
+	@NotBlank (message="Le nom de votre article doit ètre renseigné")
+	@Pattern(regexp = "^\\+(?:[0-9] ?){6,14}[0-9]$", message = "Numéro de téléphone invalide")
 	private String telephone;
+	@Pattern(regexp = "^\\d{5}$", message = "Code postal invalide")
 	private String codePostal;
+	@Pattern(regexp = "^[a-zA-Z0-9]+$", message ="uniquement caractère alphanumériques")
 	private String pseudo;
+	@NotNull
+	@NotBlank (message="Champ requis")
 	private String nom;
-	private String prenom;	
+	@NotNull
+	@NotBlank(message="Champ requis")
+	private String prenom;
+	@NotNull
+	@NotBlank(message="Champ requis")
+	@Pattern(regexp = "^[A-Za-z0-9+_.-]+@[A-Za-z0-9.-]+$", message = "Adresse e-mail invalide")
 	private String email;
+	@NotNull
+	@NotBlank
 	private String rue;
+	@NotNull
+	@NotBlank
 	private String ville;
+	@Size(min=6, message="Au moins 6 caractères")
 	private String motDePasse;
 	private Integer credit;
+	@NotNull
 	private List<ArticleVendu> articleVendu; // faire l'injection par constructeur
+	@NotNull
 	private boolean administrateur;
+	@NotNull
 	private List<Enchere>enchere;
 	
 	
@@ -41,6 +68,8 @@ public class Utilisateur {
 		this.credit = credit;
 		this.administrateur = administrateur;
 		this.articleVendu= articleVendu;
+		this.enchere=enchere;
+		
 	}
 	
 	//Constructeur sans la liste d'article ni d'enchere dans le doute)
@@ -60,6 +89,7 @@ public class Utilisateur {
 		this.credit = credit;
 		this.administrateur = administrateur;
 	}
+	
 	
 	
 	public Integer getNoUtilisateur() {
@@ -141,6 +171,10 @@ public class Utilisateur {
 		this.administrateur = administrateur;
 	}
 
+	public List<Enchere> getEnchere() {
+		return enchere;
+	}
+	
 	@Override
 	public String toString() {
 		return "Utilisateur [noUtilisateur=" + noUtilisateur + ", telephone=" + telephone + ", codePostal=" + codePostal
@@ -148,6 +182,8 @@ public class Utilisateur {
 				+ ", ville=" + ville + ", motDePasse=" + motDePasse + ", credit=" + credit + ", articleVendu="
 				+ articleVendu + ", administrateur=" + administrateur + "]";
 	}
+
+
 	
 	
 	

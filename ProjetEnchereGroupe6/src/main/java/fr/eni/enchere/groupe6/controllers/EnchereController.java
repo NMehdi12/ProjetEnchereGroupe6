@@ -1,9 +1,15 @@
 package fr.eni.enchere.groupe6.controllers;
 
 import org.springframework.stereotype.Controller;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+
+import fr.eni.enchere.groupe6.bo.ArticleVendu;
+import fr.eni.enchere.groupe6.bo.Utilisateur;
+import jakarta.validation.Valid;
 
 
 
@@ -12,6 +18,11 @@ import org.springframework.web.bind.annotation.RequestMapping;
 public class EnchereController {
 	@GetMapping ({"/", "/encheres"})
 	public String afficherListeEnchere() {
+		return "PageAccueilNonConnecte";
+	}
+	
+	@GetMapping ("/logout")
+	public String deconnexion() {
 		return "PageAccueilNonConnecte";
 	}
 	
@@ -25,8 +36,13 @@ public class EnchereController {
 		return "PageCreerCompte";
 	}
 	
+	//inscription de l'utilisateur
 	@PostMapping ("/inscription")
-	public String enregistrerCompte() {
+	public String enregistrerCompte(@Valid @ModelAttribute("utilisateur")Utilisateur utilisateur,BindingResult bindingResult ) {
+		
+		/////ajouter potentiellement un try catch pour le message d'erreur/////
+		
+		
 		return "redirect:/inscription";
 	}
 		
@@ -66,7 +82,7 @@ public class EnchereController {
 	}
 	
 	@GetMapping ("/modifierVente")
-	public String modifierVente() {
+	public String modifierVente(@Valid @ModelAttribute ("articleVendu") ArticleVendu articleVendu,BindingResult bindingResult) {
 		return "PageEnchereNonCommencee";
 	}
 	
