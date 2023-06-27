@@ -27,8 +27,13 @@ public class EnchereController {
 	}
 	
 	@GetMapping ("/connexion")
-	public String seConnecter() {
+	public String vueSeConnecter() {
 		return "PageConnexion";
+	}
+	
+	@PostMapping ("/connexion")
+	public String seConnecter() {
+		return "redirect:/encheresConnecte";
 	}
 	
 	@GetMapping ("/inscription")
@@ -38,12 +43,8 @@ public class EnchereController {
 	
 	//inscription de l'utilisateur
 	@PostMapping ("/inscription")
-	public String enregistrerCompte(@Valid @ModelAttribute("utilisateur")Utilisateur utilisateur,BindingResult bindingResult ) {
-		
-		/////ajouter potentiellement un try catch pour le message d'erreur/////
-		
-		
-		return "redirect:/inscription";
+	public String enregistrerCompte() {
+		return "redirect:/connexion";
 	}
 		
 	@GetMapping ("/encheresConnecte")
@@ -92,6 +93,10 @@ public class EnchereController {
 		return "redirect:/encheresConnecte";
 	}
 	
+	@GetMapping ("/encherir")
+	public String vueEncherir() {
+		return "PageEncherir";
+	}
 	
 	
 }
