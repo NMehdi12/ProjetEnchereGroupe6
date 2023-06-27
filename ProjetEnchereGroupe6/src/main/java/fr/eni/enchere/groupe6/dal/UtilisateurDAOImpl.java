@@ -24,4 +24,10 @@ public class UtilisateurDAOImpl implements UtilisateurDAO {
 		
 	}
 
+	@Override
+	public void delete(Utilisateur utilisateur) {
+		// TODO Auto-generated method stub
+		
+	}
+
 }

@@ -24,4 +24,10 @@ public class ArticleVenduDAOImpl implements ArticleVenduDAO {
 		
 	}
 
+	@Override
+	public void delete(ArticleVendu articleVendu) {
+		// TODO Auto-generated method stub
+		
+	}
+
 }
