@@ -24,4 +24,10 @@ public class EnchereDAOImpl implements EnchereDAO{
 		
 	}
 
+	@Override
+	public void delete(Enchere enchere) {
+		// TODO Auto-generated method stub
+		
+	}
+
 }

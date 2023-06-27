@@ -11,4 +11,6 @@ List<ArticleVendu> findAll();
 	ArticleVendu findById(Integer id);
 
 	void save(ArticleVendu articleVendu);
+	
+	void delete(ArticleVendu articleVendu);
 }

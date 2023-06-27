@@ -24,4 +24,10 @@ public class RetraitDAOImpl implements RetraitDAO{
 		
 	}
 
+	@Override
+	public void delete(Retrait retrait) {
+		// TODO Auto-generated method stub
+		
+	}
+
 }
