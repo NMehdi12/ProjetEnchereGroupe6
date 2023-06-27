@@ -21,7 +21,7 @@ public class EnchereController {
 		return "PageAccueilNonConnecte";
 	}
 	
-	@GetMapping ("/logout")
+	@PostMapping ("/logout") /////à voir si util
 	public String deconnexion() {
 		return "PageAccueilNonConnecte";
 	}
