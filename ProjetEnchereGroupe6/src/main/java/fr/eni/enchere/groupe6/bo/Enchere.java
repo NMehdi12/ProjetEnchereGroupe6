@@ -1,13 +1,14 @@
 package fr.eni.enchere.groupe6.bo;
 
+import java.sql.Timestamp;
 import java.util.Date;
 import java.util.List;
 
 public class Enchere {
-	private Date dateEnchere;
-	private int montantEnchere;
+	private Timestamp dateEnchere;
+	private Integer montantEnchere;
 	private List<ArticleVendu> articleVendu;
-	private List<Utilisateur> utilisateur;
+	private Utilisateur utilisateur;
 	
 
 	
@@ -18,26 +19,26 @@ public class Enchere {
 		super();
 	}
 	
-	public Enchere(Date dateEnchere, int montantEnchere, List<ArticleVendu> articleVendu,
-			List<Utilisateur> utilisateur) {
+	public Enchere(Timestamp dateEnchere, Integer montantEnchere, List<ArticleVendu> articleVendu,
+			Utilisateur utilisateur) {
 		super();
 		this.dateEnchere = dateEnchere;
 		this.montantEnchere = montantEnchere;
 		this.articleVendu = articleVendu;
 		this.utilisateur = utilisateur;
 	}
-	public Date getDateEnchere() {
+	public Timestamp getDateEnchere() {
 		return dateEnchere;
 	}
-	public void setDateEnchere(Date dateEnchere) {
+	public void setDateEnchere(Timestamp dateEnchere) {
 		this.dateEnchere = dateEnchere;
 	}
 
 
-	public int getMontantEnchere() {
+	public Integer getMontantEnchere() {
 		return montantEnchere;
 	}
-	public void setMontantEnchere(int montantEnchere) {
+	public void setMontantEnchere(Integer montantEnchere) {
 		this.montantEnchere = montantEnchere;
 	}
 
@@ -50,10 +51,10 @@ public class Enchere {
 	}
 
 
-	public List<Utilisateur> getUtilisateur() {
+	public Utilisateur getUtilisateur() {
 		return utilisateur;
 	}
-	public void setUtilisateur(List<Utilisateur> utilisateur) {
+	public void setUtilisateur(Utilisateur utilisateur) {
 		this.utilisateur = utilisateur;
 	}
 	

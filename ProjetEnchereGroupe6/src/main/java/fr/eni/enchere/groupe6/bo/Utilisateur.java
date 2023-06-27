@@ -4,9 +4,9 @@ import java.util.List;
 
 public class Utilisateur {
 
-	private int noUtilisateur;
-	private int telephone;
-	private int codePostal;
+	private Integer noUtilisateur;
+	private String telephone;
+	private String codePostal;
 	private String pseudo;
 	private String nom;
 	private String prenom;	
@@ -14,7 +14,7 @@ public class Utilisateur {
 	private String rue;
 	private String ville;
 	private String motDePasse;
-	private int credit;
+	private Integer credit;
 	private List<ArticleVendu> articleVendu; // faire l'injection par constructeur
 	private boolean administrateur;
 	private List<Enchere>enchere;
@@ -26,8 +26,8 @@ public class Utilisateur {
 	}
 
 	//Constructeur avec tous les attributs (List d'article de 0 à * et List d'enchere) 
-	public Utilisateur(int noUtilisateur, int telephone, int codePostal, String pseudo, String nom, String prenom,
-			String email, String rue, String ville, String motDePasse, int credit, boolean administrateur,List<ArticleVendu> articleVendu, List<Enchere>enchere) {
+	public Utilisateur(Integer noUtilisateur, String telephone, String codePostal, String pseudo, String nom, String prenom,
+			String email, String rue, String ville, String motDePasse, Integer credit, boolean administrateur,List<ArticleVendu> articleVendu, List<Enchere>enchere) {
 		this.noUtilisateur = noUtilisateur;
 		this.telephone = telephone;
 		this.codePostal = codePostal;
@@ -44,8 +44,8 @@ public class Utilisateur {
 	}
 	
 	//Constructeur sans la liste d'article ni d'enchere dans le doute)
-	public Utilisateur(int noUtilisateur, int telephone, int codePostal, String pseudo, String nom, String prenom,
-			String email, String rue, String ville, String motDePasse, int credit, boolean administrateur) {
+	public Utilisateur(Integer noUtilisateur, String telephone, String codePostal, String pseudo, String nom, String prenom,
+			String email, String rue, String ville, String motDePasse, Integer credit, boolean administrateur) {
 		super();
 		this.noUtilisateur = noUtilisateur;
 		this.telephone = telephone;
@@ -62,22 +62,22 @@ public class Utilisateur {
 	}
 	
 	
-	public int getNoUtilisateur() {
+	public Integer getNoUtilisateur() {
 		return noUtilisateur;
 	}
-	public void setNoUtilisateur(int noUtilisateur) {
+	public void setNoUtilisateur(Integer noUtilisateur) {
 		this.noUtilisateur = noUtilisateur;
 	}
-	public int getTelephone() {
+	public String getTelephone() {
 		return telephone;
 	}
-	public void setTelephone(int telephone) {
+	public void setTelephone(String telephone) {
 		this.telephone = telephone;
 	}
-	public int getCodePostal() {
+	public String getCodePostal() {
 		return codePostal;
 	}
-	public void setCodePostal(int codePostal) {
+	public void setCodePostal(String codePostal) {
 		this.codePostal = codePostal;
 	}
 	public String getPseudo() {
@@ -122,10 +122,10 @@ public class Utilisateur {
 	public void setMotDePasse(String motDePasse) {
 		this.motDePasse = motDePasse;
 	}
-	public int getCredit() {
+	public Integer getCredit() {
 		return credit;
 	}
-	public void setCredit(int credit) {
+	public void setCredit(Integer credit) {
 		this.credit = credit;
 	}
 	public List<ArticleVendu> getArticleVendu() {

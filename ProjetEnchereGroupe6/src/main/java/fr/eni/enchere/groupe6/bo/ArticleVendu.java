@@ -2,19 +2,34 @@ package fr.eni.enchere.groupe6.bo;
 
 import java.util.Date;
 
+import jakarta.validation.constraints.FutureOrPresent;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
+
 public class ArticleVendu {
-	private int noArticle;
+	
+	private Integer noArticle;
+	@NotNull
+	@NotBlank (message="Le nom de votre article doit ètre renseigné")
 	private String nomArticle;
+	@NotBlank (message="Renseignez une description")
 	private String description;
+	@NotBlank 
+	@FutureOrPresent (message = "renseignez une date valide")
 	private Date dateDebutEncheres;
+	
 	private Date dateFinEncheres;
-	private int miseAPrix;
-	private int prixVente;
-	private String etatVente; //3 etats possible ?? (en cour d'enchere, vendu, en attente)
+	private Integer miseAPrix;
+	private Integer prixVente;
+	private int etatVente; //3 etats possible ?? (en cour d'enchere, vendu, en attente)
 	private Utilisateur utilisateur;
 	private Categorie categorie;
 	private Retrait retrait;
 	private Enchere enchere;
+	
+	private static final int EN_ATTENTE = 0;
+	private static final int EN_COURS = 1;
+	private static final int VENDU = 2;
 	
 	
 	
@@ -23,8 +38,8 @@ public class ArticleVendu {
 		
 	}
 
-	public ArticleVendu(Utilisateur utilisateur, int noArticle, String nomArticle, String description,
-			Date dateDebutEncheres, Date dateFinEncheres, int miseAPrix, int prixVente, String etatVente,Categorie categorie) {
+	public ArticleVendu(Utilisateur utilisateur, Integer noArticle, String nomArticle, String description,
+			Date dateDebutEncheres, Date dateFinEncheres, int miseAPrix, int prixVente, int etatVente,Categorie categorie) {
 		
 		this.utilisateur = utilisateur;
 		this.noArticle = noArticle;
@@ -37,8 +52,8 @@ public class ArticleVendu {
 		this.etatVente = etatVente;
 	}
 	
-	public ArticleVendu(Utilisateur utilisateur, int noArticle, String nomArticle, String description,
-			Date dateDebutEncheres, Date dateFinEncheres, int miseAPrix, int prixVente, String etatVente,Categorie categorie,Retrait retrait,Enchere enchere) {
+	public ArticleVendu(Utilisateur utilisateur, Integer noArticle, String nomArticle, String description,
+			Date dateDebutEncheres, Date dateFinEncheres, int miseAPrix, int prixVente, int etatVente,Categorie categorie,Retrait retrait,Enchere enchere) {
 		this.utilisateur = utilisateur;
 		this.noArticle = noArticle;
 		this.nomArticle = nomArticle;
@@ -61,10 +76,10 @@ public class ArticleVendu {
 	public void setUtilisateur(Utilisateur utilisateur) {
 		this.utilisateur = utilisateur;
 	}
-	public int getNoArticle() {
+	public Integer getNoArticle() {
 		return noArticle;
 	}
-	public void setNoArticle(int noArticle) {
+	public void setNoArticle(Integer noArticle) {
 		this.noArticle = noArticle;
 	}
 	public String getNomArticle() {
@@ -103,12 +118,22 @@ public class ArticleVendu {
 	public void setPrixVente(int prixVente) {
 		this.prixVente = prixVente;
 	}
-	public String getEtatVente() {
+	public int getEtatVente() {
 		return etatVente;
 	}
-	public void setEtatVente(String etatVente) {
+	public void setEtatVente(int etatVente) {
 		this.etatVente = etatVente;
 	}
+
+	@Override
+	public String toString() {
+		return "ArticleVendu [noArticle=" + noArticle + ", nomArticle=" + nomArticle + ", description=" + description
+				+ ", dateDebutEncheres=" + dateDebutEncheres + ", dateFinEncheres=" + dateFinEncheres + ", miseAPrix="
+				+ miseAPrix + ", prixVente=" + prixVente + ", etatVente=" + etatVente + ", utilisateur=" + utilisateur
+				+ ", categorie=" + categorie + ", retrait=" + retrait + ", enchere=" + enchere + "]";
+	}
+	
+	
 	
 	
 	
