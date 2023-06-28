@@ -3,6 +3,8 @@ package fr.eni.enchere.groupe6.dal;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.List;
+
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.RowMapper;
 import org.springframework.jdbc.core.namedparam.BeanPropertySqlParameterSource;
 import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
@@ -16,8 +18,8 @@ public class UtilisateurDAOImpl implements UtilisateurDAO {
 
 	private final static String SELECT_ALL = "select no_utilisateur, pseudo, nom, prenom, email, telephone, rue, code_postal, ville, mot_de_passe, credit, administrateur from UTILISATEURS";
 	private static final String FIND_BY_NO_USER = "select * from utilisateur where no_utilisateur=: noUtilisateur";
-	private static final String INSERT = "insert into utilisateurs (no_utilisateur, pseudo, nom, prenom, email, telephone, rue, code_postal, ville, mot_de_passe, credit, administrateur) "
-			+ "values (:noUtilisateur, :pseudo, :nom, :prenom, :email, :telephone, :rue, :codePostal, :ville, :motDePasse, :credit, :administrateur)";
+	private static final String INSERT = "insert into utilisateurs (pseudo, nom, prenom, email, telephone, rue, code_postal, ville, mot_de_passe, credit, administrateur) "
+			+ "values (:pseudo, :nom, :prenom, :email, :telephone, :rue, :code_postal, :ville, :mot_de_passe, :credit, :administrateur)";
 	private final static String DELETE = "delete  UTILISATEURS where no_utilisateur= :noUtilisateur";
 
 	private NamedParameterJdbcTemplate njt;
@@ -42,7 +44,6 @@ public class UtilisateurDAOImpl implements UtilisateurDAO {
 
 			return utilisateur;
 		}
-
 	}
 
 	@Override
@@ -60,13 +61,12 @@ public class UtilisateurDAOImpl implements UtilisateurDAO {
 		Utilisateur utilisateur = njt.queryForObject(FIND_BY_NO_USER, paramSrc, new UtilisateurRowMapper());
 		System.out.println("passe par findByNoUtilisateur");
 		return utilisateur;
-
 	}
 
 	@Override
 	public void save(Utilisateur utilisateur) {
-		MapSqlParameterSource paramSrc = new MapSqlParameterSource("no_utilisateur", utilisateur.getNoUtilisateur());
-		paramSrc.addValue("pseudo", utilisateur.getPseudo());
+		System.out.println("passe par le save UtilisateurDAOimpl");
+		MapSqlParameterSource paramSrc = new MapSqlParameterSource("pseudo", utilisateur.getPseudo());
 		paramSrc.addValue("nom", utilisateur.getNom());
 		paramSrc.addValue("prenom", utilisateur.getPrenom());
 		paramSrc.addValue("nom", utilisateur.getNom());
@@ -77,8 +77,8 @@ public class UtilisateurDAOImpl implements UtilisateurDAO {
 		paramSrc.addValue("code_postal", utilisateur.getCodePostal());
 		paramSrc.addValue("ville", utilisateur.getVille());
 		paramSrc.addValue("mot_de_passe", utilisateur.getMotDePasse());
-		paramSrc.addValue("credit", utilisateur.getCredit());
-		paramSrc.addValue("administrateur", utilisateur.isAdministrateur());
+		paramSrc.addValue("credit", 0);
+		paramSrc.addValue("administrateur", false);
 		System.out.println("passe par le save UtilisateurDAOimpl");
 		njt.update(INSERT, paramSrc);
 
