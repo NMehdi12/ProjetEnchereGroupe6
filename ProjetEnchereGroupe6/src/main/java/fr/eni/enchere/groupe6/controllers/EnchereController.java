@@ -1,14 +1,17 @@
 package fr.eni.enchere.groupe6.controllers;
 
+import java.util.List;
+
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import fr.eni.enchere.groupe6.bll.ArticleVenduService;
 import fr.eni.enchere.groupe6.bo.ArticleVendu;
-import fr.eni.enchere.groupe6.bo.Utilisateur;
 import jakarta.validation.Valid;
 
 
@@ -16,8 +19,20 @@ import jakarta.validation.Valid;
 @Controller
 @RequestMapping
 public class EnchereController {
+	private ArticleVenduService articleVenduService;
+	
+	
+
+	public EnchereController(ArticleVenduService articleVenduService) {
+		super();
+		this.articleVenduService = articleVenduService;
+	}
+
 	@GetMapping ({"/", "/encheres"})
-	public String afficherListeEnchere() {
+	public String afficherListeEnchere(Model model) {
+		List<ArticleVendu> articleVendu = articleVenduService.afficherArticlesVendus();
+		model.addAttribute("articleVendu", articleVendu);
+		
 		return "PageAccueilNonConnecte";
 	}
 	
