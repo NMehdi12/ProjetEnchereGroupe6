@@ -23,7 +23,7 @@ public class UtilisateurServiceImpl implements UtilisateurService {
 
 	@Override
 	public void supprimerUtilisateur(Utilisateur utilisateur) {
-		utilisateurDAO.delete(utilisateur);
+		utilisateurDAO.delete(utilisateur.getNoUtilisateur());
 		
 	}
 

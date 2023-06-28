@@ -8,10 +8,12 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.RowMapper;
 import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
+import org.springframework.stereotype.Repository;
 
 import fr.eni.enchere.groupe6.bo.ArticleVendu;
 import fr.eni.enchere.groupe6.bo.Retrait;
 
+@Repository
 public class RetraitDAOImpl implements RetraitDAO{
 	
 	private static final String INSERT = "insert into RETRAITS (no_article, rue, codePostal, ville) values (:no_article, :rue, :code_postal, :ville)"; 
@@ -41,11 +43,11 @@ public class RetraitDAOImpl implements RetraitDAO{
 			ArticleVendu articleVendu = null;
 			
 			try {
-				articleVendu = articleVenduDAO.afficherDetailsParId(rs.getInt("no_utilisateur"));
+				articleVendu = articleVenduDAO.findById(rs.getInt("no_utilisateur"));
 			} catch (SQLException e) {
 				e.printStackTrace();
 			}
-			retrait.setArticleVendu(articleVendu.getUtilisateur().getNoUtilisateur());
+			retrait.setArticleVendu(articleVendu);
 			
 			return retrait;
 		}
