@@ -1,8 +1,10 @@
 package fr.eni.enchere.groupe6.bll;
 
+import org.springframework.stereotype.Service;
+
 import fr.eni.enchere.groupe6.bo.Utilisateur;
 import fr.eni.enchere.groupe6.dal.UtilisateurDAO;
-
+@Service
 public class UtilisateurServiceImpl implements UtilisateurService {
 
 	UtilisateurDAO utilisateurDAO;

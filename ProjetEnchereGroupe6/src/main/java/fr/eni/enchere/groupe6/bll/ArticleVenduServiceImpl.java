@@ -8,12 +8,11 @@ import org.springframework.stereotype.Service;
 import fr.eni.enchere.groupe6.bo.ArticleVendu;
 import fr.eni.enchere.groupe6.dal.ArticleVenduDAO;
 
-
+@Service
 public class ArticleVenduServiceImpl implements ArticleVenduService {
 
 	private ArticleVenduDAO articleVenduDao;
 	
-	@Autowired
 	public ArticleVenduServiceImpl(ArticleVenduDAO articleVenduDao) {
 		this.articleVenduDao = articleVenduDao;
 	}
