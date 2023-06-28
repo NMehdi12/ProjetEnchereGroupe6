@@ -20,7 +20,7 @@ import jakarta.validation.Valid;
 @Controller
 @RequestMapping
 public class EnchereController {
-
+	
 	private ArticleVenduService articleVenduService;
 	@Autowired
 	private UtilisateurServiceImpl utilisateurService;
@@ -102,14 +102,16 @@ public class EnchereController {
 	}
 
 	@GetMapping("/modifierVente")
-	public String modifierVente(@Valid @ModelAttribute("articleVendu") ArticleVendu articleVendu,
-			BindingResult bindingResult) {
+	public String modifierVente(@ModelAttribute("articleVendu") ArticleVendu articleVendu) {
+		
 		return "PageEnchereNonCommencee";
 	}
 
+	// Enregistrement d'un nouvel article en base de données
 	@PostMapping("/encheresMesVentes")
-	public String enregistrerVente() {
-		return "redirect:/encheresConnecte";
+	public String enregistrerVente(@ModelAttribute("articleVendu") ArticleVendu articleVendu) {
+		articleVenduService.enregistrerArticle(articleVendu);
+		return "redirect:/encheresMesVentes";
 	}
 
 	@GetMapping("/encherir")

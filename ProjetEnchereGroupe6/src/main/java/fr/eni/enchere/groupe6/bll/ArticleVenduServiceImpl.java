@@ -39,4 +39,10 @@ public class ArticleVenduServiceImpl implements ArticleVenduService {
 		return null;
 	}
 
+	@Override
+	public void enregistrerArticle(ArticleVendu articleVendu) {
+		articleVenduDao.save(articleVendu);
+		
+	}
+
 }

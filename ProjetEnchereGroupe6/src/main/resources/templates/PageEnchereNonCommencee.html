@@ -2,10 +2,55 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
 <meta charset="UTF-8">
-<title>Enchère non-commencée</title>
+<title>Page Enchère non-commencée</title>
 </head>
 <body>
-<h1>Page Enchère non-commencée</h1>
+<h1>Nouvelle vente</h1>
+<!--  <img>-->
+<form method="post" th:action="encheresMesVentes" th:object="${articleVendu}">
 
+	<label for="nom">Article : </label>
+	<input type="text" id="nom" th:field="*{nomArticle}"><br>
+	
+	<label for="description">Description : </label>
+	<textarea id="description" name="description"></textarea><br>
+	
+	<label for="categorie">Catégorie : </label>
+	<select id="categorie">
+		<option></option>
+	</select><br>
+	
+	<label for="photo">Photo de l'article : </label>
+	<input type="file" id="photo"><br>
+	
+	<label for="miseAPrix">Mise à prix : </label>
+	<input type="number"><br>
+	
+	<label for="debut">Début de l'enchère : </label>
+	<input type="date" id="debut"><br>
+	
+	<label for="fin">Fin de l'enchère : </label>
+	<input type="date" id="fin"><br>
+	
+	<fieldset>
+	
+		<legend>Retrait</legend>
+		
+		<label for="rue">Rue : </label>
+		<input type="text" id="rue"><br>
+		
+		<label for="codePostal">Code postal : </label>
+		<input type="text" id="codePostal"><br>
+		
+		<label for="ville">Ville : </label>
+		<input type="text" id="ville">
+		
+	</fieldset>
+	
+	<button type="submit">Enregistrer</button>
+	<input type="button" value="Annuler">
+	<input type="button" value="Annuler la vente">
+	
+</form>
 </body>
 </html>
