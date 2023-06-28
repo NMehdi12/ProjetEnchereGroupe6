@@ -8,13 +8,14 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
+import org.springframework.stereotype.Repository;
 
 import fr.eni.enchere.groupe6.bo.ArticleVendu;
 import fr.eni.enchere.groupe6.bo.Categorie;
 import fr.eni.enchere.groupe6.bo.Enchere;
 import fr.eni.enchere.groupe6.bo.Retrait;
 import fr.eni.enchere.groupe6.bo.Utilisateur;
-
+@Repository
 public class ArticleVenduDAOImpl implements ArticleVenduDAO {
 	private final String FIND_ALL = "SELECT * FROM ARTICLES_VENDUS";
 	

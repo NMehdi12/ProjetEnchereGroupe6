@@ -3,6 +3,7 @@ package fr.eni.enchere.groupe6.bll;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import fr.eni.enchere.groupe6.bo.ArticleVendu;
 import fr.eni.enchere.groupe6.dal.ArticleVenduDAO;
