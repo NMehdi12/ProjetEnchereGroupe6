@@ -10,6 +10,7 @@ import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 import org.springframework.stereotype.Repository;
 
 import fr.eni.enchere.groupe6.bo.Utilisateur;
+
 @Repository
 public class UtilisateurDAOImpl implements UtilisateurDAO {
 
@@ -78,7 +79,7 @@ public class UtilisateurDAOImpl implements UtilisateurDAO {
 		paramSrc.addValue("mot_de_passe", utilisateur.getMotDePasse());
 		paramSrc.addValue("credit", utilisateur.getCredit());
 		paramSrc.addValue("administrateur", utilisateur.isAdministrateur());
-
+		System.out.println("passe par le save UtilisateurDAOimpl");
 		njt.update(INSERT, paramSrc);
 
 	}

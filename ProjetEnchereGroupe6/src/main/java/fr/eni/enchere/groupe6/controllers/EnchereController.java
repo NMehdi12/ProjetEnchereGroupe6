@@ -2,6 +2,7 @@ package fr.eni.enchere.groupe6.controllers;
 
 import java.util.List;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -11,108 +12,109 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import fr.eni.enchere.groupe6.bll.ArticleVenduService;
+import fr.eni.enchere.groupe6.bll.UtilisateurServiceImpl;
 import fr.eni.enchere.groupe6.bo.ArticleVendu;
+import fr.eni.enchere.groupe6.bo.Utilisateur;
 import jakarta.validation.Valid;
-
-
 
 @Controller
 @RequestMapping
 public class EnchereController {
-	
+
 	private ArticleVenduService articleVenduService;
-	
-	
+	@Autowired
+	private UtilisateurServiceImpl utilisateurService;
 
 	public EnchereController(ArticleVenduService articleVenduService) {
 		super();
 		this.articleVenduService = articleVenduService;
 	}
 
-	@GetMapping ({"/", "/encheres"})
+	@GetMapping({ "/", "/encheres" })
 	public String afficherListeEnchere(Model model) {
 		List<ArticleVendu> articlesVendus = articleVenduService.afficherArticlesVendus();
 		model.addAttribute("articlesVendus", articlesVendus);
 		System.out.println(articlesVendus.toString());
 		return "PageAccueilNonConnecte";
 	}
-	
-	@PostMapping ("/logout") /////à voir si util
+
+	@PostMapping("/logout") ///// à voir si util
 	public String deconnexion() {
 		return "PageAccueilNonConnecte";
 	}
-	
-	@GetMapping ("/connexion")
+
+	@GetMapping("/connexion")
 	public String vueSeConnecter() {
 		return "PageConnexion";
 	}
-	
-	@PostMapping ("/connexion")
+
+	@PostMapping("/connexion")
 	public String seConnecter() {
 		return "redirect:/encheresConnecte";
 	}
-	
-	@GetMapping ("/inscription")
-	public String creerCompte() {
+
+	@GetMapping("/inscription")
+	public String creerCompte(@ModelAttribute("utilisateur") Utilisateur utilisateur) {
 		return "PageCreerCompte";
 	}
-	
-	//inscription de l'utilisateur
-	@PostMapping ("/inscription")
-	public String enregistrerCompte() {
+
+	// inscription de l'utilisateur
+	@PostMapping("/inscription")
+	public String enregistrerCompte(@ModelAttribute("utilisateur") Utilisateur utilisateur) {
+		utilisateurService.enregistrerUtilisateur(utilisateur);
+		System.out.println("inscription utilisateur");
 		return "redirect:/connexion";
 	}
-		
-	@GetMapping ("/encheresConnecte")
+
+	@GetMapping("/encheresConnecte")
 	public String afficherListeEnchereConnecte() {
 		return "PageListeEncheresConnecte";
 	}
-	
-	@GetMapping ("/encheresMesVentes")
+
+	@GetMapping("/encheresMesVentes")
 	public String afficherMesVentes() {
-	return "PageListeEnchereMesVentes";
+		return "PageListeEnchereMesVentes";
 	}
-	
-	
-	@GetMapping ("/profil")
+
+	@GetMapping("/profil")
 	public String consulterProfil() {
 		return "PageProfil";
 	}
-	@GetMapping ("/monProfil")
+
+	@GetMapping("/monProfil")
 	public String vueModifierProfil() {
 		return "PageMonProfil";
 	}
-	
-	@PostMapping ("/monProfil")
+
+	@PostMapping("/monProfil")
 	public String modifierProfil() {
 		return "redirect:/monProfil";
 	}
-	
-	@GetMapping ("/nouvelleVente")
+
+	@GetMapping("/nouvelleVente")
 	public String vueAjouterVente() {
 		return "PageVendreUnArticle";
 	}
-	
-	@PostMapping ("/nouvelleVente")
+
+	@PostMapping("/nouvelleVente")
 	public String ajouterVente() {
 		return "redirect:/encheresConnecte";
 	}
-	
-	@GetMapping ("/modifierVente")
-	public String modifierVente(@Valid @ModelAttribute ("articleVendu") ArticleVendu articleVendu,BindingResult bindingResult) {
+
+	@GetMapping("/modifierVente")
+	public String modifierVente(@Valid @ModelAttribute("articleVendu") ArticleVendu articleVendu,
+			BindingResult bindingResult) {
 		return "PageEnchereNonCommencee";
 	}
-	
-	
-	@PostMapping ("/encheresMesVentes")
+
+	@PostMapping("/encheresMesVentes")
 	public String enregistrerVente() {
 		return "redirect:/encheresConnecte";
 	}
-	
-	@GetMapping ("/encherir")
+
+	@GetMapping("/encherir")
 	public String vueEncherir() {
 		return "PageEncherir";
 	}
-	
-	
+
 }

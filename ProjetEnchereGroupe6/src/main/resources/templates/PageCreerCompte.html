@@ -1,11 +1,23 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
+<link rel="stylesheet" href="css/boostrap.css">
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
 </head>
 <body>
 <h1>Page créer compte</h1>
+ <form th:action="@{/inscription}" th:object="${utilisateur}" method="post">
+        <div>
+            <label for="pseudo">Pseudo:</label>
+            <input type="text" id="pseudo" th:field="*{pseudo}" required/>
+        </div>
+      
+    </form>
 
+
+
+<script src="js/jquery-4.4.1.dist.js"></script>
+<script src = "js/bootstrap.js"></script>
 </body>
 </html>
