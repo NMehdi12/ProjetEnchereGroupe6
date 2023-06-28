@@ -18,15 +18,17 @@ import fr.eni.enchere.groupe6.bo.Utilisateur;
 @Repository
 public class ArticleVenduDAOImpl implements ArticleVenduDAO {
 	private final String FIND_ALL = "SELECT * FROM ARTICLES_VENDUS";
-	
-	
+	//private final String FIND_ALL = "SELECT nom_article, description, date_debut_encheres, date_fin_encheres, prix_initial, prix_vente FROM ARTICLES_VENDUS";
+	@Autowired
 	private JdbcTemplate jdbcTemplate;
 	
 
 	@Override
 	public List<ArticleVendu> findAll() {
 		
+		
 		return jdbcTemplate.query(FIND_ALL, new ArticleRowMapper());
+		
 	}
 
 	@Override
@@ -73,11 +75,12 @@ public class ArticleVenduDAOImpl implements ArticleVenduDAO {
 			retrait.setArticleVendu(a);
 			a.setRetrait(retrait);
 			
-			Enchere enchere = new Enchere();
-			enchere.setArticleVendu(a);
-			enchere.setUtilisateur(utilisateur);
-			a.setEnchere(enchere);
+//			Enchere enchere = new Enchere();
+//			enchere.setArticleVendu(a);
+//			enchere.setUtilisateur(utilisateur);
+//			a.setEnchere(enchere);
 			
+			System.out.println(a.getCategorie());
 			return a;
 		}
 		

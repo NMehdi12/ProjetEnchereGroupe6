@@ -11,27 +11,27 @@
 	<input type="text" id="searchInput" placeholder="Rechercher un produit">
 
 	<!-- Liste déroulante -->
-	<select id="categoryDropdown" th:field="*{articleVendu}" required>
+	<!-- <select id="categoryDropdown" th:field="*{articleVendu}" required>
 		<option value="">Toutes</option>
 		<option th:each="categorie: ${@categorieService.getListeCategorie()}"
 			th:value="${categorie.noCategorie}" th:text="${categorie.libelle}"></option>
-	</select>
+	</select> -->
 
 	<!-- Bouton "Rechercher" -->
 	<button>Rechercher</button>
 
 	<!-- Liste de produits -->
-	<div data-th-each="articleVendu: ${articlesVendus}">
+	<div data-th-each="articleVendu : ${articlesVendus}">
 		
 		<!-- Chemin à modifier 
 		<img th:src="@{'/images/' + ${articleVendu.noArticle} + '.jpg'}" alt="image">-->
 		<p ><a data-th-text="${articleVendu.nomArticle}" data-th-href="@{/encherir}"></a></p>
 		
-			<p>Prix : <span data-th-text="${prixVente}"></span> points</p>
+			<p>Prix : <span data-th-text="${articleVendu.prixVente}"></span> points</p>
 		
 		
-			<p>Fin de l'enchère : <span data-th-text="${dateFinEncheres}"></span></p>
-			<p>Vendeur : <span data-th-text="${utilisateur.pseudo}"></span></p>
+			<p>Fin de l'enchère : <span data-th-text="${articleVendu.dateFinEncheres}"></span></p>
+			
 		
 
 	</div>

@@ -19,6 +19,7 @@ import jakarta.validation.Valid;
 @Controller
 @RequestMapping
 public class EnchereController {
+	
 	private ArticleVenduService articleVenduService;
 	
 	
@@ -30,9 +31,9 @@ public class EnchereController {
 
 	@GetMapping ({"/", "/encheres"})
 	public String afficherListeEnchere(Model model) {
-		List<ArticleVendu> articleVendu = articleVenduService.afficherArticlesVendus();
-		model.addAttribute("articleVendu", articleVendu);
-		
+		List<ArticleVendu> articlesVendus = articleVenduService.afficherArticlesVendus();
+		model.addAttribute("articlesVendus", articlesVendus);
+		System.out.println(articlesVendus.toString());
 		return "PageAccueilNonConnecte";
 	}
 	
