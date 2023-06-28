@@ -9,6 +9,11 @@ public class UtilisateurServiceImpl implements UtilisateurService {
 
 	UtilisateurDAO utilisateurDAO;
 	
+	
+	public UtilisateurServiceImpl(UtilisateurDAO utilisateurDAO) {
+		this.utilisateurDAO = utilisateurDAO;
+	}
+
 	@Override
 	public Utilisateur afficherParNoUtilisateur(Integer noUtilisateur) {
 		

@@ -6,18 +6,76 @@
 <title>Insert title here</title>
 </head>
 <body>
-<h1>Page créer compte</h1>
- <form th:action="@{/inscription}" th:object="${utilisateur}" method="post">
-        <div>
-            <label for="pseudo">Pseudo:</label>
-            <input type="text" id="pseudo" th:field="*{pseudo}" required/>
-        </div>
-      
-    </form>
 
+	<div th:replace="fragments/tophead :: topheader"></div>
 
+	<h1>Inscription</h1>
 
-<script src="js/jquery-4.4.1.dist.js"></script>
-<script src = "js/bootstrap.js"></script>
+	<form th:action="inscription" th:object="${utilisateur}"
+		method="post">
+		<fieldset>
+			<legend>Inscription</legend>
+			<div class="form-group">
+				<label for="pseudo" class="form-label mt-4">Pseudo:</label> <input
+					type="text" id="pseudo" th:field="*{pseudo}" required />
+			</div>
+			<div class="form-group">
+				<label for="nom" class="form-label mt-4">nom:</label> <input
+					type="text" id="nom" th:field="*{nom}" required />
+			</div>
+			<div class="form-group">
+				<label for="prenom" class="form-label mt-4">prenom:</label> <input
+					type="text" id="prenom" th:field="*{prenom}" required />
+			</div>
+			<div class="form-group">
+				<label for="email" class="form-label mt-4">email:</label> <input
+					type="text" id="email" th:field="*{email}" required />
+			</div>
+			<!--  <div class="form-group">
+				<label for="InputEmail1" class="form-label mt-4">Email
+					address</label> <input type="email" class="form-control"
+					id="exampleInputEmail1" th:field="*{email}" aria-describedby="emailHelp"
+					placeholder="Enter email"> <small id="emailHelp"
+					class="form-text text-muted"></small>
+			</div>-->
+			
+			<div class="form-group">
+				<label for="telephone" class="form-label mt-4">telephone:</label> <input
+					type="text" id="telephone" th:field="*{telephone}" required />
+			</div>
+			<div class="form-group">
+				<label for="rue" class="form-label mt-4">rue</label> <input
+					type="text" id="rue" th:field="*{rue}" required />
+			</div>
+			<div class="form-group">
+				<label for="codePostal" class="form-label mt-4">code postal:</label>
+				<input type="text" id="codePostal" th:field="*{codePostal}" required />
+			</div>
+			<div class="form-group">
+				<label for="ville" class="form-label mt-4">ville:</label> <input
+					type="text" id="ville" th:field="*{ville}" required />
+			</div>
+			<div class="form-group">
+				<label for="motDePasse" class="form-label mt-4">mot de passe:</label> <input
+					type="text" id="motDePasse" th:field="*{motDePasse}" required />
+			</div>
+			<!-- 
+			<div class="form-group">
+				<label for="exampleInputPassword1" class="form-label mt-4">mot
+					de passe</label> <input type="password" class="form-control"
+					id="exampleInputPassword1" placeholder="Password">
+			</div>
+			<div class="form-group">
+				<label for="exampleInputPassword1" class="form-label mt-4">confirmation
+					mot de passe</label> <input type="password" class="form-control"
+					id="exampleInputPassword1" placeholder="Password">
+			</div> -->
+		
+		<button type="submit" class="btn btn-primary">Créer</button>
+		</fieldset>
+	</form>
+
+	<script src="js/jquery-4.4.1.dist.js"></script>
+	<script src="js/bootstrap.js"></script>
 </body>
 </html>
