@@ -97,12 +97,13 @@ public class EnchereController {
 	}
 
 	@GetMapping("/nouvelleVente")
-	public String vueAjouterVente() {
+	public String vueAjouterVente(@ModelAttribute("articleVendu") ArticleVendu articleVendu) {
 		return "PageVendreUnArticle";
 	}
 
 	@PostMapping("/nouvelleVente")
-	public String ajouterVente() {
+	public String ajouterVente(@ModelAttribute("articleVendu") ArticleVendu articleVendu) {
+		
 		return "redirect:/encheresConnecte";
 	}
 
