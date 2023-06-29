@@ -36,38 +36,50 @@ public class SecurityConfig {
 	public void configureGlobal( AuthenticationManagerBuilder auth ) throws Exception {
 		auth.jdbcAuthentication()
 			.dataSource( dataSource )
-			.usersByUsernameQuery( " SELECT pseudo, mot_de_passe, 1 FROM UTILISATEURS WHERE pseudo =? " )
-			.authoritiesByUsernameQuery( " SELECT ?, 'admin' " )
+			.usersByUsernameQuery( " SELECT pseudo, mot_de_passe, 1 FROM UTILISATEURS WHERE pseudo = ? " )
+			.authoritiesByUsernameQuery(" SELECT ?,'admin'" )
 			.passwordEncoder( passwordEncoder )
 			;
 	}
 	
-	
-	
 	@Bean
-	SecurityFilterChain filterChain(HttpSecurity http)throws Exception{
-		http.authorizeHttpRequests(auth -> {
-			auth 
-				.requestMatchers (HttpMethod.GET,"/encheres").permitAll()
-				.requestMatchers(HttpMethod.GET,"/").permitAll()
-				.requestMatchers(HttpMethod.GET,"/connexion").permitAll()
-				.requestMatchers(HttpMethod.POST,"/connexion").permitAll()
-				.requestMatchers(HttpMethod.POST,"/inscription").permitAll()
-				.requestMatchers(HttpMethod.GET,"/inscription").permitAll()
-				
-				.requestMatchers(HttpMethod.GET,"/encheresConnecte").hasRole("MEMBRE")
-				.requestMatchers(HttpMethod.POST,"/encheresMesVentes").hasRole("MEMBRE")
-				.requestMatchers(HttpMethod.GET,"/encheresMesVentes").hasRole("MEMBRE")
-				.requestMatchers(HttpMethod.GET,"/profil").hasRole("MEMBRE")
-				.requestMatchers(HttpMethod.GET,"/monProfil").hasRole("MEMBRE")
-				.requestMatchers(HttpMethod.POST,"/monProfil").hasRole("MEMBRE")
-				.requestMatchers(HttpMethod.GET,"/modifierVente").hasRole("MEMBRE")
-				.requestMatchers(HttpMethod.GET,"/nouvelleVente").permitAll()
-				.requestMatchers("/css/*").permitAll().requestMatchers("/images/*").permitAll()
-				.anyRequest().authenticated();
-		});
-		//formulaire de connexion
+	public SecurityFilterChain filterChain( HttpSecurity http ) throws Exception {
+		http
+			.formLogin(Customizer.withDefaults())
+			.logout(Customizer.withDefaults())
+			.authorizeHttpRequests( auth -> auth
+				.requestMatchers( "/encheresMesVentes").authenticated()
+				.requestMatchers( "/inscription" ).permitAll()
+				.requestMatchers("/encheres").permitAll()
+			);
 		http.formLogin(Customizer.withDefaults());
+		return http.build();
+	}	
+	
+//	@Bean
+//	SecurityFilterChain filterChain(HttpSecurity http)throws Exception{
+//		http.authorizeHttpRequests(auth -> {
+//			auth 
+//				.requestMatchers (HttpMethod.GET,"/encheres").permitAll()
+//				.requestMatchers(HttpMethod.GET,"/").permitAll()
+//				.requestMatchers(HttpMethod.GET,"/connexion").permitAll()
+//				.requestMatchers(HttpMethod.POST,"/connexion").permitAll()
+//				.requestMatchers(HttpMethod.POST,"/inscription").permitAll()
+//				.requestMatchers(HttpMethod.GET,"/inscription").permitAll()
+//				
+//				.requestMatchers(HttpMethod.GET,"/encheresConnecte").hasRole("MEMBRE")
+//				.requestMatchers(HttpMethod.POST,"/encheresMesVentes").hasRole("MEMBRE")
+//				.requestMatchers(HttpMethod.GET,"/encheresMesVentes").hasRole("MEMBRE")
+//				.requestMatchers(HttpMethod.GET,"/profil").hasRole("MEMBRE")
+//				.requestMatchers(HttpMethod.GET,"/monProfil").hasRole("MEMBRE")
+//				.requestMatchers(HttpMethod.POST,"/monProfil").hasRole("MEMBRE")
+//				.requestMatchers(HttpMethod.GET,"/modifierVente").hasRole("MEMBRE")
+//				.requestMatchers(HttpMethod.GET,"/nouvelleVente").permitAll()
+//				.requestMatchers("/css/*").permitAll().requestMatchers("/images/*").permitAll()
+//				.anyRequest().authenticated();
+//		});
+		//formulaire de connexion
+		//http.formLogin(Customizer.withDefaults());
 		
 		
 //		http.formLogin(form -> {
@@ -78,47 +90,34 @@ public class SecurityConfig {
 		
 		
 		
-		http.logout(logout-> 
-			logout 
-			.invalidateHttpSession(true)
-			.clearAuthentication(true)
-			.deleteCookies("JSESSIONID")
-			.logoutRequestMatcher(new AntPathRequestMatcher("/logout"))
-			.logoutSuccessUrl("/").permitAll());
-		
-		return http.build();
-	}
-		
-//	@Bean
-//	public SecurityFilterChain filterChain( HttpSecurity http ) throws Exception {
-//		http
-//			.formLogin(Customizer.withDefaults())
-//			.logout(Customizer.withDefaults())
-//			.authorizeHttpRequests( auth -> auth
-//				.requestMatchers( "/**" )
-//				.authenticated()
-//				.requestMatchers( "/register" )
-//				.permitAll()
-//			)
-//			;
+//		http.logout(logout-> 
+//			logout 
+//			.invalidateHttpSession(true)
+//			.clearAuthentication(true)
+//			.deleteCookies("JSESSIONID")
+//			.logoutRequestMatcher(new AntPathRequestMatcher("/logout"))
+//			.logoutSuccessUrl("/").permitAll());
+//		
 //		return http.build();
-//	}	
+//	}
+//		
 	
 	
 	
-	@Bean
-	UserDetailsManager userDetailsManager() {
-		var userDetailService = new InMemoryUserDetailsManager();
-		var user = User.withUsername("admin").password("azerty").roles("MEMBRE").build();
-		var user2 = User.withUsername("bob").password("azertyu").roles("MEMBRE").build();
-		userDetailService.createUser(user);
-		
-		
-		//var user2 = User.withUsername("bob").password("qwerty").roles("MEMBRE").build();
-		//userDetailService.createUser(user2);
-		return userDetailService;
-		
-	}
+	
+//	@Bean
+//	UserDetailsManager userDetailsManager() {
+//		var userDetailService = new InMemoryUserDetailsManager();
+//		var user = User.withUsername("admin").password("azerty").roles("MEMBRE").build();
+//		var user2 = User.withUsername("bob").password("azertyu").roles("MEMBRE").build();
+//		userDetailService.createUser(user);
+//		
+//		
+//		//var user2 = User.withUsername("bob").password("qwerty").roles("MEMBRE").build();
+//		//userDetailService.createUser(user2);
+//		return userDetailService;
+//		
+//	}
 	
 //	@Bean
 //	public PasswordEncoder passwordEncoder() {
