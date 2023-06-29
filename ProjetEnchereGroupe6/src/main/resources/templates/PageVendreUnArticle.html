@@ -5,7 +5,52 @@
 <title>Vendre un article</title>
 </head>
 <body>
-<h1>Page vendre un article</h1>
+<h1>Nouvelle vente</h1>
+<!--  <img>-->
+<form method="post" th:action="encheresMesVentes" th:object="${articleVendu}">
 
+	<label for="nom">Article : </label>
+	<input type="text" id="nom" th:field="*{nomArticle}"><br>
+	
+	<label for="description">Description : </label>
+	<textarea id="description" th:field="*{description}"></textarea><br>
+	
+	<label for="categorie">Catégorie : </label>
+	<select id="categorie" th:field="*{categorie}">
+		<option th:each="categorie: ${@categorieService.afficherListeCategorie()}" th:value="${categorie.noCategorie}" th:text="${categorie.libelle}"></option>
+	</select><br>
+	
+	<label for="photo">Photo de l'article : </label>
+	<input type="file" id="photo"><br>
+	
+	<label for="miseAPrix">Mise à prix : </label>
+	<input type="number" id="miseAPrix" th:field="*{miseAPrix}"><br>
+	
+	<label for="debut">Début de l'enchère : </label>
+	<input type="date" id="debut" th:field="*{dateDebutEncheres}"><br>
+	
+	<label for="fin">Fin de l'enchère : </label>
+	<input type="date" id="fin" th:field="*{dateFinEncheres}"><br>
+	
+	<fieldset>
+	
+		<legend>Retrait</legend>
+		
+		<label for="rue">Rue : </label>
+		<input type="text" id="rue" th:field="*{retrait.rue}"><br>
+		
+		<label for="codePostal">Code postal : </label>
+		<input type="text" id="codePostal" th:field="*{retrait.codePostal}"><br>
+		
+		<label for="ville">Ville : </label>
+		<input type="text" id="ville" th:field="*{retrait.ville}">
+		
+	</fieldset>
+	
+	<button type="submit">Enregistrer</button>
+	<input type="button" value="Annuler">
+	<input type="button" value="Annuler la vente">
+	
+</form>
 </body>
 </html>
