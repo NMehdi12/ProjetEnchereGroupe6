@@ -17,7 +17,7 @@ import fr.eni.enchere.groupe6.bo.Retrait;
 public class RetraitDAOImpl implements RetraitDAO{
 	
 	private static final String INSERT = "insert into RETRAITS (no_article, rue, codePostal, ville) values (:no_article, :rue, :code_postal, :ville)"; 
-	private static final String FIND_ID = "select * from RETRAITS where no_article = :no_article"; 
+	private static final String FIND_ID = "select * from RETRAITS where no_article=:no_article"; 
 	private static final String FIND_ALL = "select * from RETRAITS";
 	private static final String DELETE = "delete from RETRAITS where no_article = :noArticle";
 	
@@ -66,6 +66,7 @@ public class RetraitDAOImpl implements RetraitDAO{
 		MapSqlParameterSource paramSrc = new MapSqlParameterSource("no_article", articleVendu.getNoArticle());
 		
 		Retrait retrait = njt.queryForObject(FIND_ID, paramSrc, new RetraitRowMapper());
+		
 		
 		return retrait;
 	}

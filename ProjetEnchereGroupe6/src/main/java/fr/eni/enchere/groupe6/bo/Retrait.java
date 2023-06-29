@@ -53,6 +53,13 @@ public class Retrait {
 	public void setArticleVendu(ArticleVendu articleVendu) {
 		this.articleVendu = articleVendu;
 	}
+
+
+	@Override
+	public String toString() {
+		return "Retrait [rue=" + rue + ", ville=" + ville + ", codePostal=" + codePostal + ", articleVendu="
+				+ articleVendu + "]";
+	}
 	
 	
 	

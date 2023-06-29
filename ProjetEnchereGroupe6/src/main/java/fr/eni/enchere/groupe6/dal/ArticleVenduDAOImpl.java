@@ -31,9 +31,12 @@ public class ArticleVenduDAOImpl implements ArticleVenduDAO {
 	@Autowired
 	private CategorieDAO categorieDAO;
 	
-//	@Autowired
-//	private RetraitDAO retraitDAO;
+
+	private RetraitDAO retraitDAO;
 	
+	public void setRetraitDAO (RetraitDAO retraitDAO) {
+		this.retraitDAO=retraitDAO;
+	}
 
 	@Override
 	public List<ArticleVendu> findAll() {
@@ -107,21 +110,21 @@ public class ArticleVenduDAOImpl implements ArticleVenduDAO {
 			
 			
 			
-//			Retrait retrait= new Retrait();
-//			try {
-//				retrait = retraitDAO.findById(rs.getInt("no_article"));
-//			} catch (Exception e) {
-//				
-//			}
-//			//retrait.setArticleVendu(a);
-//			a.setRetrait(retrait);
+			Retrait retrait= new Retrait();
+			try {
+				retrait = retraitDAO.findById(rs.getInt("no_article"));
+			} catch (Exception e) {
+				
+			}
+			//retrait.setArticleVendu(a);
+			a.setRetrait(retrait);
 			
 //			Enchere enchere = new Enchere();
 //			enchere.setArticleVendu(a);
 //			enchere.setUtilisateur(utilisateur);
 //			a.setEnchere(enchere);
 			
-			System.out.println("la categorie "+a.getCategorie() );
+			System.out.println("le retrait  "+a.getRetrait() );
 			return a;
 		}
 		
