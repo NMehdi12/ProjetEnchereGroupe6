@@ -23,7 +23,7 @@ public class UtilisateurDAOImpl implements UtilisateurDAO {
 	private final static String DELETE = "delete  UTILISATEURS where no_utilisateur= :noUtilisateur";
 
 	private NamedParameterJdbcTemplate njt;
-	
+
 	public UtilisateurDAOImpl(NamedParameterJdbcTemplate njt) {
 		this.njt = njt;
 	}
@@ -69,6 +69,7 @@ public class UtilisateurDAOImpl implements UtilisateurDAO {
 
 	@Override
 	public void save(Utilisateur utilisateur) {
+
 		MapSqlParameterSource paramSrc = new MapSqlParameterSource("pseudo", utilisateur.getPseudo());
 		paramSrc.addValue("nom", utilisateur.getNom());
 		paramSrc.addValue("prenom", utilisateur.getPrenom());
@@ -82,9 +83,8 @@ public class UtilisateurDAOImpl implements UtilisateurDAO {
 		paramSrc.addValue("mot_de_passe", utilisateur.getMotDePasse());
 		paramSrc.addValue("credit", 0);
 		paramSrc.addValue("administrateur", false);
-		System.out.println("passe par le save UtilisateurDAOimpl");
 		njt.update(INSERT, paramSrc);
-
+		System.out.println("passe par le save UtilisateurDAOimpl");
 	}
 
 	@Override
