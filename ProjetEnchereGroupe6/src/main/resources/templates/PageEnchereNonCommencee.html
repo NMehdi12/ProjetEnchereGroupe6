@@ -10,40 +10,40 @@
 <form method="post" th:action="encheresMesVentes" th:object="${articleVendu}">
 
 	<label for="nom">Article : </label>
-	<input type="text" id="nom" th:field="*{nomArticle}"><br>
+	<input type="text" id="nom" th:field="*{nomArticle}" th:text="${articleVendu.nomArticle}"><br>
 	
 	<label for="description">Description : </label>
-	<textarea id="description" name="description"></textarea><br>
+	<textarea id="description" th:field="*{description}" th:text="${articleVendu.description}"></textarea><br>
 	
 	<label for="categorie">Catégorie : </label>
-	<select id="categorie">
-		<option></option>
+	<select id="categorie" th:field="*{categorie}">
+		<option th:each="categorie: ${@categorieService.afficherListeCategorie()}" th:value="${categorie.noCategorie}" th:text="${categorie.libelle}"></option>
 	</select><br>
 	
 	<label for="photo">Photo de l'article : </label>
 	<input type="file" id="photo"><br>
 	
 	<label for="miseAPrix">Mise à prix : </label>
-	<input type="number"><br>
+	<input type="number" id="miseAPrix" th:field="*{miseAPrix}" th:text="${articleVendu.miseAPrix}"><br>
 	
 	<label for="debut">Début de l'enchère : </label>
-	<input type="date" id="debut"><br>
+	<input type="date" id="debut" th:field="*{dateDebutEncheres}" th:text="${articleVendu.dateDebutEncheres}"><br>
 	
 	<label for="fin">Fin de l'enchère : </label>
-	<input type="date" id="fin"><br>
+	<input type="date" id="fin" th:field="*{dateFinEncheres}" th:text="${articleVendu.dateFinEncheres}"><br>
 	
 	<fieldset>
 	
 		<legend>Retrait</legend>
 		
 		<label for="rue">Rue : </label>
-		<input type="text" id="rue"><br>
+		<input type="text" id="rue" th:field="*{retrait.rue}" th:text="${retrait.rue}"><br>
 		
 		<label for="codePostal">Code postal : </label>
-		<input type="text" id="codePostal"><br>
+		<input type="text" id="codePostal" th:field="*{retrait.codePostal}"><br>
 		
 		<label for="ville">Ville : </label>
-		<input type="text" id="ville">
+		<input type="text" id="ville" th:field="*{retrait.ville}">
 		
 	</fieldset>
 	
