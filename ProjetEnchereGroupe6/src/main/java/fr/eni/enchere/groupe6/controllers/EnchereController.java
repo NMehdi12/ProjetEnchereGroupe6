@@ -20,7 +20,7 @@ import jakarta.validation.Valid;
 @Controller
 @RequestMapping
 public class EnchereController {
-	
+
 	private ArticleVenduService articleVenduService;
 	@Autowired
 	private UtilisateurServiceImpl utilisateurService;
@@ -61,9 +61,14 @@ public class EnchereController {
 	// inscription de l'utilisateur
 	@PostMapping("/inscription")
 	public String enregistrerCompte(@ModelAttribute("utilisateur") Utilisateur utilisateur) {
-		utilisateurService.enregistrerUtilisateur(utilisateur);
-		System.out.println("inscription utilisateur");
-		return "redirect:/connexion";
+		if (!utilisateur.getMotDePasse().equals(utilisateur.getMotDePasseConfirm())) {
+			return "PageCreerCompte";
+		} else {
+			utilisateurService.enregistrerUtilisateur(utilisateur);
+			System.out.println("inscription utilisateur");
+			return "redirect:/connexion";
+			
+		}
 	}
 
 	@GetMapping("/encheresConnecte")
@@ -103,7 +108,7 @@ public class EnchereController {
 
 	@GetMapping("/modifierVente")
 	public String modifierVente(@ModelAttribute("articleVendu") ArticleVendu articleVendu) {
-		
+
 		return "PageEnchereNonCommencee";
 	}
 

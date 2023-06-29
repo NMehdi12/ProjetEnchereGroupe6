@@ -38,6 +38,7 @@ public class Utilisateur {
 	private String ville;
 	@Size(min=6, message="Au moins 6 caractères")
 	private String motDePasse;
+	private String motDePasseConfirm;
 	private Integer credit;
 	@NotNull
 	private List<ArticleVendu> articleVendu; // faire l'injection par constructeur
@@ -181,6 +182,14 @@ public class Utilisateur {
 				+ ", pseudo=" + pseudo + ", nom=" + nom + ", prenom=" + prenom + ", email=" + email + ", rue=" + rue
 				+ ", ville=" + ville + ", motDePasse=" + motDePasse + ", credit=" + credit + ", articleVendu="
 				+ articleVendu + ", administrateur=" + administrateur + "]";
+	}
+
+	public String getMotDePasseConfirm() {
+		return motDePasseConfirm;
+	}
+
+	public void setMotDePasseConfirm(String motDePasseConfirm) {
+		this.motDePasseConfirm = motDePasseConfirm;
 	}
 
 
