@@ -23,6 +23,10 @@ public class UtilisateurDAOImpl implements UtilisateurDAO {
 	private final static String DELETE = "delete  UTILISATEURS where no_utilisateur= :noUtilisateur";
 
 	private NamedParameterJdbcTemplate njt;
+	
+	public UtilisateurDAOImpl(NamedParameterJdbcTemplate njt) {
+		this.njt = njt;
+	}
 
 	class UtilisateurRowMapper implements RowMapper<Utilisateur> {
 
@@ -55,7 +59,7 @@ public class UtilisateurDAOImpl implements UtilisateurDAO {
 	}
 
 	@Override
-	public Utilisateur findByNoUtilisateur(Integer noUtilisateur) {
+	public Utilisateur findById(Integer noUtilisateur) {
 
 		MapSqlParameterSource paramSrc = new MapSqlParameterSource("no_utilisateur", noUtilisateur);
 		Utilisateur utilisateur = njt.queryForObject(FIND_BY_NO_USER, paramSrc, new UtilisateurRowMapper());
@@ -65,7 +69,6 @@ public class UtilisateurDAOImpl implements UtilisateurDAO {
 
 	@Override
 	public void save(Utilisateur utilisateur) {
-		System.out.println("passe par le save UtilisateurDAOimpl");
 		MapSqlParameterSource paramSrc = new MapSqlParameterSource("pseudo", utilisateur.getPseudo());
 		paramSrc.addValue("nom", utilisateur.getNom());
 		paramSrc.addValue("prenom", utilisateur.getPrenom());

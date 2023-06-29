@@ -17,7 +17,7 @@ public class UtilisateurServiceImpl implements UtilisateurService {
 	@Override
 	public Utilisateur afficherParNoUtilisateur(Integer noUtilisateur) {
 		
-		return utilisateurDAO.findByNoUtilisateur(noUtilisateur);
+		return utilisateurDAO.findById(noUtilisateur);
 	}
 
 	@Override
