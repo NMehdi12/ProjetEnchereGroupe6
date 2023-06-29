@@ -5,29 +5,32 @@ import java.sql.SQLException;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
+import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 import org.springframework.stereotype.Repository;
 
 import fr.eni.enchere.groupe6.bo.ArticleVendu;
 import fr.eni.enchere.groupe6.bo.Categorie;
-import fr.eni.enchere.groupe6.bo.Enchere;
 import fr.eni.enchere.groupe6.bo.Retrait;
 import fr.eni.enchere.groupe6.bo.Utilisateur;
 @Repository
 public class ArticleVenduDAOImpl implements ArticleVenduDAO {
+	
 	private final String FIND_ALL = "SELECT * FROM ARTICLES_VENDUS";
+	
+	private final static String INSERT = "insert into ARTICLES_VENDUS (nom_article, description, date_debut_encheres, date_fin_encheres, prix_initial, prix_vente, no_utilisateur, no_categorie) values (:nom_article, :description, :date_debut_encheres, :date_fin_encheres, :prix_initial, :prix_vente, :no_utilisateur, :no_categorie)";
+	
 	//private final String FIND_ALL = "SELECT nom_article, description, date_debut_encheres, date_fin_encheres, prix_initial, prix_vente FROM ARTICLES_VENDUS";
 	@Autowired
-	private JdbcTemplate jdbcTemplate;
+	private NamedParameterJdbcTemplate npJdbcTemplate;
 	
 
 	@Override
 	public List<ArticleVendu> findAll() {
 		
 		
-		return jdbcTemplate.query(FIND_ALL, new ArticleRowMapper());
+		return npJdbcTemplate.query(FIND_ALL, new ArticleRowMapper());
 		
 	}
 
@@ -39,7 +42,17 @@ public class ArticleVenduDAOImpl implements ArticleVenduDAO {
 
 	@Override
 	public void save(ArticleVendu articleVendu) {
-		// TODO Auto-generated method stub
+		MapSqlParameterSource paramSrc = new MapSqlParameterSource("nom_article", articleVendu.getNomArticle());
+		paramSrc.addValue("description", articleVendu.getDescription());
+		paramSrc.addValue("date_debut_encheres", articleVendu.getDateDebutEncheres());
+		paramSrc.addValue("date_fin_encheres", articleVendu.getDateFinEncheres());
+		paramSrc.addValue("prix_initial", articleVendu.getMiseAPrix());
+		paramSrc.addValue("prix_vente", articleVendu.getPrixVente());
+		paramSrc.addValue("no_utilisateur", articleVendu.getUtilisateur().getNoUtilisateur());
+		paramSrc.addValue("no_categorie", articleVendu.getCategorie().getNoCategorie());
+		
+		npJdbcTemplate.update(INSERT, paramSrc);
+		
 		
 	}
 

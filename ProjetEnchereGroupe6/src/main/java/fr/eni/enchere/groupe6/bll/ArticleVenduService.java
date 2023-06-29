@@ -9,4 +9,5 @@ List<ArticleVendu> afficherArticlesVendus();
 List<ArticleVendu> afficherArticlesVendusParEtat();
 ArticleVendu afficherDetailParNoArticle(Integer noArticle);
 List<ArticleVendu> afficherResultatRecherche(String nomArticle);
+void enregistrerArticle(ArticleVendu articleVendu);
 }
