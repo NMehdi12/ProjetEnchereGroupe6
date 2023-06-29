@@ -20,7 +20,7 @@ import fr.eni.enchere.groupe6.bo.Categorie;
 public class CategorieDAOImpl implements CategorieDAO {
 	
 	private static final String FIND_ALL = "SELECT * FROM CATEGORIES";
-	private static final String FIND_BY_ID = "select * from CATEGORIES where noCategorie=:no_categorie";
+	private static final String FIND_BY_ID = "SELECT * from CATEGORIES where no_categorie=:no_categorie";
 	@Autowired
 	private NamedParameterJdbcTemplate npJdbcTemplate;
 	
@@ -32,7 +32,7 @@ public class CategorieDAOImpl implements CategorieDAO {
 
 	@Override
 	public Categorie findById (Integer noCategorie) {
-		MapSqlParameterSource params = new MapSqlParameterSource("no_ategorie",noCategorie);
+		MapSqlParameterSource params = new MapSqlParameterSource("no_categorie",noCategorie);
 		//Map<String, Object> params = new HashMap<>();
 		Categorie categorie = npJdbcTemplate.queryForObject(FIND_BY_ID, params, new CetegorieRowMapper());
 		System.out.println("je passe par findbyid de categorie" );
