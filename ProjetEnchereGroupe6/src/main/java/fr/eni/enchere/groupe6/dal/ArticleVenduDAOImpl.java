@@ -85,7 +85,7 @@ public class ArticleVenduDAOImpl implements ArticleVenduDAO {
 			a.setMiseAPrix(rs.getInt("prix_initial"));
 			a.setPrixVente(rs.getInt("prix_vente"));
 			
-			Utilisateur utilisateur = null;
+			Utilisateur utilisateur = new Utilisateur();
 			try {
 				utilisateur= utilisateurDAO.findById(rs.getInt("no_utilisateur"));
 			} catch (SQLException e) {
@@ -96,7 +96,7 @@ public class ArticleVenduDAOImpl implements ArticleVenduDAO {
 			
 			
 			
-			Categorie categorie = null;
+			Categorie categorie = new Categorie();
 			try {
 				categorie = categorieDAO.findById(rs.getInt("no_categorie"));
 			} catch (Exception e) {
