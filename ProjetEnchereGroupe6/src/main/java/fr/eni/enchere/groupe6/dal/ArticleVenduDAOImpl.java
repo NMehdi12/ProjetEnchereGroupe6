@@ -25,6 +25,15 @@ public class ArticleVenduDAOImpl implements ArticleVenduDAO {
 	@Autowired
 	private NamedParameterJdbcTemplate npJdbcTemplate;
 	
+	@Autowired
+	private UtilisateurDAO utilisateurDAO;
+	
+	
+
+	public ArticleVenduDAOImpl(UtilisateurDAO utilisateurDAO) {
+		super();
+		this.utilisateurDAO = utilisateurDAO;
+	}
 
 	@Override
 	public List<ArticleVendu> findAll() {
@@ -76,12 +85,23 @@ public class ArticleVenduDAOImpl implements ArticleVenduDAO {
 			a.setMiseAPrix(rs.getInt("prix_initial"));
 			a.setPrixVente(rs.getInt("prix_vente"));
 			
-			Utilisateur utilisateur = new Utilisateur();
-			utilisateur.setNoUtilisateur(rs.getInt("no_utilisateur"));
+			Utilisateur utilisateur = null;
+			try {
+				utilisateur= utilisateurDAO.findByNoUtilisateur(rs.getInt("id"));
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+			//utilisateur.setNoUtilisateur(rs.getInt("no_utilisateur"));
 			a.setUtilisateur(utilisateur);
 			
-			Categorie categorie = new Categorie();
-			categorie.setNoCategorie(rs.getInt("no_categorie"));
+			
+			
+			Categorie categorie = null;
+			try {
+				categorie = .setNoCategorie(rs.getInt("no_categorie"));
+			} catch (Exception e) {
+				// TODO: handle exception
+			}
 			a.setCategorie(categorie);
 			
 			Retrait retrait= new Retrait();
