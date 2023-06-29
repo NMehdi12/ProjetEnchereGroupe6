@@ -12,8 +12,8 @@
 </head>
 <body>
 
-	<div th:replace="fragments/tophead :: topheader"></div>
-	<div th:replace="fragments/tophead :: navbar"></div>
+	<div th:replace="~{fragments/tophead :: topheader]"></div>
+	<div th:replace="~{fragments/tophead :: navbar]"></div>
 	<h1>Inscription</h1>
 
 	<form th:action="inscription" th:object="${utilisateur}" method="post">
