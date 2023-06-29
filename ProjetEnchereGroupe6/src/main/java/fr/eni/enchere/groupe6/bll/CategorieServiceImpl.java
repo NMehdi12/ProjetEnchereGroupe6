@@ -21,16 +21,16 @@ public class CategorieServiceImpl implements CategorieService {
 
 	@Override
 	public Categorie afficherParNoCategorie(Integer noCategorie) {
-		categorieDAO.findById(noCategorie);
-		return null;
+		
+		return categorieDAO.findById(noCategorie);
 	}
 
 
 
 	@Override
 	public List<Categorie> afficherListeCategorie() {
-		categorieDAO.findAll();
-		return null;
+		
+		return categorieDAO.findAll();
 	}
 
 }
