@@ -9,6 +9,7 @@ import java.util.Map;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.RowMapper;
+import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 import org.springframework.stereotype.Repository;
 
@@ -19,7 +20,7 @@ import fr.eni.enchere.groupe6.bo.Categorie;
 public class CategorieDAOImpl implements CategorieDAO {
 	
 	private static final String FIND_ALL = "SELECT * FROM CATEGORIES";
-	private static final String FIND_BY_ID = "select * from categories where id=:id";
+	private static final String FIND_BY_ID = "select * from CATEGORIES where noCategorie=:no_categorie";
 	@Autowired
 	private NamedParameterJdbcTemplate npJdbcTemplate;
 	
@@ -31,15 +32,18 @@ public class CategorieDAOImpl implements CategorieDAO {
 
 	@Override
 	public Categorie findById (Integer noCategorie) {
-		Map<String, Object> params = new HashMap<>();
-		params.put("id", noCategorie);
+		MapSqlParameterSource params = new MapSqlParameterSource("no_ategorie",noCategorie);
+		//Map<String, Object> params = new HashMap<>();
+		Categorie categorie = npJdbcTemplate.queryForObject(FIND_BY_ID, params, new CetegorieRowMapper());
+		System.out.println("je passe par findbyid de categorie" );
 		
-		Categorie categorie = null;
-		try {
-			categorie = npJdbcTemplate.queryForObject(FIND_ALL, params,new CetegorieRowMapper());
-		} catch (Exception e) {
-			
-		}
+		
+//		Categorie categorie = null;
+//		try {
+//			categorie = npJdbcTemplate.queryForObject(FIND_ALL, params,new CetegorieRowMapper());
+//		} catch (Exception e) {
+//			
+//		}
 			return categorie;
 	}
 
@@ -63,7 +67,7 @@ public class CategorieDAOImpl implements CategorieDAO {
 			
 			categorie.setNoCategorie(rs.getInt("no_categorie"));
 			categorie.setLibelle(rs.getString("libelle"));
-			
+			System.out.println("je passe par CetegorieRowMapper ");
 			return categorie;
 		}
 		

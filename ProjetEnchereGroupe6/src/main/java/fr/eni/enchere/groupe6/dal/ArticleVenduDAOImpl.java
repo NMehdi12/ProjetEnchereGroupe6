@@ -28,12 +28,12 @@ public class ArticleVenduDAOImpl implements ArticleVenduDAO {
 	@Autowired
 	private UtilisateurDAO utilisateurDAO;
 	
+	@Autowired
+	private CategorieDAO categorieDAO;
 	
-
-	public ArticleVenduDAOImpl(UtilisateurDAO utilisateurDAO) {
-		super();
-		this.utilisateurDAO = utilisateurDAO;
-	}
+//	@Autowired
+//	private RetraitDAO retraitDAO;
+	
 
 	@Override
 	public List<ArticleVendu> findAll() {
@@ -87,7 +87,7 @@ public class ArticleVenduDAOImpl implements ArticleVenduDAO {
 			
 			Utilisateur utilisateur = null;
 			try {
-				utilisateur= utilisateurDAO.findByNoUtilisateur(rs.getInt("id"));
+				utilisateur= utilisateurDAO.findById(rs.getInt("no_utilisateur"));
 			} catch (SQLException e) {
 				e.printStackTrace();
 			}
@@ -98,22 +98,30 @@ public class ArticleVenduDAOImpl implements ArticleVenduDAO {
 			
 			Categorie categorie = null;
 			try {
-				categorie = .setNoCategorie(rs.getInt("no_categorie"));
+				categorie = categorieDAO.findById(rs.getInt("no_categorie"));
 			} catch (Exception e) {
 				// TODO: handle exception
 			}
+			//System.out.println("alors? " +categorie);
 			a.setCategorie(categorie);
 			
-			Retrait retrait= new Retrait();
-			retrait.setArticleVendu(a);
-			a.setRetrait(retrait);
+			
+			
+//			Retrait retrait= new Retrait();
+//			try {
+//				retrait = retraitDAO.findById(rs.getInt("no_article"));
+//			} catch (Exception e) {
+//				
+//			}
+//			//retrait.setArticleVendu(a);
+//			a.setRetrait(retrait);
 			
 //			Enchere enchere = new Enchere();
 //			enchere.setArticleVendu(a);
 //			enchere.setUtilisateur(utilisateur);
 //			a.setEnchere(enchere);
 			
-			System.out.println(a.getCategorie());
+			System.out.println("la categorie "+a.getCategorie() );
 			return a;
 		}
 		
