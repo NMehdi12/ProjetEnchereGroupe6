@@ -7,7 +7,7 @@
 <body>
 <h1>Nouvelle vente</h1>
 <!--  <img>-->
-<form th:action="/nouvelleVente" th:object="${articleVendu}" method="post">
+<form th:action="nouvelleVente" th:object="${articleVendu}" method="post">
 
 	<label for="nom">Article : </label>
 	<input type="text" id="nom" th:field="*{nomArticle}"><br>
@@ -16,9 +16,9 @@
 	<textarea id="description" th:field="*{description}"></textarea><br>
 	
 	<label for="categorie">Catégorie : </label>
-	<select id="categorie" th:field="*{categorie}">
+	<!--  <select id="categorie" th:field="*{categorie}">
 		<option th:each="categorie: ${@categorieService.afficherListeCategorie()}" th:value="${categorie.noCategorie}" th:text="${categorie.libelle}"></option>
-	</select><br>
+	</select><br> -->
 	
 	<label for="photo">Photo de l'article : </label>
 	<input type="file" id="photo"><br>
@@ -32,7 +32,7 @@
 	<label for="fin">Fin de l'enchère : </label>
 	<input type="date" id="fin" th:field="*{dateFinEncheres}"><br>
 	
-	<!-- <fieldset>
+	 <!-- <fieldset>
 	
 		<legend>Retrait</legend>
 		
@@ -45,11 +45,17 @@
 		<label for="ville">Ville : </label>
 		<input type="text" id="ville" th:field="*{retrait.ville}">
 		
-	</fieldset> -->
+	</fieldset>  -->
 	
 	<button type="submit">Enregistrer</button>
 	<input type="button" value="Annuler">
 	<input type="button" value="Annuler la vente">
+	
+	<input type="hidden" th:field="noArticle">
+	<input type="hidden" th:field="enchere">
+	<input type="hidden" th:field="retrait">
+	<input type="hidden" th:field="etatVente">
+	<input type="hidden" th:field="prixVente">
 	
 </form>
 </body>
