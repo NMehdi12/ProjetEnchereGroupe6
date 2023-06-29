@@ -12,6 +12,7 @@ import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.crypto.password.NoOpPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.provisioning.InMemoryUserDetailsManager;
 import org.springframework.security.provisioning.UserDetailsManager;
@@ -35,9 +36,9 @@ public class SecurityConfig {
 	public void configureGlobal( AuthenticationManagerBuilder auth ) throws Exception {
 		auth.jdbcAuthentication()
 			.dataSource( dataSource )
+			.usersByUsernameQuery( " SELECT pseudo, mot_de_passe, 1 FROM UTILISATEURS WHERE pseudo =? " )
+			.authoritiesByUsernameQuery( " SELECT ?, 'admin' " )
 			.passwordEncoder( passwordEncoder )
-			.usersByUsernameQuery( " SELECT pseudo, mot_de_passe, 1 FROM utilisateurs WHERE ? IN ( pseudo , email ) " )
-			.authoritiesByUsernameQuery( " SELECT pseudo, 'admin' FROM utilisateurs WHERE ? IN ( pseudo , email ) " )
 			;
 	}
 	
@@ -50,14 +51,18 @@ public class SecurityConfig {
 				.requestMatchers (HttpMethod.GET,"/encheres").permitAll()
 				.requestMatchers(HttpMethod.GET,"/").permitAll()
 				.requestMatchers(HttpMethod.GET,"/connexion").permitAll()
+				.requestMatchers(HttpMethod.POST,"/connexion").permitAll()
+				.requestMatchers(HttpMethod.POST,"/inscription").permitAll()
 				.requestMatchers(HttpMethod.GET,"/inscription").permitAll()
+				
 				.requestMatchers(HttpMethod.GET,"/encheresConnecte").hasRole("MEMBRE")
+				.requestMatchers(HttpMethod.POST,"/encheresMesVentes").hasRole("MEMBRE")
 				.requestMatchers(HttpMethod.GET,"/encheresMesVentes").hasRole("MEMBRE")
 				.requestMatchers(HttpMethod.GET,"/profil").hasRole("MEMBRE")
 				.requestMatchers(HttpMethod.GET,"/monProfil").hasRole("MEMBRE")
+				.requestMatchers(HttpMethod.POST,"/monProfil").hasRole("MEMBRE")
 				.requestMatchers(HttpMethod.GET,"/modifierVente").hasRole("MEMBRE")
-				.requestMatchers(HttpMethod.GET,"/nouvelleVente").hasRole("MEMBRE")
-				.requestMatchers(HttpMethod.GET,"/nouvelleVente").hasRole("MEMBRE")
+				.requestMatchers(HttpMethod.GET,"/nouvelleVente").permitAll()
 				.requestMatchers("/css/*").permitAll().requestMatchers("/images/*").permitAll()
 				.anyRequest().authenticated();
 		});
@@ -65,26 +70,39 @@ public class SecurityConfig {
 		http.formLogin(Customizer.withDefaults());
 		
 		
-////		http.formLogin(form -> {
-////			form.loginPage("/connexion").permitAll();
-////			form.defaultSuccessUrl("/encheresConnecte").permitAll();
-////		});
+//		http.formLogin(form -> {
+//			form.loginPage("/connexion").permitAll();
+//			form.defaultSuccessUrl("/encheresConnecte").permitAll();
+//		});
 		
 		
 		
 		
-//		http.logout(logout-> 
-//			logout 
-//			.invalidateHttpSession(true)
-//			.clearAuthentication(true)
-//			.deleteCookies("JSESSIONID")
-//			.logoutRequestMatcher(new AntPathRequestMatcher("/logout"))
-//			.logoutSuccessUrl("/").permitAll());
+		http.logout(logout-> 
+			logout 
+			.invalidateHttpSession(true)
+			.clearAuthentication(true)
+			.deleteCookies("JSESSIONID")
+			.logoutRequestMatcher(new AntPathRequestMatcher("/logout"))
+			.logoutSuccessUrl("/").permitAll());
 		
 		return http.build();
 	}
 		
-		
+//	@Bean
+//	public SecurityFilterChain filterChain( HttpSecurity http ) throws Exception {
+//		http
+//			.formLogin(Customizer.withDefaults())
+//			.logout(Customizer.withDefaults())
+//			.authorizeHttpRequests( auth -> auth
+//				.requestMatchers( "/**" )
+//				.authenticated()
+//				.requestMatchers( "/register" )
+//				.permitAll()
+//			)
+//			;
+//		return http.build();
+//	}	
 	
 	
 	
@@ -92,6 +110,7 @@ public class SecurityConfig {
 	UserDetailsManager userDetailsManager() {
 		var userDetailService = new InMemoryUserDetailsManager();
 		var user = User.withUsername("admin").password("azerty").roles("MEMBRE").build();
+		var user2 = User.withUsername("bob").password("azertyu").roles("MEMBRE").build();
 		userDetailService.createUser(user);
 		
 		

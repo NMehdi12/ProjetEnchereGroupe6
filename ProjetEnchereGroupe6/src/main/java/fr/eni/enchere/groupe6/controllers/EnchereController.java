@@ -43,13 +43,14 @@ public class EnchereController {
 		return "PageAccueilNonConnecte";
 	}
 
-	@GetMapping("/connexion")
+	@GetMapping("/login")
 	public String vueSeConnecter() {
 		return "PageConnexion";
 	}
 
 	@PostMapping("/connexion")
 	public String seConnecter() {
+		
 		return "redirect:/encheresConnecte";
 	}
 
@@ -62,6 +63,7 @@ public class EnchereController {
 	@PostMapping("/inscription")
 	public String enregistrerCompte(@ModelAttribute("utilisateur") Utilisateur utilisateur) {
 		if (!utilisateur.getMotDePasse().equals(utilisateur.getMotDePasseConfirm())) {
+			System.out.println("inscription utilisateur condition");
 			return "PageCreerCompte";
 		} else {
 			utilisateurService.enregistrerUtilisateur(utilisateur);
