@@ -45,8 +45,20 @@ public class SecurityConfig {
 	@Bean
 	public SecurityFilterChain filterChain( HttpSecurity http ) throws Exception {
 		http
+			
 			.formLogin(Customizer.withDefaults())
-			.logout(Customizer.withDefaults())
+			//.logout(Customizer.withDefaults())
+			.logout(logout-> 
+			logout 
+			.invalidateHttpSession(true)
+			.clearAuthentication(true)
+			.deleteCookies("JSESSIONID")
+			.logoutRequestMatcher(new AntPathRequestMatcher("/logout"))
+			.logoutSuccessUrl("/").permitAll())
+		
+			
+			
+			
 			.authorizeHttpRequests( auth -> auth
 				.requestMatchers( "/encheresMesVentes").authenticated()
 				.requestMatchers( "/encheresConnecte").authenticated()
@@ -60,10 +72,17 @@ public class SecurityConfig {
 				.requestMatchers("/encheres").permitAll()
 				.requestMatchers("/").permitAll()
 				
+				
+				
 			);
 		
 		return http.build();
-	}	
+		
+	
+}	 
+	
+	
+	
 	
 //	@Bean
 //	SecurityFilterChain filterChain(HttpSecurity http)throws Exception{
@@ -99,17 +118,8 @@ public class SecurityConfig {
 		
 		
 		
-//		http.logout(logout-> 
-//			logout 
-//			.invalidateHttpSession(true)
-//			.clearAuthentication(true)
-//			.deleteCookies("JSESSIONID")
-//			.logoutRequestMatcher(new AntPathRequestMatcher("/logout"))
-//			.logoutSuccessUrl("/").permitAll());
-//		
-//		return http.build();
-//	}
-//		
+		
+		
 	
 	
 	

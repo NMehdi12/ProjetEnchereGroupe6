@@ -20,7 +20,7 @@ public class ArticleVenduDAOImpl implements ArticleVenduDAO {
 	private final String FIND_ALL = "SELECT * FROM ARTICLES_VENDUS";
 	
 	private final static String INSERT = "insert into ARTICLES_VENDUS (nom_article, description, date_debut_encheres, date_fin_encheres, prix_initial, prix_vente, no_utilisateur, no_categorie) values (:nom_article, :description, :date_debut_encheres, :date_fin_encheres, :prix_initial, :prix_vente, :no_utilisateur, :no_categorie)";
-	
+	private final static String FIND_ID = "SELECT * FROM ARTICLES_VENDUS WHERE no_article=:no_article ";
 	//private final String FIND_ALL = "SELECT nom_article, description, date_debut_encheres, date_fin_encheres, prix_initial, prix_vente FROM ARTICLES_VENDUS";
 	@Autowired
 	private NamedParameterJdbcTemplate npJdbcTemplate;
@@ -47,9 +47,11 @@ public class ArticleVenduDAOImpl implements ArticleVenduDAO {
 	}
 
 	@Override
-	public ArticleVendu findById(Integer id) {
-		// TODO Auto-generated method stub
-		return null;
+	public ArticleVendu findById(Integer noArticle) {
+		MapSqlParameterSource params = new MapSqlParameterSource("no_article", noArticle);
+		ArticleVendu articleVendu = npJdbcTemplate.queryForObject(FIND_ID, params, new ArticleRowMapper());
+		System.out.println("je passe par find by id de article vendu");
+		return articleVendu;
 	}
 
 	@Override
@@ -87,7 +89,7 @@ public class ArticleVenduDAOImpl implements ArticleVenduDAO {
 			a.setDateFinEncheres(rs.getDate("date_fin_encheres"));
 			a.setMiseAPrix(rs.getInt("prix_initial"));
 			a.setPrixVente(rs.getInt("prix_vente"));
-			
+		
 			Utilisateur utilisateur = new Utilisateur();
 			try {
 				utilisateur= utilisateurDAO.findById(rs.getInt("no_utilisateur"));
@@ -97,6 +99,17 @@ public class ArticleVenduDAOImpl implements ArticleVenduDAO {
 			//utilisateur.setNoUtilisateur(rs.getInt("no_utilisateur"));
 			a.setUtilisateur(utilisateur);
 			
+			
+			
+			Retrait retrait= new Retrait();
+			try {
+				retrait = retraitDAO.findById(rs.getInt("no_article"));
+				
+			} catch (Exception e) {
+				
+			}
+			//retrait.setArticleVendu(a);
+			a.setRetrait(retrait);
 			
 			
 			Categorie categorie = new Categorie();
@@ -110,21 +123,14 @@ public class ArticleVenduDAOImpl implements ArticleVenduDAO {
 			
 			
 			
-			Retrait retrait= new Retrait();
-			try {
-				retrait = retraitDAO.findById(rs.getInt("no_article"));
-			} catch (Exception e) {
-				
-			}
-			//retrait.setArticleVendu(a);
-			a.setRetrait(retrait);
+	
 			
 //			Enchere enchere = new Enchere();
 //			enchere.setArticleVendu(a);
 //			enchere.setUtilisateur(utilisateur);
 //			a.setEnchere(enchere);
-			
-			System.out.println("le retrait  "+a.getRetrait() );
+//			
+			System.out.println("le retrait dans article vendu  "+a.getRetrait() );
 			return a;
 		}
 		

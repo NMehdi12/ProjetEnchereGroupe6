@@ -16,14 +16,18 @@
 </head>
 <body>
 
-	<div th:replace="fragments/tophead :: topheader"></div>
-	<div th:replace="fragments/tophead :: navbar"></div>
+
 
 	<div class="h-100 d-flex align-items-center justify-content-center">
 		<div style="background: #8FBC8F">
 
 			<h1>Liste des enchères</h1>
 			<p>Filtre :</p>
+			<a href= "/logout">logout</a>
+			<a href= "/login">Se connecter</a>
+			<a href= "/inscription">S'inscrire</a>
+			<a href= "/nouvelleVente">Créer une vente</a>
+			<a href= "/monProfil">Mon profil</a>
 			<input type="text" id="searchInput"
 				placeholder="Rechercher un produit">
 
