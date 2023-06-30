@@ -146,12 +146,10 @@ public class ArticleVendu {
 	public void setMiseAPrix(int miseAPrix) {
 		this.miseAPrix = miseAPrix;
 	}
-	public int getPrixVente() {
+	public Integer getPrixVente() {
 		return prixVente;
 	}
-	public void setPrixVente(int prixVente) {
-		this.prixVente = prixVente;
-	}
+	
 	public int getEtatVente() {
 		return etatVente;
 	}

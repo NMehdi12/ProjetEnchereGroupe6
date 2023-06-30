@@ -1,48 +1,93 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
-<link rel="stylesheet" href="css/boostrap.css">
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
-<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-9ndCyUaIbzAi2FUVXJi0CjmCapSmO7SnpJef0486qhLnuZ2cdeRhO02iuK6FUUVM" crossorigin="anonymous">
+<link rel="stylesheet" href="./css/style.css">
+<link
+	href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css"
+	rel="stylesheet"
+	integrity="sha384-9ndCyUaIbzAi2FUVXJi0CjmCapSmO7SnpJef0486qhLnuZ2cdeRhO02iuK6FUUVM"
+	crossorigin="anonymous">
+	
+</head>
+
 </head>
 <body>
 
 	<div th:replace="fragments/tophead :: topheader"></div>
 	<div th:replace="fragments/tophead :: navbar"></div>
-	<h1>Liste des enchères</h1>
 
-	<p>Filtre :</p>
-	<input type="text" id="searchInput" placeholder="Rechercher un produit">
+	<div class="h-100 d-flex align-items-center justify-content-center">
+		<div style="background: #8FBC8F">
 
-	<!-- Liste déroulante -->
-	<!-- <select id="categoryDropdown" th:field="*{articleVendu}" required>
+			<h1>Liste des enchères</h1>
+			<p>Filtre :</p>
+			<input type="text" id="searchInput"
+				placeholder="Rechercher un produit">
+
+			<!-- Liste déroulante -->
+			<!-- <select id="categoryDropdown" th:field="*{articleVendu}" required>
 		<option value="">Toutes</option>
 		<option th:each="categorie: ${@categorieService.getListeCategorie()}"
 			th:value="${categorie.noCategorie}" th:text="${categorie.libelle}"></option>
 	</select> -->
 
-	<!-- Bouton "Rechercher" -->
-	<button>Rechercher</button>
+			<!-- Bouton "Rechercher" -->
+			<button>Rechercher</button>
 
-	<!-- Liste de produits -->
-	<div data-th-each="articleVendu : ${articlesVendus}">
-		
-		<!-- Chemin à modifier 
+			<div class="row row-cols-1 row-cols-md-2 g-4">
+
+			<!-- Liste de produits -->
+
+			<div data-th-each="articleVendu : ${articlesVendus}">
+
+
+			<!-- Chemin à modifier 
 		<img th:src="@{'/images/' + ${articleVendu.noArticle} + '.jpg'}" alt="image">-->
-		<p ><a data-th-text="${articleVendu.nomArticle}" data-th-href="@{/encherir}"></a></p>
-		
-			<p>Prix : <span data-th-text="${articleVendu.prixVente}"></span> points</p>
-		
-		
-			<p>Fin de l'enchère : <span data-th-text="${articleVendu.dateFinEncheres}"></span></p>
-			<!-- <p>Fin de l'enchère : <span data-th-text="${articleV.noCategorie}"></span></p> -->
-			<p>Pseudo utilisateur : <span data-th-text="${articleVendu.utilisateur.pseudo}"></span></p>
-			<p>Catégorie : <span data-th-text="${articleVendu.categorie.libelle}"></span></p>
-			
-		
+					<div class="col">
+						<div class="card">
+							<img
+								src="https://mdbcdn.b-cdn.net/img/new/standard/city/044.webp"
+								class="card-img-top" alt="Skyscrapers" />
+							<div class="card-body">
+								<p class="card-title">
+									<a data-th-text="${articleVendu.nomArticle}"
+										data-th-href="@{/encherir}"></a>
+								</p>
+								<p>
+									Prix : <span data-th-text="${articleVendu.prixVente}"></span>
+									points
+								</p>
+
+
+								<p>
+									Fin de l'enchère : <span
+										data-th-text="${articleVendu.dateFinEncheres}"></span>
+								</p>
+								<!-- <p>Fin de l'enchère : <span data-th-text="${articleV.noCategorie}"></span></p> -->
+								<p>
+									Pseudo utilisateur : <span
+										data-th-text="${articleVendu.utilisateur.pseudo}"></span>
+								</p>
+								<p>
+									Catégorie : <span
+										data-th-text="${articleVendu.categorie.libelle}"></span>
+								</p>
+								<a href="#!" class="btn btn-primary">Button</a>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+
+		</div>
 
 	</div>
-	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js" integrity="sha384-geWF76RCwLtnZ8qwWowPQNguL3RmwHVBC9FhGdlKrxdiJJigb/j/68SIy3Te4Bkz" crossorigin="anonymous"></script>
+
+	<script
+		src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"
+		integrity="sha384-geWF76RCwLtnZ8qwWowPQNguL3RmwHVBC9FhGdlKrxdiJJigb/j/68SIy3Te4Bkz"
+		crossorigin="anonymous"></script>
 </body>
 </html>
