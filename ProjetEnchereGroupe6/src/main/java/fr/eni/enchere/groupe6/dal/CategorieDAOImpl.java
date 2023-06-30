@@ -26,7 +26,9 @@ public class CategorieDAOImpl implements CategorieDAO {
 	
 	@Override
 	public List<Categorie> findAll() {
+		System.out.println("Je passe par la méthode findAll() de CategorieDAOImpl");
 		List<Categorie> categories = npJdbcTemplate.query(FIND_ALL, new BeanPropertyRowMapper<>(Categorie.class));
+		
 		return categories;
 	}
 

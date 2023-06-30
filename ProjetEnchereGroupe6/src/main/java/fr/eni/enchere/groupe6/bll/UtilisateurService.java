@@ -9,4 +9,6 @@ public interface UtilisateurService {
 	public void enregistrerUtilisateur(Utilisateur utilisateur);
 	
 	public void supprimerUtilisateur(Utilisateur utilisateur);
+	
+	public Utilisateur afficherParPseudo(String pseudo);
 }

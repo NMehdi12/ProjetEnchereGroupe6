@@ -17,7 +17,7 @@
 	
 	<label for="categorie">Catégorie : </label>
 	<select id="categorie" th:field="*{categorie}">
-		<option th:each="categorie: ${@categorieService.afficherListeCategorie()}" th:value="${categorie.noCategorie}" th:text="${categorie.libelle}"></option>
+		<option th:each="categorie: ${categories}" th:value="${categorie.noCategorie}" th:text="${categorie.libelle}"></option>
 	</select><br>
 	
 	<label for="photo">Photo de l'article : </label>
@@ -32,12 +32,13 @@
 	<label for="fin">Fin de l'enchère : </label>
 	<input type="date" id="fin" th:field="*{dateFinEncheres}"><br>
 	
-	 <fieldset>
+	 <fieldset th:object="${utilisateur}">
 	
 		<legend>Retrait</legend>
 		
+		<!-- Modification de rue uniquement, pour tester comment préremplir en fonction de l'adresse de l'utilisateur connecté -->
 		<label for="rue">Rue : </label>
-		<input type="text" id="rue" th:field="*{retrait.rue}"><br>
+		<input type="text" id="rue" th:field="*{utilisateur.rue}"><br>
 		
 		<label for="codePostal">Code postal : </label>
 		<input type="text" id="codePostal" th:field="*{retrait.codePostal}"><br>
@@ -48,7 +49,7 @@
 	</fieldset>
 	
 	<button type="submit">Enregistrer</button>
-	<input type="button" value="Annuler">
+	<a href="/encheresConnecte"><button type="button">Annuler</button></a>
 	<input type="button" value="Annuler la vente">
 	
 

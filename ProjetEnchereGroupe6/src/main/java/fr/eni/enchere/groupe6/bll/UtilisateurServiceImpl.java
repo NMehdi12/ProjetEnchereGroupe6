@@ -24,16 +24,29 @@ public class UtilisateurServiceImpl implements UtilisateurService {
 
 	@Override
 	public void enregistrerUtilisateur(Utilisateur utilisateur) {
-		utilisateur.setMotDePasse(passwordEncoder.encode(utilisateur.getMotDePasse()));
-		System.out.println(utilisateur.getMotDePasse());
-		utilisateurDAO.save(utilisateur);
-		
+	    try {
+	        if (afficherParPseudo(utilisateur.getPseudo()) != null) {
+	            System.out.println("Le pseudo existe déjà");
+	        } else {
+	            utilisateur.setMotDePasse(passwordEncoder.encode(utilisateur.getMotDePasse()));
+	            System.out.println(utilisateur.getMotDePasse());
+	            utilisateurDAO.save(utilisateur);
+	        }
+	    } catch (Exception e) {
+	        System.out.println("Une erreur s'est produite : " + e.getMessage());
+	    }
 	}
 
 	@Override
 	public void supprimerUtilisateur(Utilisateur utilisateur) {
 		utilisateurDAO.delete(utilisateur.getNoUtilisateur());
 		
+	}
+
+	@Override
+	public Utilisateur afficherParPseudo(String pseudo) {
+		
+		return utilisateurDAO.findByPseudo(pseudo);
 	}
 
 }
