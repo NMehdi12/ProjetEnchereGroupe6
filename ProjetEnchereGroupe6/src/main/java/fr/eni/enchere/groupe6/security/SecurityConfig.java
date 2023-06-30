@@ -55,15 +55,13 @@ public class SecurityConfig {
 				.requestMatchers( "/encherir").authenticated()
 				.requestMatchers( "/nouvelleVente").authenticated()
 				.requestMatchers( "/modifierVente").authenticated()
-				.requestMatchers( "/nouvelleVente").permitAll()
 				.requestMatchers( "/inscription" ).permitAll()
-				.requestMatchers( "/login" ).permitAll()
 				.requestMatchers( "/connexion" ).permitAll()
 				.requestMatchers("/encheres").permitAll()
 				.requestMatchers("/").permitAll()
 				
 			);
-		http.formLogin(Customizer.withDefaults());
+		
 		return http.build();
 	}	
 	
