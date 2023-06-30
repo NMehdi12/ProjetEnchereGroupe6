@@ -60,7 +60,7 @@ public class SecurityConfig {
 			
 			
 			.authorizeHttpRequests( auth -> auth
-				.requestMatchers( "/encheresMesVentes").authenticated()
+				/*.requestMatchers( "/encheresMesVentes").authenticated()
 				.requestMatchers( "/encheresConnecte").authenticated()
 				.requestMatchers( "/monProfil").authenticated()
 				.requestMatchers( "/profil").authenticated()
@@ -70,7 +70,11 @@ public class SecurityConfig {
 				.requestMatchers( "/inscription" ).permitAll()
 				.requestMatchers( "/connexion" ).permitAll()
 				.requestMatchers("/encheres").permitAll()
-				.requestMatchers("/").permitAll()
+				.requestMatchers("/").permitAll()*/
+				.requestMatchers("/css/*").permitAll().requestMatchers("/images/*").permitAll()
+					.requestMatchers("/inscription","/","/encheres","/connexion").permitAll()
+					.anyRequest().authenticated()
+				
 				
 				
 				
