@@ -5,17 +5,17 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import fr.eni.enchere.groupe6.bll.ArticleVenduService;
+import fr.eni.enchere.groupe6.bll.CategorieService;
 import fr.eni.enchere.groupe6.bll.UtilisateurServiceImpl;
 import fr.eni.enchere.groupe6.bo.ArticleVendu;
+import fr.eni.enchere.groupe6.bo.Categorie;
 import fr.eni.enchere.groupe6.bo.Utilisateur;
-import jakarta.validation.Valid;
 
 @Controller
 @RequestMapping
@@ -24,10 +24,13 @@ public class EnchereController {
 	private ArticleVenduService articleVenduService;
 	@Autowired
 	private UtilisateurServiceImpl utilisateurService;
+	
+	private CategorieService categorieService;
 
-	public EnchereController(ArticleVenduService articleVenduService) {
+	public EnchereController(ArticleVenduService articleVenduService,CategorieService categorieService) {
 		super();
 		this.articleVenduService = articleVenduService;
+		this.categorieService=categorieService;
 	}
 
 	@GetMapping({ "/", "/encheres" })
@@ -56,6 +59,7 @@ public class EnchereController {
 
 	@GetMapping("/inscription")
 	public String creerCompte(@ModelAttribute("utilisateur") Utilisateur utilisateur) {
+		
 		return "PageCreerCompte";
 	}
 
@@ -102,7 +106,13 @@ public class EnchereController {
 	}
 
 	@GetMapping("/nouvelleVente")
-	public String vueAjouterVente(@ModelAttribute("articleVendu") ArticleVendu articleVendu) {
+	public String vueAjouterVente(@ModelAttribute("articleVendu") ArticleVendu articleVendu, Model model) {
+		List<Categorie> categories = categorieService.afficherListeCategorie();
+		//Utilisateur utilisateur = utilisateurService.afficherParNoUtilisateur(null);
+		
+		model.addAttribute("categories", categories);
+		//model.addAttribute("utilisateur", utilisateur);
+		
 		return "PageVendreUnArticle";
 	}
 

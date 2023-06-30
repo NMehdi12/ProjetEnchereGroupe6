@@ -17,9 +17,9 @@ import fr.eni.enchere.groupe6.bo.Retrait;
 public class RetraitDAOImpl implements RetraitDAO{
 	
 	private static final String INSERT = "insert into RETRAITS (no_article, rue, codePostal, ville) values (:no_article, :rue, :code_postal, :ville)"; 
-	private static final String FIND_ID = "select * from RETRAITS where no_article=:no_article"; 
+	private static final String FIND_ID = "select *  from RETRAITS where no_article=:no_article"; 
 	private static final String FIND_ALL = "select * from RETRAITS";
-	private static final String DELETE = "delete from RETRAITS where no_article = :noArticle";
+	private static final String DELETE = "delete from RETRAITS where no_article = :no_article";
 	
 	@Autowired
 	private NamedParameterJdbcTemplate njt;
@@ -27,23 +27,24 @@ public class RetraitDAOImpl implements RetraitDAO{
 	@Autowired
 	private ArticleVenduDAO articleVenduDAO;
 	
-	@Autowired
-	private UtilisateurDAO utilisateurDAO;
+	
 	
 	// Classe interne
 	class RetraitRowMapper implements RowMapper<Retrait> {
 
 		@Override
 		public Retrait mapRow(ResultSet rs, int rowNum) throws SQLException {
+			System.out.println("je passe par le rowmapper de retrait");
 			Retrait retrait = new Retrait();
 			retrait.setRue(rs.getString("rue"));
 			retrait.setCodePostal(rs.getString("code_postal"));
 			retrait.setVille(rs.getString("ville"));
+			System.out.println("je passe par le rowmapper de retrait");
 			
-			ArticleVendu articleVendu = null;
+			ArticleVendu articleVendu = new ArticleVendu();
 			
 			try {
-				articleVendu = articleVenduDAO.findById(rs.getInt("no_utilisateur"));
+				articleVendu = articleVenduDAO.findById(rs.getInt("no_article"));
 			} catch (SQLException e) {
 				e.printStackTrace();
 			}
@@ -61,11 +62,12 @@ public class RetraitDAOImpl implements RetraitDAO{
 	}
 
 	@Override
-	public Retrait findById(Integer id) {
-		ArticleVendu articleVendu = new ArticleVendu();
-		MapSqlParameterSource paramSrc = new MapSqlParameterSource("no_article", articleVendu.getNoArticle());
+	public Retrait findById(Integer noArticle) {
+		
+		MapSqlParameterSource paramSrc = new MapSqlParameterSource("no_article",noArticle);
 		
 		Retrait retrait = njt.queryForObject(FIND_ID, paramSrc, new RetraitRowMapper());
+		System.out.println("allo");	
 		
 		
 		return retrait;
