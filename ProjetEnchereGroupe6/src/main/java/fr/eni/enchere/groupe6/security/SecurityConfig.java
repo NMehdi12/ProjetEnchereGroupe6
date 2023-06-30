@@ -49,8 +49,19 @@ public class SecurityConfig {
 			.logout(Customizer.withDefaults())
 			.authorizeHttpRequests( auth -> auth
 				.requestMatchers( "/encheresMesVentes").authenticated()
+				.requestMatchers( "/encheresConnecte").authenticated()
+				.requestMatchers( "/monProfil").authenticated()
+				.requestMatchers( "/profil").authenticated()
+				.requestMatchers( "/encherir").authenticated()
+				.requestMatchers( "/nouvelleVente").authenticated()
+				.requestMatchers( "/modifierVente").authenticated()
+				.requestMatchers( "/nouvelleVente").permitAll()
 				.requestMatchers( "/inscription" ).permitAll()
+				.requestMatchers( "/login" ).permitAll()
+				.requestMatchers( "/connexion" ).permitAll()
 				.requestMatchers("/encheres").permitAll()
+				.requestMatchers("/").permitAll()
+				
 			);
 		http.formLogin(Customizer.withDefaults());
 		return http.build();
