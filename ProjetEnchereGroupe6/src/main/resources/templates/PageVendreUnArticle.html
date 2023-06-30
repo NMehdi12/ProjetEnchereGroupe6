@@ -32,13 +32,13 @@
 	<label for="fin">Fin de l'enchère : </label>
 	<input type="date" id="fin" th:field="*{dateFinEncheres}"><br>
 	
-	 <fieldset>
+	 <fieldset th:object="${utilisateur}">
 	
 		<legend>Retrait</legend>
 		
 		<!-- Modification de rue uniquement, pour tester comment préremplir en fonction de l'adresse de l'utilisateur connecté -->
 		<label for="rue">Rue : </label>
-		<input type="text" id="rue" th:value="§{retrait.rue}"><br>
+		<input type="text" id="rue" th:field="*{utilisateur.rue}"><br>
 		
 		<label for="codePostal">Code postal : </label>
 		<input type="text" id="codePostal" th:field="*{retrait.codePostal}"><br>
