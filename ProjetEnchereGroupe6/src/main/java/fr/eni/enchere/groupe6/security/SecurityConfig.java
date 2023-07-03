@@ -47,7 +47,6 @@ public class SecurityConfig {
 		http
 			
 			.formLogin(Customizer.withDefaults())
-			//.logout(Customizer.withDefaults())
 			.logout(logout-> 
 			logout 
 			.invalidateHttpSession(true)
@@ -72,7 +71,7 @@ public class SecurityConfig {
 				.requestMatchers("/encheres").permitAll()
 				.requestMatchers("/").permitAll()*/
 				.requestMatchers("/css/*").permitAll().requestMatchers("/images/*").permitAll()
-					.requestMatchers("/inscription","/","/encheres","/connexion").permitAll()
+					.requestMatchers("/inscription","/","/encheres","/connexion","/rechercher").permitAll()
 					.anyRequest().authenticated()
 				
 				
