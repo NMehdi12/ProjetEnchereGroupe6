@@ -3,23 +3,87 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
-
+<link rel="stylesheet" href="./css/style.css">
 <link
 	href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css"
 	rel="stylesheet"
 	integrity="sha384-9ndCyUaIbzAi2FUVXJi0CjmCapSmO7SnpJef0486qhLnuZ2cdeRhO02iuK6FUUVM"
 	crossorigin="anonymous">
-	<link rel="stylesheet" href="./css/style.css">
-	
-</head>
+
 
 </head>
+
 <body>
+	<nav class="navbar navbar-light bg-light">
+		<a class="navbar-brand" href="/encheres"> <img
+			src="/images/LogoSansFond.png" width="80" height="60"
+			class="d-inline-block align-bottom" alt=""> ENI Enchères
+		</a>
+	</nav>
+	<nav class="navbar navbar-expand-lg bg-body-tertiary">
+		<div class="container-fluid">
+			<a class="navbar-brand" href="/encheres">Ventes en cours</a>
+			<button class="navbar-toggler" type="button"
+				data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent"
+				aria-controls="navbarSupportedContent" aria-expanded="false"
+				aria-label="Toggle navigation">
+				<span class="navbar-toggler-icon"></span>
+			</button>
+			<div class="collapse navbar-collapse" id="navbarSupportedContent">
+				<ul class="navbar-nav me-auto mb-2 mb-lg-0">
+					<li class="nav-item"><a class="nav-link active"
+						aria-current="page" href="login">Se connecter</a></li>
+					<li class="nav-item"><a class="nav-link active"
+						aria-current="page" href="/logout">Se déconnecter</a></li>
+					<li class="nav-item"><a class="nav-link active"
+						aria-current="page" href="/inscription">S'inscrire</a></li>
+					<li class="nav-item"><a class="nav-link active"
+						aria-current="page" href="/nouvelleVente">Créer une vente</a></li>
+					<li class="nav-item"><a class="nav-link active"
+						aria-current="page" href="/monProfil">Mon profil</a></li>
+					<form class="d-flex" role="search" th:action="@{/rechercher}"
+						method="post">
+						<input class="form-control me-2" type="text" name="nomArticle"
+							placeholder="Rechercher un produit">
+							<button class="btn btn-outline-success" type="submit">Rechercher</button>
+					</form>
+						<tbody>
+							<tr th:each="l : ${articleVendu}" th:field="${l}">
+								<td th:text="${lStat.index+1}"></td>
+								<td th:text="${l.nomArticle}"></td>
+								<td th:text="${l.prixVente}"></td>
+								<td th:text="${l.dateFinEncheres}"></td>
+								<td th:text="${l.utilisateur.pseudo}"></td>
+								<td th:text="${l.categorie.libelle}"></td>
+								<td></td>
+							</tr>
+						</tbody>
+						
+				</ul>
 
+				<!--  <li class="nav-item dropdown">
+          <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+            Catégorie
+          </a>
+          <ul class="dropdown-menu">
+            <li><a class="dropdown-item" href="#">Action</a></li>
+            <li><a class="dropdown-item" href="#">Another action</a></li>
+            <li><hr class="dropdown-divider"></li>
+            <li><a class="dropdown-item" href="#">Something else here</a></li>
+          </ul>
+           </ul>
+      <form class="d-flex" role="search">
+        <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
+        <button class="btn btn-outline-success" type="submit">Search</button>
+      </form>-->
+			</div>
+		</div>
+	</nav>
 
+	<nav class="navbar navbar-expand-lg bg-body-tertiary">
 
-	<div class="h-100 d-flex align-items-center justify-content-center">
-		<div style="background: #8FBC8F">
+		<!-- <div class="h-100 d-flex align-items-center justify-content-center">
+		<div >
 
 			<h1>Liste des enchères</h1>
 			<p>Filtre :</p>
@@ -32,63 +96,65 @@
 				placeholder="Rechercher un produit">
 
 			<!-- Liste déroulante -->
-			<!-- <select id="categoryDropdown" th:field="*{articleVendu}" required>
+		<!-- <select id="categoryDropdown" th:field="*{articleVendu}" required>
 		<option value="">Toutes</option>
 		<option th:each="categorie: ${@categorieService.getListeCategorie()}"
 			th:value="${categorie.noCategorie}" th:text="${categorie.libelle}"></option>
 	</select> -->
 
-			<!-- Bouton "Rechercher" -->
+		<!-- Bouton "Rechercher" 
 			<button>Rechercher</button>
+			-->
 
-			<div class="row row-cols-1 row-cols-md-2 g-4">
-
+		<div class="row row-cols-1 row-cols-md-2 g-4">
 			<!-- Liste de produits -->
-
 			<div data-th-each="articleVendu : ${articlesVendus}">
-
-
-			<!-- Chemin à modifier 
+				<!-- Chemin à modifier 
 		<img th:src="@{'/images/' + ${articleVendu.noArticle} + '.jpg'}" alt="image">-->
-					<div class="col">
-						<div class="card">
-							<img
-								src="https://mdbcdn.b-cdn.net/img/new/standard/city/044.webp"
-								class="card-img-top" alt="Skyscrapers" />
-							<div class="card-body">
-								<p class="card-title">
-									<a data-th-text="${articleVendu.nomArticle}"
-										data-th-href="@{/encherir}"></a>
-								</p>
-								<p>
-									Prix : <span data-th-text="${articleVendu.prixVente}"></span>
-									points
-								</p>
+				<div class="col">
+					<div class="card">
+
+						<img
+							th:src="@{'/images/' + ${articleVendu.categorie.noCategorie} + '.png'}"
+							alt="image categorie">
+
+						<div class="card-body">
+							<p class="card-title">
+								<a data-th-text="${articleVendu.nomArticle}"
+									data-th-href="@{/encherir}"></a>
+							</p>
+							<p>
+								Prix : <span data-th-text="${articleVendu.prixVente}"></span>
+								points
+							</p>
 
 
-								<p>
-									Fin de l'enchère : <span
-										data-th-text="${articleVendu.dateFinEncheres}"></span>
-								</p>
-								<!-- <p>Fin de l'enchère : <span data-th-text="${articleV.noCategorie}"></span></p> -->
-								<p>
-									Pseudo utilisateur : <span
-										data-th-text="${articleVendu.utilisateur.pseudo}"></span>
-								</p>
-								<p>
-									Catégorie : <span
-										data-th-text="${articleVendu.categorie.libelle}"></span>
-								</p>
-								<a href="#!" class="btn btn-primary">Button</a>
-							</div>
+							<p>
+								Fin de l'enchère : <span
+									data-th-text="${articleVendu.dateFinEncheres}"></span>
+							</p>
+							<!-- <p>Fin de l'enchère : <span data-th-text="${articleV.noCategorie}"></span></p> -->
+							<p>
+								Pseudo utilisateur : <a
+									data-th-text="${articleVendu.utilisateur.pseudo}"
+									data-th-href="@{/profil(pseudo=${articleVendu.utilisateur.pseudo})}">
+								</a>
+							</p>
+							<p>
+								Catégorie : <span
+									data-th-text="${articleVendu.categorie.libelle}"></span>
+							</p>
+							<a href="#!" class="btn btn-primary">Button</a>
 						</div>
 					</div>
 				</div>
 			</div>
+		</div>
 
 		</div>
 
-	</div>
+		</div>
+	</nav>
 
 	<script
 		src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"
