@@ -22,6 +22,7 @@ public class UtilisateurDAOImpl implements UtilisateurDAO {
 	private static final String INSERT = "insert into UTILISATEURS (pseudo, nom, prenom, email, telephone, rue, code_postal, ville, mot_de_passe, credit, administrateur) "
 			+ "values (:pseudo, :nom, :prenom, :email, :telephone, :rue, :code_postal, :ville, :mot_de_passe, :credit, :administrateur)";
 	private final static String DELETE = "delete  UTILISATEURS where no_utilisateur= :noUtilisateur";
+	private final static String FIND_NO_USER_BY_PSEUDO = "select no_utilisateur from UTILISATEURS where pseudo = :pseudo";
 
 	private NamedParameterJdbcTemplate njt;
 
@@ -105,6 +106,15 @@ List<Utilisateur> utilisateurs = njt.query(FIND_BY_PSEUDO, paramSrc, new Utilisa
 	public void delete(Integer noUtilisateur) {
 		Utilisateur utilisateur = new Utilisateur();
 		njt.update(DELETE, new BeanPropertySqlParameterSource(utilisateur));
+	}
+
+	@Override
+	public Integer findNoUtilisateurByPseudo(String pseudo) {
+		Integer noUtilisateur;
+		MapSqlParameterSource paramSrc = new MapSqlParameterSource("pseudo", pseudo);
+		
+noUtilisateur = njt.queryForObject(FIND_NO_USER_BY_PSEUDO, paramSrc, Integer.class);
+		return noUtilisateur;
 	}
 
 }

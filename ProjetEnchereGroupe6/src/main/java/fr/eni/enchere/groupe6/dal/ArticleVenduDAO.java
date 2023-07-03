@@ -2,6 +2,8 @@ package fr.eni.enchere.groupe6.dal;
 
 import java.util.List;
 
+import org.springframework.security.core.Authentication;
+
 import fr.eni.enchere.groupe6.bo.ArticleVendu;
 
 
@@ -10,7 +12,9 @@ List<ArticleVendu> findAll();
 	
 	ArticleVendu findById(Integer id);
 
-	void save(ArticleVendu articleVendu);
+	void save(ArticleVendu articleVendu, Authentication authentication);
 	
 	void delete(ArticleVendu articleVendu);
+
+	List<ArticleVendu> findByNom(String nomArticle);
 }
