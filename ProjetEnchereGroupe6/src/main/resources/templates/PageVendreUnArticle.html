@@ -10,7 +10,7 @@
 <form th:action="nouvelleVente" th:object="${articleVendu}" method="post">
 
 	<label for="nom">Article : </label>
-	<input type="text" id="nom" th:field="*{nomArticle}"><br>
+	<input type="text" id="nom" th:field="*{nomArticle}" autofocus><br>
 	
 	<label for="description">Description : </label>
 	<textarea id="description" th:field="*{description}"></textarea><br>
@@ -23,11 +23,8 @@
 	<label for="photo">Photo de l'article : </label>
 	<input type="file" id="photo"><br>
 	
-	<!-- <label for="miseAPrix">Mise à prix : </label>
-	<input type="number" id="miseAPrix" th:field="*{miseAPrix}"><br> -->
-	
-	<label for="debut">Début de l'enchère : </label>
-	<input type="date" id="debut" th:field="*{dateDebutEncheres}"><br>
+	<label for="miseAPrix">Mise à prix : </label>	<input type="number" id="miseAPrix" th:field="*{miseAPrix}"><br>
+	<label for="debut">Début de l'enchère : </label>	<input type="date" id="debut" th:field="*{dateDebutEncheres}"><br>
 	
 	<label for="fin">Fin de l'enchère : </label>
 	<input type="date" id="fin" th:field="*{dateFinEncheres}"><br>
@@ -38,13 +35,13 @@
 		
 		<!-- Modification de rue uniquement, pour tester comment préremplir en fonction de l'adresse de l'utilisateur connecté -->
 		<label for="rue">Rue : </label>
-		<input type="text" id="rue" th:field="*{utilisateur.rue}"><br>
+		<input type="text" id="rue" th:field="*{rue}"><br>
 		
 		<label for="codePostal">Code postal : </label>
-		<input type="text" id="codePostal" th:field="*{retrait.codePostal}"><br>
+		<input type="text" id="codePostal" th:field="*{codePostal}"><br>
 		
 		<label for="ville">Ville : </label>
-		<input type="text" id="ville" th:field="*{retrait.ville}">
+		<input type="text" id="ville" th:field="*{ville}">
 		
 	</fieldset>
 	

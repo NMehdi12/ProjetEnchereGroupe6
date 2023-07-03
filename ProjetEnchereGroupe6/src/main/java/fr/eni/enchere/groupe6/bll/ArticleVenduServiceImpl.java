@@ -1,8 +1,9 @@
 package fr.eni.enchere.groupe6.bll;
 
+import java.security.Principal;
 import java.util.List;
 
-import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Service;
 
 import fr.eni.enchere.groupe6.bo.ArticleVendu;
@@ -36,12 +37,12 @@ public class ArticleVenduServiceImpl implements ArticleVenduService {
 	@Override
 	public List<ArticleVendu> afficherResultatRecherche(String nomArticle) {
 		// TODO Auto-generated method stub
-		return null;
+		return articleVenduDao.findByNom(nomArticle);
 	}
 
 	@Override
-	public void enregistrerArticle(ArticleVendu articleVendu) {
-		articleVenduDao.save(articleVendu);
+	public void enregistrerArticle(ArticleVendu articleVendu, Authentication authentication) {
+		articleVenduDao.save(articleVendu, authentication);
 		
 	}
 

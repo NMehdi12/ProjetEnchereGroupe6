@@ -38,6 +38,7 @@ public class CategorieDAOImpl implements CategorieDAO {
 		//Map<String, Object> params = new HashMap<>();
 		Categorie categorie = npJdbcTemplate.queryForObject(FIND_BY_ID, params, new CetegorieRowMapper());
 		System.out.println("je passe par findbyid de categorie" );
+		System.out.println("Le numéroe de catégorie est : " + noCategorie);
 		
 		
 //		Categorie categorie = null;

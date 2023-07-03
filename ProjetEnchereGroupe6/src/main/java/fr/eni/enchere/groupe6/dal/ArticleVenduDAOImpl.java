@@ -5,9 +5,11 @@ import java.sql.SQLException;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
 import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
+import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Repository;
 
 import fr.eni.enchere.groupe6.bo.ArticleVendu;
@@ -26,6 +28,9 @@ public class ArticleVenduDAOImpl implements ArticleVenduDAO {
 	private NamedParameterJdbcTemplate npJdbcTemplate;
 	
 	@Autowired
+	private JdbcTemplate jdbcTemplate;
+	
+	@Autowired
 	private UtilisateurDAO utilisateurDAO;
 	
 	@Autowired
@@ -33,6 +38,11 @@ public class ArticleVenduDAOImpl implements ArticleVenduDAO {
 	
 
 	private RetraitDAO retraitDAO;
+	
+	public ArticleVenduDAOImpl (JdbcTemplate jdbcTemplate) {
+		super();
+		this.jdbcTemplate = jdbcTemplate;
+	}
 	
 	public void setRetraitDAO (RetraitDAO retraitDAO) {
 		this.retraitDAO=retraitDAO;
@@ -55,15 +65,20 @@ public class ArticleVenduDAOImpl implements ArticleVenduDAO {
 	}
 
 	@Override
-	public void save(ArticleVendu articleVendu) {
+	public void save(ArticleVendu articleVendu, Authentication authentication) {
+		String nomUtilisateur = authentication.getName();
+		Integer noUtilisateur = utilisateurDAO.findNoUtilisateurByPseudo(nomUtilisateur);
+		
 		MapSqlParameterSource paramSrc = new MapSqlParameterSource("nom_article", articleVendu.getNomArticle());
 		paramSrc.addValue("description", articleVendu.getDescription());
 		paramSrc.addValue("date_debut_encheres", articleVendu.getDateDebutEncheres());
 		paramSrc.addValue("date_fin_encheres", articleVendu.getDateFinEncheres());
 		paramSrc.addValue("prix_initial", articleVendu.getMiseAPrix());
 		paramSrc.addValue("prix_vente", articleVendu.getPrixVente());
-		paramSrc.addValue("no_utilisateur", articleVendu.getUtilisateur().getNoUtilisateur());
+		paramSrc.addValue("no_utilisateur", noUtilisateur);
 		paramSrc.addValue("no_categorie", articleVendu.getCategorie().getNoCategorie());
+		
+		System.out.println("Enregistrement de l'article");
 		
 		npJdbcTemplate.update(INSERT, paramSrc);
 		
@@ -136,6 +151,16 @@ public class ArticleVenduDAOImpl implements ArticleVenduDAO {
 		
 		
 		
+	}
+
+
+	@Override
+	public List<ArticleVendu> findByNom(String nomArticle) {
+		String FIND_BY_NOM = "SELECT * FROM  ARTICLES_VENDUS WHERE nom_article LIKE ?";
+
+        String recherche = "%" + nomArticle + "%";
+
+        return jdbcTemplate.query(FIND_BY_NOM, new ArticleRowMapper() ,recherche );
 	}
 	
 	

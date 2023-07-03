@@ -11,4 +11,6 @@ public interface UtilisateurService {
 	public void supprimerUtilisateur(Utilisateur utilisateur);
 	
 	public Utilisateur afficherParPseudo(String pseudo);
+	
+	public void recupererUtilisateurConnecte();
 }
