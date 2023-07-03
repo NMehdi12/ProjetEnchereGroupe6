@@ -162,6 +162,16 @@ public class ArticleVenduDAOImpl implements ArticleVenduDAO {
 
         return jdbcTemplate.query(FIND_BY_NOM, new ArticleRowMapper() ,recherche );
 	}
+
+	@Override
+	public List<ArticleVendu> findByCategorie(Categorie categorie) {
+		String FIN_BY_CATEGORIE = "SELECT * FROM ARTICLES_VENDUS WHERE no_categorie LIKE ?";
+		String rechercheParCategorie = "%" + categorie + "%";
+		System.out.println("passe par findByCategorie");
+		return jdbcTemplate.query(FIN_BY_CATEGORIE, new ArticleRowMapper(), rechercheParCategorie);
+		
+		
+	}
 	
 	
 }

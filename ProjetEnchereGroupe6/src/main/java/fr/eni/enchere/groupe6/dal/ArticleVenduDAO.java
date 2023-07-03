@@ -5,10 +5,11 @@ import java.util.List;
 import org.springframework.security.core.Authentication;
 
 import fr.eni.enchere.groupe6.bo.ArticleVendu;
+import fr.eni.enchere.groupe6.bo.Categorie;
 
 
 public interface ArticleVenduDAO {
-List<ArticleVendu> findAll();
+	List<ArticleVendu> findAll();
 	
 	ArticleVendu findById(Integer id);
 
@@ -17,4 +18,7 @@ List<ArticleVendu> findAll();
 	void delete(ArticleVendu articleVendu);
 
 	List<ArticleVendu> findByNom(String nomArticle);
+	
+	List<ArticleVendu> findByCategorie(Categorie categorie);
+	
 }

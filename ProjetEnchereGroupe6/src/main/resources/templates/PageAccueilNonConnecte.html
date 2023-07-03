@@ -3,12 +3,13 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
-<link rel="stylesheet" href="./css/style.css">
 <link
-	href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css"
-	rel="stylesheet"
-	integrity="sha384-9ndCyUaIbzAi2FUVXJi0CjmCapSmO7SnpJef0486qhLnuZ2cdeRhO02iuK6FUUVM"
-	crossorigin="anonymous">
+    href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css"
+    rel="stylesheet"
+    integrity="sha384-9ndCyUaIbzAi2FUVXJi0CjmCapSmO7SnpJef0486qhLnuZ2cdeRhO02iuK6FUUVM"
+    crossorigin="anonymous">
+<link rel="stylesheet" href="./css/style.css">
+	
 
 
 </head>
@@ -47,11 +48,42 @@
 							placeholder="Rechercher un produit">
 							<button class="btn btn-outline-success" type="submit">Rechercher</button>
 					</form>
-
-						
 				</ul>
+				<form class="d-flex" role="search" th:action="@{/filtreCategorie}" th:object="${articleVendu}"
+						method="get">
+						<!-- <input class="form-control me-2" type="text" name="categorie"
+							placeholder="Rechercher un produit"> -->
+							<label for="categorie">Categorie :</label>
+								<!-- <select id="categorie" name="categorie"></select> -->
+								
+								<!--  --><select id="categorie" >
+								<option th:each ="cat:${categories}" th:value="${cat.noCategorie}" name="categorie"
+								th:text="${cat.libelle}"></option>
+								</select>
+							<button class="btn btn-outline-success" type="submit">Rechercher</button>
+					</form>
+				
+				
+				
 
-				<!--  <li class="nav-item dropdown">
+
+	<!-- <form th:action="@{/filtreCategorie}" method="get">
+		<label for="categorie">Categorie :</label>
+		<select id="categorie" name="categorie">
+			<option value="">Toutes les catégories</option>
+    		<option>Informatique</option>
+    		<option value="Ameublement">Ameublement</option>
+    		<option value="Vêtements">Vêtements</option>
+    		<option value="Sport & Loisirs">Sport & Loisirs</option>
+    		<option value="Vehicule">Véhicule</option>
+		</select>
+		<button type="submit">Filtrer</button>
+	
+	</form> -->
+
+	
+
+		<!--   <li class="nav-item dropdown">
           <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
             Catégorie
           </a>
@@ -65,11 +97,11 @@
       <form class="d-flex" role="search">
         <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
         <button class="btn btn-outline-success" type="submit">Search</button>
-      </form>-->
+      </form> -->		
 			</div>
 		</div>
 	</nav>
-						<tbody>
+	<!-- 			<tbody>
 							<tr th:each="l : ${articleVendu}" th:field="${l}">
 								<td th:text="${lStat.index+1}"></td>
 								<td th:text="${l.nomArticle}"></td>
@@ -80,6 +112,85 @@
 								<td></td>
 							</tr>
 						</tbody>
+						
+						
+		<div class="row row-cols-1 row-cols-md-2 g-4">
+				<div class="col">
+					<div class="card">
+					
+							<div class="card-body">
+								
+								<tbody>
+								<tr th:each="l : ${articleVendu}" th:field="${l}">
+								<td th:text="${lStat.index+1}"></td>
+								<td th:text="${l.nomArticle}"></td>
+								<td th:text="${l.prixVente}"></td>
+								<td th:text="${l.dateFinEncheres}"></td>
+								<td th:text="${l.utilisateur.pseudo}"></td>
+								<td th:text="${l.categorie.libelle}"></td>
+								<td></td>
+							</tr>
+								</tbody>
+							</p>
+								
+					</div>
+				</div>
+			</div>				
+					 -->		
+		
+
+		
+	<nav class="navbar navbar-expand-lg bg-body-tertiary">
+		<div class="row row-cols-1 row-cols-md-2 g-4">
+			<!-- Liste de produits -->
+			<div data-th-each="l : ${articleVendu}" th:field="${l}">
+				<!-- Chemin à modifier 
+		<img th:src="@{'/images/' + ${articleVendu.noArticle} + '.jpg'}" alt="image">-->
+				<div class="col">
+					<div class="card">
+
+						<img
+							th:src="@{'/images/' + ${l.categorie.noCategorie} + '.png'}"
+							alt="image categorie">
+
+						<div class="card-body">
+							<p class="card-title">
+								<a data-th-text="${l.nomArticle}"
+									data-th-href="@{/encherir}"></a>
+							</p>
+							<p>
+								Prix : <span data-th-text="${l.prixVente}"></span>
+								points
+							</p>
+
+							<p>
+								Fin de l'enchère : <span
+									data-th-text="${l.dateFinEncheres}"></span>
+							</p>
+							<!-- <p>Fin de l'enchère : <span data-th-text="${articleV.noCategorie}"></span></p> -->
+							<p>
+								Pseudo utilisateur : <a
+									data-th-text="${l.utilisateur.pseudo}"
+									data-th-href="@{/profil(pseudo=${l.utilisateur.pseudo})}">
+								</a>
+							</p>
+							<p>
+								Catégorie : <span
+									data-th-text="${l.categorie.libelle}"></span>
+							</p>
+							<a href="#!" class="btn btn-primary">Button</a>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</nav>
+		
+
+		
+							
+						
+						
 	<nav class="navbar navbar-expand-lg bg-body-tertiary">
 
 		<!-- <div class="h-100 d-flex align-items-center justify-content-center">
@@ -156,8 +267,8 @@
 	</nav>
 
 	<script
-		src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"
-		integrity="sha384-geWF76RCwLtnZ8qwWowPQNguL3RmwHVBC9FhGdlKrxdiJJigb/j/68SIy3Te4Bkz"
-		crossorigin="anonymous"></script>
+        src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-geWF76RCwLtnZ8qwWowPQNguL3RmwHVBC9FhGdlKrxdiJJigb/j/68SIy3Te4Bkz"
+        crossorigin="anonymous"></script>
 </body>
 </html>

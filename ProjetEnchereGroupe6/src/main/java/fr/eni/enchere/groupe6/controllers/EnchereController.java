@@ -37,10 +37,14 @@ public class EnchereController {
 	}
 
 	@GetMapping({ "/", "/encheres" })
-	public String afficherListeEnchere(Model model) {
+	public String afficherListeEnchere(@ModelAttribute ("categorie") Categorie categorie,Model model) {
 		List<ArticleVendu> articlesVendus = articleVenduService.afficherArticlesVendus();
+		List<Categorie> categories = categorieService.afficherListeCategorie();
+		
 		model.addAttribute("articlesVendus", articlesVendus);
+		model.addAttribute("categories", categories);
 		System.out.println(articlesVendus.toString());
+		
 		return "PageAccueilNonConnecte";
 	}
 
@@ -84,20 +88,27 @@ public class EnchereController {
 	// }
 	
 	@GetMapping("/rechercher")
-
     public String rechercherParNom (@RequestParam ("nomArticle") String nomArticle, Model modele){
-
         List<ArticleVendu> articleVendus = articleVenduService.afficherResultatRecherche(nomArticle);
-
         modele.addAttribute("articleVendu", articleVendus);
-
         System.out.println("je passe par le controller de recherche");
-
         return "PageAccueilNonConnecte";
-
-        
-
     }
+	
+	@GetMapping("/filtreCategorie")
+	public String rechercheParCategorie (Categorie categorie, Model modele) {
+		List<ArticleVendu> articleVendus;
+		articleVendus= articleVenduService.afficherResultatParCategorie(categorie);
+		
+		List<Categorie> categories = categorieService.afficherListeCategorie();
+		
+		modele.addAttribute("articleVendu", articleVendus);
+		modele.addAttribute("categories", categories);
+		System.out.println("passe par le controller filtrecategorie");
+		return "PageAccueilNonConnecte";
+		
+	}
+	
 
 	@GetMapping("/encheresConnecte")
 	public String afficherListeEnchereConnecte() {

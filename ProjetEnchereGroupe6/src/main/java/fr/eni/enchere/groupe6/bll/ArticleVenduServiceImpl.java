@@ -7,6 +7,7 @@ import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Service;
 
 import fr.eni.enchere.groupe6.bo.ArticleVendu;
+import fr.eni.enchere.groupe6.bo.Categorie;
 import fr.eni.enchere.groupe6.dal.ArticleVenduDAO;
 
 @Service
@@ -44,6 +45,12 @@ public class ArticleVenduServiceImpl implements ArticleVenduService {
 	public void enregistrerArticle(ArticleVendu articleVendu, Authentication authentication) {
 		articleVenduDao.save(articleVendu, authentication);
 		
+	}
+
+	@Override
+	public List<ArticleVendu> afficherResultatParCategorie(Categorie categorie) {
+		
+		return articleVenduDao.findByCategorie(categorie);
 	}
 
 }
