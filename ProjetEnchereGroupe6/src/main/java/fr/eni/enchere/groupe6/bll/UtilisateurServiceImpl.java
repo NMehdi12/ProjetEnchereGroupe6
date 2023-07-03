@@ -1,5 +1,7 @@
 package fr.eni.enchere.groupe6.bll;
 
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
@@ -47,6 +49,14 @@ public class UtilisateurServiceImpl implements UtilisateurService {
 	public Utilisateur afficherParPseudo(String pseudo) {
 		
 		return utilisateurDAO.findByPseudo(pseudo);
+	}
+
+	@Override
+	public void recupererUtilisateurConnecte() {
+		System.out.println("Je passe par recupererUtilisateurConnecte");
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        authentication.getName();
+		
 	}
 
 }

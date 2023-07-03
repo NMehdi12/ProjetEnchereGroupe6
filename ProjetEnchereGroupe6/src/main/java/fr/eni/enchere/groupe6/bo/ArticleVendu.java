@@ -29,7 +29,7 @@ public class ArticleVendu {
 	@NotNull
 	@NotBlank
 	@Min (1)
-	private Integer miseAPrix;
+	private int miseAPrix;
 	@NotNull
 	@NotBlank
 	@PositiveOrZero

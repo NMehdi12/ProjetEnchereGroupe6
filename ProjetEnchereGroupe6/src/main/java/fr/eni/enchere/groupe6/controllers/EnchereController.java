@@ -3,12 +3,15 @@ package fr.eni.enchere.groupe6.controllers;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import fr.eni.enchere.groupe6.bll.ArticleVenduService;
 import fr.eni.enchere.groupe6.bll.CategorieService;
@@ -24,13 +27,13 @@ public class EnchereController {
 	private ArticleVenduService articleVenduService;
 	@Autowired
 	private UtilisateurServiceImpl utilisateurService;
-	
+
 	private CategorieService categorieService;
 
-	public EnchereController(ArticleVenduService articleVenduService,CategorieService categorieService) {
+	public EnchereController(ArticleVenduService articleVenduService, CategorieService categorieService) {
 		super();
 		this.articleVenduService = articleVenduService;
-		this.categorieService=categorieService;
+		this.categorieService = categorieService;
 	}
 
 	@GetMapping({ "/", "/encheres" })
@@ -53,19 +56,19 @@ public class EnchereController {
 
 	@PostMapping("/connexion")
 	public String seConnecter() {
-		
+
 		return "redirect:/encheresConnecte";
 	}
 
 	@GetMapping("/inscription")
 	public String creerCompte(@ModelAttribute("utilisateur") Utilisateur utilisateur) {
-		
+
 		return "PageCreerCompte";
 	}
 
 	// inscription de l'utilisateur
 	@PostMapping("/inscription")
-	public String enregistrerCompte(@ModelAttribute("utilisateur") Utilisateur utilisateur){
+	public String enregistrerCompte(@ModelAttribute("utilisateur") Utilisateur utilisateur) {
 //		if(validationResult.hasErrors()) {
 //			return "PageCreerCompte";
 //		}
@@ -73,17 +76,35 @@ public class EnchereController {
 //			System.out.println("inscription utilisateur condition");
 //			return "PageCreerCompte";
 //		} else {
-			utilisateurService.enregistrerUtilisateur(utilisateur);
-			System.out.println("inscription utilisateur");
-			return "redirect:/connexion";
-			
-		}
-	//}
+		utilisateurService.enregistrerUtilisateur(utilisateur);
+		System.out.println("inscription utilisateur");
+		return "redirect:/encheres";
+
+	}
+	// }
+	
+	@GetMapping("/rechercher")
+
+    public String rechercherParNom (@RequestParam ("nomArticle") String nomArticle, Model modele){
+
+        List<ArticleVendu> articleVendus = articleVenduService.afficherResultatRecherche(nomArticle);
+
+        modele.addAttribute("articleVendu", articleVendus);
+
+        System.out.println("je passe par le controller de recherche");
+
+        return "PageAccueilNonConnecte";
+
+        
+
+    }
 
 	@GetMapping("/encheresConnecte")
 	public String afficherListeEnchereConnecte() {
 		return "PageListeEncheresConnecte";
 	}
+	
+	
 
 	@GetMapping("/encheresMesVentes")
 	public String afficherMesVentes() {
@@ -91,8 +112,17 @@ public class EnchereController {
 	}
 
 	@GetMapping("/profil")
-	public String consulterProfil() {
+
+	public String consulterProfil(@ModelAttribute("articleVendu") ArticleVendu articleVendu,
+
+			@ModelAttribute("utilisateur") Utilisateur utilisateur, String pseudo, Model model) {
+
+		utilisateur = utilisateurService.afficherParPseudo(pseudo);
+
+		model.addAttribute(utilisateur);
+
 		return "PageProfil";
+
 	}
 
 	@GetMapping("/monProfil")
@@ -106,19 +136,26 @@ public class EnchereController {
 	}
 
 	@GetMapping("/nouvelleVente")
-	public String vueAjouterVente(@ModelAttribute("articleVendu") ArticleVendu articleVendu, Model model) {
+	public String vueAjouterVente(@ModelAttribute("articleVendu") ArticleVendu articleVendu,
+			@ModelAttribute("utilisateur") Utilisateur utilisateur, Categorie categorie, Model model) {
 		List<Categorie> categories = categorieService.afficherListeCategorie();
-		//Utilisateur utilisateur = utilisateurService.afficherParNoUtilisateur(null);
-		
+		Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+		String noUser = authentication.getName();
+
+		utilisateur = utilisateurService.afficherParPseudo(noUser);
+
+		System.out.println("Valeur de noUser : " + noUser);
 		model.addAttribute("categories", categories);
-		//model.addAttribute("utilisateur", utilisateur);
-		
+		model.addAttribute("utilisateur", utilisateur);
+
 		return "PageVendreUnArticle";
 	}
 
 	@PostMapping("/nouvelleVente")
-	public String ajouterVente(@ModelAttribute("articleVendu") ArticleVendu articleVendu) {
-		
+	public String ajouterVente(@ModelAttribute("articleVendu") ArticleVendu articleVendu,
+			Authentication authentication) {
+
+		articleVenduService.enregistrerArticle(articleVendu, authentication);
 		return "redirect:/encheresConnecte";
 	}
 
