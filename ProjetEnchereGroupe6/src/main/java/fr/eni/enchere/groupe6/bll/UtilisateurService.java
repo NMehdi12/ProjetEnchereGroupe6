@@ -12,7 +12,9 @@ public interface UtilisateurService {
 	
 	public Utilisateur afficherParPseudo(String pseudo);
 	
-	public void recupererUtilisateurConnecte();
+	public String recupererUtilisateurConnecte();
 	
 	public void majUtilisateur(Utilisateur utilisateur);
+
+	public Integer afficherNoUtilisateurViaPseudo(String pseudo);
 }
