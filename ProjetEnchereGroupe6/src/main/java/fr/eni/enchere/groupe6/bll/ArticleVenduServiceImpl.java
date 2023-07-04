@@ -1,6 +1,5 @@
 package fr.eni.enchere.groupe6.bll;
 
-import java.security.Principal;
 import java.util.List;
 
 import org.springframework.security.core.Authentication;
@@ -52,5 +51,13 @@ public class ArticleVenduServiceImpl implements ArticleVenduService {
 		
 		return articleVenduDao.findByCategorie(categorie);
 	}
+	
+	@Override
+    public void mettreAJourArticle(ArticleVendu articleVendu) {
+        System.out.println("Je passe par la méthode mettreAJourArticle de ArticleVenduServiceImpl");
+        articleVenduDao.update(articleVendu);
+        
+    }
+	
 
 }

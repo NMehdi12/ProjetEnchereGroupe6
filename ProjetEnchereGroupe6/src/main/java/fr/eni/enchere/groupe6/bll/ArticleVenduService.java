@@ -14,4 +14,5 @@ ArticleVendu afficherDetailParNoArticle(Integer noArticle);
 List<ArticleVendu> afficherResultatRecherche(String nomArticle);
 void enregistrerArticle(ArticleVendu articleVendu, Authentication authentication);
 List<ArticleVendu> afficherResultatParCategorie(Categorie categorie);
+void mettreAJourArticle(ArticleVendu articleVendu);
 }
