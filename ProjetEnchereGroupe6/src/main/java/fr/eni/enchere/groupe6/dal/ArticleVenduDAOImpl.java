@@ -2,7 +2,9 @@ package fr.eni.enchere.groupe6.dal;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
@@ -24,6 +26,7 @@ public class ArticleVenduDAOImpl implements ArticleVenduDAO {
 	private final static String INSERT = "insert into ARTICLES_VENDUS (nom_article, description, date_debut_encheres, date_fin_encheres, prix_initial, prix_vente, no_utilisateur, no_categorie) values (:nom_article, :description, :date_debut_encheres, :date_fin_encheres, :prix_initial, :prix_vente, :no_utilisateur, :no_categorie)";
 	private final static String FIND_ID = "SELECT * FROM ARTICLES_VENDUS WHERE no_article=:no_article ";
 	//private final String FIND_ALL = "SELECT nom_article, description, date_debut_encheres, date_fin_encheres, prix_initial, prix_vente FROM ARTICLES_VENDUS";
+	private final static String UPDATE = "update ARTICLES_VENDUS set nom_article = :nom_article, description = :description, date_debut_encheres = :date_debut_encheres, date_fin_encheres = :date_fin_encheres, prix_initial = :prix_initial, no_categorie = :no_categorie where no_article = :no_article";
 	@Autowired
 	private NamedParameterJdbcTemplate npJdbcTemplate;
 	
@@ -157,20 +160,39 @@ public class ArticleVenduDAOImpl implements ArticleVenduDAO {
 	@Override
 	public List<ArticleVendu> findByNom(String nomArticle) {
 		String FIND_BY_NOM = "SELECT * FROM  ARTICLES_VENDUS WHERE nom_article LIKE ?";
-
         String recherche = "%" + nomArticle + "%";
-
         return jdbcTemplate.query(FIND_BY_NOM, new ArticleRowMapper() ,recherche );
 	}
 
 	@Override
 	public List<ArticleVendu> findByCategorie(Categorie categorie) {
-		String FIN_BY_CATEGORIE = "SELECT * FROM ARTICLES_VENDUS WHERE no_categorie LIKE ?";
-		String rechercheParCategorie = "%" + categorie + "%";
-		System.out.println("passe par findByCategorie");
-		return jdbcTemplate.query(FIN_BY_CATEGORIE, new ArticleRowMapper(), rechercheParCategorie);
+		String FIN_BY_CATEGORIE = "SELECT * FROM ARTICLES_VENDUS WHERE no_categorie=:no_categorie";
+		
+		Map<String, Object> params1 = new HashMap<>();
+		params1.put("no_categorie", categorie.getNoCategorie());
+		params1.put("libelle", categorie.getLibelle());
+		List<ArticleVendu>coucou =  npJdbcTemplate.query(FIN_BY_CATEGORIE, params1, new ArticleRowMapper());
+		System.out.println("categoerie : " + categorie.getNoCategorie());
+		
+		return coucou;
 		
 		
+	}
+
+	@Override
+	public void update(ArticleVendu articleVendu) {
+		MapSqlParameterSource paramSrc = new MapSqlParameterSource("nom_article", articleVendu.getNomArticle());
+        paramSrc.addValue("description", articleVendu.getDescription());
+        paramSrc.addValue("date_debut_encheres", articleVendu.getDateDebutEncheres());
+        paramSrc.addValue("date_fin_encheres", articleVendu.getDateFinEncheres());
+        paramSrc.addValue("prix_initial", articleVendu.getMiseAPrix());
+        paramSrc.addValue("no_categorie", articleVendu.getCategorie().getNoCategorie());
+        paramSrc.addValue("no_article", articleVendu.getNoArticle());
+        
+        System.out.println("Mise à jour de l'article");
+        System.out.println("Valeurs de paramSrc : " + paramSrc.toString());
+        
+        npJdbcTemplate.update(UPDATE, paramSrc);
 	}
 	
 	

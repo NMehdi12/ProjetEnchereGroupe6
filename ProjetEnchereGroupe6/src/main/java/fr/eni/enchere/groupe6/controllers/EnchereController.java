@@ -88,15 +88,17 @@ public class EnchereController {
 	// }
 	
 	@GetMapping("/rechercher")
-    public String rechercherParNom (@RequestParam ("nomArticle") String nomArticle, Model modele){
+    public String rechercherParNom (@RequestParam ("nomArticle") String nomArticle, Categorie categorie,Model modele){
         List<ArticleVendu> articleVendus = articleVenduService.afficherResultatRecherche(nomArticle);
+    	List<Categorie> categories = categorieService.afficherListeCategorie();
         modele.addAttribute("articleVendu", articleVendus);
+        modele.addAttribute("categories", categories);
         System.out.println("je passe par le controller de recherche");
         return "PageAccueilNonConnecte";
     }
 	
 	@GetMapping("/filtreCategorie")
-	public String rechercheParCategorie (Categorie categorie, Model modele) {
+	public String rechercheParCategorie (@RequestParam Integer noCategorie,Categorie categorie, Model modele) {
 		List<ArticleVendu> articleVendus;
 		articleVendus= articleVenduService.afficherResultatParCategorie(categorie);
 		
@@ -104,6 +106,7 @@ public class EnchereController {
 		
 		modele.addAttribute("articleVendu", articleVendus);
 		modele.addAttribute("categories", categories);
+		modele.addAttribute("noCategorie", categorie.getNoCategorie());
 		System.out.println("passe par le controller filtrecategorie");
 		return "PageAccueilNonConnecte";
 		

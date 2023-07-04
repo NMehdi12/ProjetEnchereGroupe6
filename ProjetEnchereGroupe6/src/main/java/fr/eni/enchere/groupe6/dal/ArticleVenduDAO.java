@@ -16,9 +16,12 @@ public interface ArticleVenduDAO {
 	void save(ArticleVendu articleVendu, Authentication authentication);
 	
 	void delete(ArticleVendu articleVendu);
+	
+	void update(ArticleVendu articleVendu);
 
 	List<ArticleVendu> findByNom(String nomArticle);
 	
 	List<ArticleVendu> findByCategorie(Categorie categorie);
+	
 	
 }
