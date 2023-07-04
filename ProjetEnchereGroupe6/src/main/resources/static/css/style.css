@@ -10,10 +10,29 @@ body {
 }
 
 .corps
-
 {
     margin:30;
      background-image: linear-gradient(-60deg, #6c3 50%, #09f 50%);
 
 }
 
+img {
+max-width : 100px;
+max-height : 80px;
+}
+.row row-cols-1 row-cols-md-2 g-4{
+max-width : 30rem;
+max-height : 30rem;
+margin:30;
+}
+
+.col {
+max-width : 30rem;
+max-height : 30rem;
+margin:30;
+}
+
+footer {
+  position : absolute;
+  bottom : auto;
+}

@@ -73,6 +73,27 @@ public class Utilisateur {
 
 	}
 
+	// Constructeur sans la liste d'article ni d'enchere, sans crédit, administrateur, article vendu)
+	public Utilisateur(Integer noUtilisateur,
+			@NotNull @NotBlank(message = "Le numéro de téléphone doit être renseigné") String telephone,
+			String codePostal, String pseudo, @NotNull @NotBlank(message = "Champ requis") String nom,
+			@NotNull @NotBlank(message = "Champ requis") String prenom,
+			@NotNull @NotBlank(message = "Champ requis") String email, @NotNull @NotBlank String rue,
+			@NotNull @NotBlank String ville, String motDePasse) {
+		super();
+		this.noUtilisateur = noUtilisateur;
+		this.telephone = telephone;
+		this.codePostal = codePostal;
+		this.pseudo = pseudo;
+		this.nom = nom;
+		this.prenom = prenom;
+		this.email = email;
+		this.rue = rue;
+		this.ville = ville;
+		this.motDePasse = motDePasse;
+	}
+	
+
 	// Constructeur sans la liste d'article ni d'enchere dans le doute)
 	public Utilisateur(Integer noUtilisateur, String telephone, String codePostal, String pseudo, String nom,
 			String prenom, String email, String rue, String ville, String motDePasse, Integer credit,

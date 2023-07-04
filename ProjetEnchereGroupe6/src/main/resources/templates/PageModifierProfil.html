@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
+<html xmlns:th="http://www.thymeleaf.org" >
 <link rel="stylesheet" href="css/boostrap.css">
 <head>
 <meta charset="UTF-8">
@@ -7,11 +7,144 @@
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-9ndCyUaIbzAi2FUVXJi0CjmCapSmO7SnpJef0486qhLnuZ2cdeRhO02iuK6FUUVM" crossorigin="anonymous">
 </head>
 <body>
-
-	<div th:replace="fragments/tophead :: topheader"></div>
-	<div th:replace="fragments/tophead :: navbar"></div>
+<!-- Intégration du fragment d'entête -->
+<div data-th-replace="~{/fragments/fragment-entete :: frag-entete}"></div>
 <h1>Page modifier Profil</h1>
+	<form th:action="modifierMonProfil" th:object="${utilisateur}" method="post">
 
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js" integrity="sha384-geWF76RCwLtnZ8qwWowPQNguL3RmwHVBC9FhGdlKrxdiJJigb/j/68SIy3Te4Bkz" crossorigin="anonymous"></script>
+		<div class="alert alert-danger" th:if="${#fields.hasErrors('*')}">
+			<p th:text="#{pageCreerCompte.erreurs}">Message d'erreur</p>
+		</div>
+
+		<fieldset>
+			<legend></legend>
+			<div class="form-group">
+				<label for="pseudo" class="form-label mt-4">Pseudo:</label> <input
+					type="text" id="pseudo" th:field="*{pseudo}" required /> <span
+					class="text-danger col-6" th:if="${#fields.hasErrors('pseudo')}">
+					<ul>
+						<li th:each="erreur: ${#fields.errors('pseudo')}"
+							th:text="${erreur}"></li>
+					</ul>
+				</span>
+			</div>
+			<div class="form-group">
+				<label for="nom" class="form-label mt-4">nom:</label> <input
+					type="text" id="nom" th:field="*{nom}" required /> <span
+					class="text-danger col-6" th:if="${#fields.hasErrors('nom')}">
+					<ul>
+						<li th:each="erreur: ${#fields.errors('nom')}" th:text="${erreur}"></li>
+					</ul>
+				</span>
+			</div>
+			<div class="form-group">
+				<label for="prenom" class="form-label mt-4">prenom:</label> <input
+					type="text" id="prenom" th:field="*{prenom}" required /> <span
+					class="text-danger col-6" th:if="${#fields.hasErrors('prenom')}">
+					<ul>
+						<li th:each="erreur: ${#fields.errors('prenom')}"
+							th:text="${erreur}"></li>
+					</ul>
+				</span>
+			</div>
+			<div class="form-group">
+				<label for="email" class="form-label mt-4">email:</label> <input
+					type="text" id="email" th:field="*{email}" required /> <span
+					class="text-danger col-6" th:if="${#fields.hasErrors('email')}">
+					<ul>
+						<li th:each="erreur: ${#fields.errors('email')}"
+							th:text="${erreur}"></li>
+					</ul>
+				</span>
+			</div>
+
+			<!--  <div class="form-group">
+				<label for="InputEmail1" class="form-label mt-4">Email
+					address</label> <input type="email" class="form-control"
+					id="exampleInputEmail1" th:field="*{email}" aria-describedby="emailHelp"
+					placeholder="Enter email"> <small id="emailHelp"
+					class="form-text text-muted"></small>
+			</div>-->
+
+			<div class="form-group">
+				<label for="telephone" class="form-label mt-4">telephone:</label> <input
+					type="text" id="telephone" th:field="*{telephone}" required /> <span
+					class="text-danger col-6" th:if="${#fields.hasErrors('telephone')}">
+					<ul>
+						<li th:each="erreur: ${#fields.errors('telephone')}"
+							th:text="${erreur}"></li>
+					</ul>
+				</span>
+			</div>
+			<div class="form-group">
+				<label for="rue" class="form-label mt-4">rue</label> <input
+					type="text" id="rue" th:field="*{rue}" required />
+
+			</div>
+			<div class="form-group">
+				<label for="codePostal" class="form-label mt-4">code postal:</label>
+				<input type="text" id="codePostal" th:field="*{codePostal}" required />
+				<span class="text-danger col-6"
+					th:if="${#fields.hasErrors('codePostal')}">
+					<ul>
+						<li th:each="erreur: ${#fields.errors('codePostal')}"
+							th:text="${erreur}"></li>
+					</ul>
+				</span>
+			</div>
+			<div class="form-group">
+				<label for="ville" class="form-label mt-4">ville:</label> <input
+					type="text" id="ville" th:field="*{ville}" required /> <span
+					class="text-danger col-6" th:if="${#fields.hasErrors('ville')}">
+					<ul>
+						<li th:each="erreur: ${#fields.errors('ville')}"
+							th:text="${erreur}"></li>
+					</ul>
+				</span>
+			</div>
+			<div class="form-group">
+				<label for="motDePasse" class="form-label mt-4">mot de
+					passe:</label> <input type="password" id="motDePasse"
+					th:field="*{motDePasse}" required /> <span
+					class="text-danger col-6"
+					th:if="${#fields.hasErrors('motDePasse')}">
+					<ul>
+						<li th:each="erreur: ${#fields.errors('motDePasse')}"
+							th:text="${erreur}"></li>
+					</ul>
+				</span>
+			</div>
+			<div class="form-group">
+				<label for="motDePasseConfirm" class="form-label mt-4">confirmation
+					mot de passe:</label> <input type="password" id="motDePasseConfirm"
+					th:field="*{motDePasseConfirm}" required /> <span
+					class="text-danger col-6"
+					th:if="${#fields.hasErrors('motDePasseConfirm')}">
+					<ul>
+						<li th:each="erreur: ${#fields.errors('motDePasseConfirm')}"
+							th:text="${erreur}"></li>
+					</ul>
+				</span>
+			</div>
+			<!-- 
+			<div class="form-group">
+				<label for="exampleInputPassword1" class="form-label mt-4">mot
+					de passe</label> <input type="password" class="form-control"
+					id="exampleInputPassword1" placeholder="Password">
+			</div>
+			<div class="form-group">
+				<label for="exampleInputPassword1" class="form-label mt-4">confirmation
+					mot de passe</label> <input type="password" class="form-control"
+					id="exampleInputPassword1" placeholder="Password">
+			</div> -->
+		<p>Crédit : <span data-th-text="${utilisateur.credit}"></span><p>
+			<button type="submit" class="btn btn-primary">Enregistrer</button>
+			
+		</fieldset>
+		
+		
+	</form>
+
+<div data-th-replace="~{/fragments/frag-piedpage :: frag-piedpage}"></div>
 </body>
 </html>

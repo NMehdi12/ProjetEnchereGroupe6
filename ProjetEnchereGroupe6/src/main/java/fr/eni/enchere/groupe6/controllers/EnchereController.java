@@ -140,12 +140,35 @@ public class EnchereController {
 	}
 
 	@GetMapping("/monProfil")
-	public String vueModifierProfil() {
+	public String vueMonProfil(@ModelAttribute("utilisateur") Utilisateur utilisateur, Model model) {
+		Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+		String noUser = authentication.getName();
+
+		utilisateur = utilisateurService.afficherParPseudo(noUser);
+		System.out.println("Valeur de noUser de mon profil : " + noUser);
+		model.addAttribute("utilisateur", utilisateur);
 		return "PageMonProfil";
 	}
+	
+	@GetMapping("/modifierMonProfil")
+	public String vueModifierProfil(@ModelAttribute("utilisateur") Utilisateur utilisateur, Model model) {
+		Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+		String noUser = authentication.getName();
+		utilisateur = utilisateurService.afficherParPseudo(noUser);
+		System.out.println("Valeur de noUser de mon profil : " + noUser);
+		model.addAttribute("utilisateur", utilisateur);
+		return "PageModifierProfil";
+	}
 
-	@PostMapping("/monProfil")
-	public String modifierProfil() {
+	@PostMapping("/modifierMonProfil")
+	public String modifierProfil(@ModelAttribute("utilisateur") Utilisateur utilisateur, Model model) {
+		Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+		String noUser = authentication.getName();
+		utilisateur = utilisateurService.afficherParPseudo(noUser);
+		System.out.println("Valeur de noUser de mon profil à modifier : " + noUser);
+		model.addAttribute("utilisateur", utilisateur);
+		utilisateurService.majUtilisateur(utilisateur);
+		System.out.println("Utilisateur mis à jour : " + noUser);
 		return "redirect:/monProfil";
 	}
 
@@ -173,18 +196,35 @@ public class EnchereController {
 		return "redirect:/encheresConnecte";
 	}
 
+	@PostMapping("/modifierVente")
+    public String modificationVente(@ModelAttribute("articleVendu") ArticleVendu articleVendu) {
+        articleVenduService.mettreAJourArticle(articleVendu);
+        return "redirect:/encheresMesVentes";
+    }
+	
 	@GetMapping("/modifierVente")
-	public String modifierVente(@ModelAttribute("articleVendu") ArticleVendu articleVendu) {
+    public String modifierVente(@ModelAttribute("articleVendu") ArticleVendu articleVendu, Categorie categorie, @RequestParam("noArticleVendu") Integer noArticleVendu, Model model) {
+        articleVendu = articleVenduService.afficherDetailParNoArticle(noArticleVendu);
+        List<Categorie> categories = categorieService.afficherListeCategorie();
+        System.out.println(articleVendu.getCategorie().getNoCategorie());
+        
+        model.addAttribute("articleVendu", articleVendu);
+        model.addAttribute("categories", categories);
 
-		return "PageEnchereNonCommencee";
-	}
+        return "PageEnchereNonCommencee";
+    }
 
 	// Enregistrement d'un nouvel article en base de données
 	@PostMapping("/encheresMesVentes")
-	public String enregistrerVente(@ModelAttribute("articleVendu") ArticleVendu articleVendu) {
-		articleVenduService.enregistrerArticle(articleVendu);
-		return "redirect:/encheresMesVentes";
-	}
+
+    public String enregistrerVente(@ModelAttribute("articleVendu") ArticleVendu articleVendu, Authentication authentication) {
+
+        articleVenduService.enregistrerArticle(articleVendu, authentication);
+
+        return "redirect:/encheresMesVentes";
+
+    }
+
 
 	@GetMapping("/encherir")
 	public String vueEncherir() {

@@ -20,7 +20,9 @@ public class UtilisateurDAOImpl implements UtilisateurDAO {
 	private static final String FIND_BY_NO_USER = "select * from UTILISATEURS where no_utilisateur=:no_utilisateur";
 	private static final String FIND_BY_PSEUDO = "select * from UTILISATEURS where pseudo=:pseudo";
 	private static final String INSERT = "insert into UTILISATEURS (pseudo, nom, prenom, email, telephone, rue, code_postal, ville, mot_de_passe, credit, administrateur) "
-			+ "values (:pseudo, :nom, :prenom, :email, :telephone, :rue, :code_postal, :ville, :mot_de_passe, :credit, :administrateur)";
+            + "values (:pseudo, :nom, :prenom, :email, :telephone, :rue, :code_postal, :ville, :mot_de_passe, :credit, :administrateur)";
+		
+	private static final String UPDATE = "update UTILISATEURS set pseudo=:pseudo, nom=:nom, prenom=:prenom, email=:email, telephone=:telephone, rue=:rue, code_postal=:code_postal, ville=:ville, mot_de_passe=:mot_de_passe, credit=:credit, administrateur=:administrateur where no";
 	private final static String DELETE = "delete  UTILISATEURS where no_utilisateur= :noUtilisateur";
 	private final static String FIND_NO_USER_BY_PSEUDO = "select no_utilisateur from UTILISATEURS where pseudo = :pseudo";
 
@@ -72,7 +74,7 @@ public class UtilisateurDAOImpl implements UtilisateurDAO {
 	@Override
 	public Utilisateur findByPseudo(String pseudo){
 		MapSqlParameterSource paramSrc = new MapSqlParameterSource("pseudo", pseudo);
-List<Utilisateur> utilisateurs = njt.query(FIND_BY_PSEUDO, paramSrc, new UtilisateurRowMapper());
+		List<Utilisateur> utilisateurs = njt.query(FIND_BY_PSEUDO, paramSrc, new UtilisateurRowMapper());
 	    
 	    if (utilisateurs.isEmpty()) {
 	        System.out.println("passe par findbyPseudo utilisateur n'existe pas");
@@ -101,6 +103,27 @@ List<Utilisateur> utilisateurs = njt.query(FIND_BY_PSEUDO, paramSrc, new Utilisa
 		njt.update(INSERT, paramSrc);
 		System.out.println("passe par le save UtilisateurDAOimpl");
 	}
+	
+	@Override
+	public void update(Utilisateur utilisateur) {
+		MapSqlParameterSource paramSrc = new MapSqlParameterSource("pseudo", utilisateur.getPseudo());
+		paramSrc.addValue("nom", utilisateur.getNom());
+		paramSrc.addValue("prenom", utilisateur.getPrenom());
+		paramSrc.addValue("nom", utilisateur.getNom());
+		paramSrc.addValue("email", utilisateur.getEmail());
+		paramSrc.addValue("nom", utilisateur.getNom());
+		paramSrc.addValue("telephone", utilisateur.getTelephone());
+		paramSrc.addValue("rue", utilisateur.getRue());
+		paramSrc.addValue("code_postal", utilisateur.getCodePostal());
+		paramSrc.addValue("ville", utilisateur.getVille());
+		paramSrc.addValue("mot_de_passe", utilisateur.getMotDePasse());
+		paramSrc.addValue("credit", 0);
+		paramSrc.addValue("administrateur", false);
+		njt.update(UPDATE, paramSrc);
+		System.out.println("passe par le update UtilisateurDAOimpl");
+		System.out.println(utilisateur);
+	}
+	
 
 	@Override
 	public void delete(Integer noUtilisateur) {
@@ -116,5 +139,4 @@ List<Utilisateur> utilisateurs = njt.query(FIND_BY_PSEUDO, paramSrc, new Utilisa
 noUtilisateur = njt.queryForObject(FIND_NO_USER_BY_PSEUDO, paramSrc, Integer.class);
 		return noUtilisateur;
 	}
-
 }

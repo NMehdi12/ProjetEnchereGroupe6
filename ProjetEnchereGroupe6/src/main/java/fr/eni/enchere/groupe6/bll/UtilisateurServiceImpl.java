@@ -59,4 +59,10 @@ public class UtilisateurServiceImpl implements UtilisateurService {
 		
 	}
 
+	@Override
+	public void majUtilisateur(Utilisateur utilisateur) {
+		utilisateurDAO.update(utilisateur);
+		
+	}
+
 }
