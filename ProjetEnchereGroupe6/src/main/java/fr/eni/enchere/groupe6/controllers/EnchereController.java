@@ -40,7 +40,9 @@ public class EnchereController {
 	public String afficherListeEnchere(@ModelAttribute ("categorie") Categorie categorie,Model model) {
 		List<ArticleVendu> articlesVendus = articleVenduService.afficherArticlesVendus();
 		List<Categorie> categories = categorieService.afficherListeCategorie();
-		
+		Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+		String utilisateurConnecte = authentication.getName();
+		model.addAttribute("utilisateurConnecte", utilisateurConnecte);
 		model.addAttribute("articlesVendus", articlesVendus);
 		model.addAttribute("categories", categories);
 		System.out.println(articlesVendus.toString());
@@ -48,6 +50,18 @@ public class EnchereController {
 		return "PageAccueilNonConnecte";
 	}
 
+	
+//	@GetMapping({ "/", "/Radio" })
+//	public String afficherListeEnchereRadio(@ModelAttribute ("categorie") Categorie categorie,Model model) {
+//		List<ArticleVendu> articlesVendus = articleVenduService.afficherArticlesVendus();
+//		List<Categorie> categories = categorieService.afficherListeCategorie();
+//		
+//		model.addAttribute("articlesVendus", articlesVendus);
+//		model.addAttribute("categories", categories);
+//		System.out.println(articlesVendus.toString());
+//		
+//		return "PageAccueilNonConnecte";
+//	}
 //	@PostMapping("/logout") ///// à voir si util
 //	public String deconnexion() {
 //		return "PageAccueilNonConnecte";
@@ -140,37 +154,37 @@ public class EnchereController {
 	}
 
 	@GetMapping("/monProfil")
-	public String vueMonProfil(@ModelAttribute("utilisateur") Utilisateur utilisateur, Model model) {
-		Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-		String noUser = authentication.getName();
+    public String vueMonProfil(@ModelAttribute("utilisateur") Utilisateur utilisateur, Model model) {
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        String noUser = authentication.getName();
+        utilisateur = utilisateurService.afficherParPseudo(noUser);
+        System.out.println("Valeur de noUser de mon profil : " + noUser);
+        model.addAttribute("utilisateur", utilisateur);
+        return "PageMonProfil";
+    }
+    
+    @GetMapping("/modifierMonProfil")
+        public String vueModifierProfil(@ModelAttribute("utilisateur") Utilisateur utilisateur, @RequestParam("noUtilisateur") Integer noUtilisateur, Model model) {
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        String noUser = authentication.getName();
+        utilisateur = utilisateurService.afficherParPseudo(noUser);
+        noUtilisateur = utilisateur.getNoUtilisateur();
+        System.out.println("utilisateur afficher par pseudo par noUser de l'authentication + " + utilisateur);
+        model.addAttribute("utilisateur", utilisateur);
+        return "PageModifierProfil";
+    }
 
-		utilisateur = utilisateurService.afficherParPseudo(noUser);
-		System.out.println("Valeur de noUser de mon profil : " + noUser);
-		model.addAttribute("utilisateur", utilisateur);
-		return "PageMonProfil";
-	}
-	
-	@GetMapping("/modifierMonProfil")
-	public String vueModifierProfil(@ModelAttribute("utilisateur") Utilisateur utilisateur, Model model) {
-		Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-		String noUser = authentication.getName();
-		utilisateur = utilisateurService.afficherParPseudo(noUser);
-		System.out.println("Valeur de noUser de mon profil : " + noUser);
-		model.addAttribute("utilisateur", utilisateur);
-		return "PageModifierProfil";
-	}
-
-	@PostMapping("/modifierMonProfil")
-	public String modifierProfil(@ModelAttribute("utilisateur") Utilisateur utilisateur, Model model) {
-		Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-		String noUser = authentication.getName();
-		utilisateur = utilisateurService.afficherParPseudo(noUser);
-		System.out.println("Valeur de noUser de mon profil à modifier : " + noUser);
-		model.addAttribute("utilisateur", utilisateur);
-		utilisateurService.majUtilisateur(utilisateur);
-		System.out.println("Utilisateur mis à jour : " + noUser);
-		return "redirect:/monProfil";
-	}
+    @PostMapping("/modifierMonProfil")
+    public String modifierProfil(@ModelAttribute("utilisateur") Utilisateur utilisateur, Model model) {
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        String noUser = authentication.getName();
+        Integer noUtilisateur = utilisateurService.afficherNoUtilisateurViaPseudo(noUser);
+        utilisateur.setNoUtilisateur(noUtilisateur);
+        //System.out.println("Utilisateur connecté : " + utilisateur);
+        utilisateurService.majUtilisateur(utilisateur);
+        //System.out.println("Utilisateur mis à jour : " + noUser);
+        return "redirect:/monProfil";
+    }
 
 	@GetMapping("/nouvelleVente")
 	public String vueAjouterVente(@ModelAttribute("articleVendu") ArticleVendu articleVendu,
@@ -227,8 +241,13 @@ public class EnchereController {
 
 
 	@GetMapping("/encherir")
-	public String vueEncherir() {
-		return "PageEncherir";
-	}
+
+    public String vueEncherir(@ModelAttribute("articleVendu") ArticleVendu articleVendu, @RequestParam("noArticleVendu") 
+    Integer noArticleVendu, Model model) {
+        articleVendu = articleVenduService.afficherDetailParNoArticle(noArticleVendu);
+        model.addAttribute(articleVendu);
+        return "PageEncherir";
+
+    }
 
 }

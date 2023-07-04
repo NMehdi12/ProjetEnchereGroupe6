@@ -17,7 +17,7 @@
 	<nav class="navbar navbar-light bg-light">
 		<a class="navbar-brand" href="/encheres"> <img
 			src="/images/LogoSansFond.png" width="80" height="60"
-			class="d-inline-block align-bottom" alt=""> ENI Enchères
+			class="d-inline-block align-bottom" alt=""> ENI Wish?
 		</a>
 	</nav>
 	<nav class="navbar navbar-expand-lg bg-body-tertiary">
@@ -68,6 +68,88 @@
 		</div>
 	</nav>
 	<br>
+	<script>
+    window.addEventListener('DOMContentLoaded', function() {
+      var radio1 = document.querySelector('#radio1');
+      var radio2 = document.querySelector('#radio2');
+      var checkbox1 = document.querySelector('input[name="checkbox1"]');
+      var checkbox2 = document.querySelector('input[name="checkbox2"]');
+      var checkbox3 = document.querySelector('input[name="checkbox3"]');
+      var checkbox4 = document.querySelector('input[name="checkbox4"]');
+      var checkbox5 = document.querySelector('input[name="checkbox5"]');
+      var checkbox6 = document.querySelector('input[name="checkbox6"]');
+      function updateCheckboxState() {
+        checkbox1.disabled = !radio1.checked;
+        checkbox2.disabled = !radio1.checked;
+        checkbox3.disabled = !radio1.checked;
+        checkbox4.disabled = !radio2.checked;
+        checkbox5.disabled = !radio2.checked;
+        checkbox6.disabled = !radio2.checked;
+      }
+
+      radio1.addEventListener('change', updateCheckboxState);
+      radio2.addEventListener('change', updateCheckboxState);
+      updateCheckboxState();
+    });
+  </script>
+</head>
+<div>
+<body>
+<form class="d-flex" role="search" th:action="@{/rechercher}"
+						method="get">
+                
+  <label >
+    <input type="radio" id="radio1" name="option" value="option1">
+    Option 1
+  </label>
+  
+  <br>
+  
+  <a th:href="@{/encheres}">
+    <input type="checkbox" name="checkbox1" onclick="" >
+   	Encheres 
+ </a>
+  <br>
+ 
+   <a >
+    <input type="checkbox" name="checkbox2">
+    Case à cocher 2
+  </a>
+  <br>
+   <label>
+    <input type="checkbox" name="checkbox3">
+    Case à cocher 3
+  </label>
+  
+  <br>
+  
+  <label>
+  
+    <input type="radio" id="radio2" name="option" value="option2">
+    Option 2
+  </label>
+  <br>
+   <label>
+    <input type="checkbox" name="checkbox4" >
+    Case à cocher 1
+  </label>
+  <br>
+   <label>
+    <input type="checkbox" name="checkbox5">
+    Case à cocher 2
+  </label>
+  <br>
+   <label>
+    <input type="checkbox" name="checkbox6">
+    Case à cocher 3
+  </label>
+  </form>
+</div>
+  <br>
+ 
+	
+    
+    
 	<div class="container">
 		<div class="row row-cols-1 row-cols-md-2 g-4">
 			<tbody>
@@ -115,7 +197,7 @@
 							<div class="card-body">
 								<p class="card-title">
 									<a data-th-text="${articleVendu.nomArticle}"
-										data-th-href="@{/encherir}"></a>
+										data-th-href="${articleVendu.utilisateur.pseudo != utilisateurConnecte ? '/encherir?noArticleVendu=' + articleVendu.noArticle + '' : '/modifierVente?noArticleVendu=' + articleVendu.noArticle + ''}"></a>
 								</p>
 								<p>
 									Prix : <span data-th-text="${articleVendu.prixVente}"></span>
