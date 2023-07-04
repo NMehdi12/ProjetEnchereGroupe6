@@ -13,4 +13,5 @@ List<ArticleVendu> afficherArticlesVendusParEtat();
 ArticleVendu afficherDetailParNoArticle(Integer noArticle);
 List<ArticleVendu> afficherResultatRecherche(String nomArticle);
 void enregistrerArticle(ArticleVendu articleVendu, Authentication authentication);
+void mettreAJourArticle(ArticleVendu articleVendu);
 }

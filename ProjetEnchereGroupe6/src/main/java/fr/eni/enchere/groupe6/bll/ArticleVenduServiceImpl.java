@@ -46,4 +46,11 @@ public class ArticleVenduServiceImpl implements ArticleVenduService {
 		
 	}
 
+	@Override
+	public void mettreAJourArticle(ArticleVendu articleVendu) {
+		System.out.println("Je passe par la méthode mettreAJourArticle de ArticleVenduServiceImpl");
+		articleVenduDao.update(articleVendu);
+		
+	}
+
 }
