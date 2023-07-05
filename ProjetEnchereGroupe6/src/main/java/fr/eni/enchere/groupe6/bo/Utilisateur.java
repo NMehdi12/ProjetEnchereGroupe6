@@ -22,7 +22,7 @@ public class Utilisateur {
 	@Pattern(regexp = "^\\d{5}$", message = "Code postal invalide")
 	private String codePostal;
 	
-	//@Pattern(regexp = "^[a-zA-Z0-9]+$", message = "uniquement caractère alphanumériques")
+	@Pattern(regexp = "^[a-zA-Z0-9]+$", message = "uniquement caractère alphanumériques")
 	@NotNull (message = "Champ nom requis")
 	@NotBlank(message = "Champ nom requis")
 	private String pseudo;
@@ -34,25 +34,27 @@ public class Utilisateur {
 	@NotNull
 	@NotBlank(message = "Champ prenom requis")
 	private String prenom;
+	
 	@NotNull
 	@NotBlank(message = "Champ email requis")
-	//@Pattern(regexp = "^[A-Za-z0-9+_.-]+@[A-Za-z0-9.-]+$", message = "Adresse e-mail invalide")
+	@Pattern(regexp = "^[A-Za-z0-9+_.-]+@[A-Za-z0-9.-]+$", message = "Adresse e-mail invalide")
 	private String email;
 	@NotNull
-	@NotBlank
+	@NotBlank (message = "Champ rue requis")
+	
 	private String rue;
 	@NotNull
 	@NotBlank (message = "Champ email requis")
+	
 	private String ville;
+	
 	@Size(min = 6, message = "Au moins 6 caractères")
 	private String motDePasse;
 	private String motDePasseConfirm;
 	private Integer credit;
-	@NotNull
+	
 	private List<ArticleVendu> articleVendu; // faire l'injection par constructeur
-	@NotNull
 	private boolean administrateur;
-	@NotNull
 	private List<Enchere> enchere;
 
 	public Utilisateur() {
@@ -80,27 +82,30 @@ public class Utilisateur {
 		this.enchere = enchere;
 
 	}
-
-	// Constructeur sans la liste d'article ni d'enchere, sans crédit, administrateur, article vendu)
-	public Utilisateur(Integer noUtilisateur,
-			@NotNull @NotBlank(message = "Le numéro de téléphone doit être renseigné") String telephone,
-			String codePostal, String pseudo, @NotNull @NotBlank(message = "Champ requis") String nom,
-			@NotNull @NotBlank(message = "Champ requis") String prenom,
-			@NotNull @NotBlank(message = "Champ requis") String email, @NotNull @NotBlank String rue,
-			@NotNull @NotBlank String ville, String motDePasse) {
-		super();
-		this.noUtilisateur = noUtilisateur;
-		this.telephone = telephone;
-		this.codePostal = codePostal;
-		this.pseudo = pseudo;
-		this.nom = nom;
-		this.prenom = prenom;
-		this.email = email;
-		this.rue = rue;
-		this.ville = ville;
-		this.motDePasse = motDePasse;
-	}
 	
+
+//	public Utilisateur(Integer noUtilisateur,
+//			@NotNull @NotBlank(message = "Le numéro de téléphone doit être renseigné") String telephone,
+//			@Pattern(regexp = "^\\d{5}$", message = "Code postal invalide") String codePostal,
+//			@NotNull(message = "Champ nom requis") @NotBlank(message = "Champ nom requis") String pseudo,
+//			@NotNull @NotBlank(message = "Champ nom requis") String nom,
+//			@NotNull @NotBlank(message = "Champ prenom requis") String prenom,
+//			@NotNull @NotBlank(message = "Champ email requis") @Pattern(regexp = "^[A-Za-z0-9+_.-]+@[A-Za-z0-9.-]+$", message = "Adresse e-mail invalide") String email,
+//			@NotNull @NotBlank(message = "Champ rue requis") String rue,
+//			@NotNull @NotBlank(message = "Champ email requis") String ville,
+//			@Size(min = 6, message = "Au moins 6 caractères") String motDePasse) {
+//		super();
+//		this.noUtilisateur = noUtilisateur;
+//		this.telephone = telephone;
+//		this.codePostal = codePostal;
+//		this.pseudo = pseudo;
+//		this.nom = nom;
+//		this.prenom = prenom;
+//		this.email = email;
+//		this.rue = rue;
+//		this.ville = ville;
+//		this.motDePasse = motDePasse;
+//	}	
 
 	// Constructeur sans la liste d'article ni d'enchere dans le doute)
 	public Utilisateur(Integer noUtilisateur, String telephone, String codePostal, String pseudo, String nom,
