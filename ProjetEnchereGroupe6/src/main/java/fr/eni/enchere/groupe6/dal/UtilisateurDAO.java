@@ -16,4 +16,5 @@ public interface UtilisateurDAO {
 	Utilisateur findByPseudo(String pseudo);
 	Integer findNoUtilisateurByPseudo(String pseudo);
 	void update(Utilisateur utilisateur);
+	Utilisateur findByEmail(String email);
 }

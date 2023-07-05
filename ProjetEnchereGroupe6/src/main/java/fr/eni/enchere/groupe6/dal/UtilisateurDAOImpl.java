@@ -20,11 +20,12 @@ public class UtilisateurDAOImpl implements UtilisateurDAO {
 	private static final String FIND_BY_NO_USER = "select * from UTILISATEURS where no_utilisateur=:no_utilisateur";
 	private static final String FIND_BY_PSEUDO = "select * from UTILISATEURS where pseudo=:pseudo";
 	private static final String INSERT = "insert into UTILISATEURS (pseudo, nom, prenom, email, telephone, rue, code_postal, ville, mot_de_passe, credit, administrateur) "
-            + "values (:pseudo, :nom, :prenom, :email, :telephone, :rue, :code_postal, :ville, :mot_de_passe, :credit, :administrateur)";
-		
+			+ "values (:pseudo, :nom, :prenom, :email, :telephone, :rue, :code_postal, :ville, :mot_de_passe, :credit, :administrateur)";
+
 	private static final String UPDATE = "update UTILISATEURS set pseudo=:pseudo, nom=:nom, prenom=:prenom, email=:email, telephone=:telephone, rue=:rue, code_postal=:code_postal, ville=:ville, mot_de_passe=:mot_de_passe where no_utilisateur=:no_utilisateur";
 	private final static String DELETE = "delete  UTILISATEURS where no_utilisateur= :noUtilisateur";
 	private final static String FIND_NO_USER_BY_PSEUDO = "select no_utilisateur from UTILISATEURS where pseudo = :pseudo";
+	private final static String FIND_NO_USER_BY_EMAIL = "select * from UTILISATEURS where email = :email";
 
 	private NamedParameterJdbcTemplate njt;
 
@@ -72,19 +73,19 @@ public class UtilisateurDAOImpl implements UtilisateurDAO {
 	}
 
 	@Override
-	public Utilisateur findByPseudo(String pseudo){
+	public Utilisateur findByPseudo(String pseudo) {
 		MapSqlParameterSource paramSrc = new MapSqlParameterSource("pseudo", pseudo);
 		List<Utilisateur> utilisateurs = njt.query(FIND_BY_PSEUDO, paramSrc, new UtilisateurRowMapper());
-	    
-	    if (utilisateurs.isEmpty()) {
-	        System.out.println("passe par findbyPseudo utilisateur n'existe pas");
-	        return null;
-	    } else {
-	        System.out.println("passe par findbyPseudo l'utilisateur existe");
-	        return utilisateurs.get(0);
-	    }
+
+		if (utilisateurs.isEmpty()) {
+			System.out.println("passe par findbyPseudo utilisateur n'existe pas");
+			return null;
+		} else {
+			System.out.println("passe par findbyPseudo l'utilisateur existe");
+			return utilisateurs.get(0);
+		}
 	}
-		
+
 	@Override
 	public void save(Utilisateur utilisateur) {
 		MapSqlParameterSource paramSrc = new MapSqlParameterSource("pseudo", utilisateur.getPseudo());
@@ -103,7 +104,7 @@ public class UtilisateurDAOImpl implements UtilisateurDAO {
 		njt.update(INSERT, paramSrc);
 		System.out.println("passe par le save UtilisateurDAOimpl");
 	}
-	
+
 	@Override
 	public void update(Utilisateur utilisateur) {
 		System.out.println("passe par le update UtilisateurDAOimpl");
@@ -119,14 +120,13 @@ public class UtilisateurDAOImpl implements UtilisateurDAO {
 		paramSrc.addValue("ville", utilisateur.getVille());
 		paramSrc.addValue("mot_de_passe", utilisateur.getMotDePasse());
 		paramSrc.addValue("no_utilisateur", utilisateur.getNoUtilisateur());
-		//paramSrc.addValue("credit", 0);
-		//paramSrc.addValue("administrateur", false);
+		// paramSrc.addValue("credit", 0);
+		// paramSrc.addValue("administrateur", false);
 		njt.update(UPDATE, paramSrc);
 		System.out.println("passe par le update UtilisateurDAOimpl");
 		System.out.println("Valeurs de paramSrc : " + paramSrc.toString());
 		System.out.println(utilisateur);
 	}
-	
 
 	@Override
 	public void delete(Integer noUtilisateur) {
@@ -141,5 +141,19 @@ public class UtilisateurDAOImpl implements UtilisateurDAO {
 
 		noUtilisateur = njt.queryForObject(FIND_NO_USER_BY_PSEUDO, paramSrc, Integer.class);
 		return noUtilisateur;
+	}
+
+	@Override
+	public Utilisateur findByEmail(String email) {
+		MapSqlParameterSource paramSrc = new MapSqlParameterSource("email", email);
+		List<Utilisateur> utilisateurs = njt.query(FIND_NO_USER_BY_EMAIL, paramSrc, new UtilisateurRowMapper());
+
+		if (utilisateurs.isEmpty()) {
+			System.out.println("passe par findbyEmail utilisateur n'existe pas");
+			return null;
+		} else {
+			System.out.println("passe par findbyEmail l'utilisateur existe");
+			return utilisateurs.get(0);
+		}
 	}
 }
