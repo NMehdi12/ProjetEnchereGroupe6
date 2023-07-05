@@ -52,16 +52,36 @@ public class UtilisateurServiceImpl implements UtilisateurService {
 	}
 
 	@Override
-	public void recupererUtilisateurConnecte() {
+	public String recupererUtilisateurConnecte() {
 		System.out.println("Je passe par recupererUtilisateurConnecte");
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-        authentication.getName();
+        String pseudo = authentication.getName();
+		return pseudo;
 		
 	}
 
 	@Override
 	public void majUtilisateur(Utilisateur utilisateur) {
-		utilisateurDAO.update(utilisateur);
+		recupererUtilisateurConnecte();
+		 try {
+		        if (afficherParPseudo(utilisateur.getPseudo()) != null && !utilisateur.getPseudo().equals(recupererUtilisateurConnecte())) {
+		            System.out.println("Le pseudo existe déjà");
+		        } else {
+		            utilisateur.setMotDePasse(passwordEncoder.encode(utilisateur.getMotDePasse()));
+		            System.out.println(utilisateur.getMotDePasse());
+		            System.out.println("Je passe par la méthode majUtilisateur de UtilsateurServiceImpl");
+		    		utilisateurDAO.update(utilisateur);
+		        }
+		    } catch (Exception e) {
+		        System.out.println("Une erreur s'est produite : " + e.getMessage());
+		    }
+		
+	}
+	
+	@Override
+		public Integer afficherNoUtilisateurViaPseudo(String pseudo) {
+		System.out.println("Je passe par la méthode afficherNoUtilisateurViaPseudo de UtilsateurServiceImpl");
+		return utilisateurDAO.findNoUtilisateurByPseudo(pseudo);
 		
 	}
 

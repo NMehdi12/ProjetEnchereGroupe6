@@ -22,7 +22,7 @@ public class UtilisateurDAOImpl implements UtilisateurDAO {
 	private static final String INSERT = "insert into UTILISATEURS (pseudo, nom, prenom, email, telephone, rue, code_postal, ville, mot_de_passe, credit, administrateur) "
             + "values (:pseudo, :nom, :prenom, :email, :telephone, :rue, :code_postal, :ville, :mot_de_passe, :credit, :administrateur)";
 		
-	private static final String UPDATE = "update UTILISATEURS set pseudo=:pseudo, nom=:nom, prenom=:prenom, email=:email, telephone=:telephone, rue=:rue, code_postal=:code_postal, ville=:ville, mot_de_passe=:mot_de_passe, credit=:credit, administrateur=:administrateur where no";
+	private static final String UPDATE = "update UTILISATEURS set pseudo=:pseudo, nom=:nom, prenom=:prenom, email=:email, telephone=:telephone, rue=:rue, code_postal=:code_postal, ville=:ville, mot_de_passe=:mot_de_passe where no_utilisateur=:no_utilisateur";
 	private final static String DELETE = "delete  UTILISATEURS where no_utilisateur= :noUtilisateur";
 	private final static String FIND_NO_USER_BY_PSEUDO = "select no_utilisateur from UTILISATEURS where pseudo = :pseudo";
 
@@ -106,6 +106,7 @@ public class UtilisateurDAOImpl implements UtilisateurDAO {
 	
 	@Override
 	public void update(Utilisateur utilisateur) {
+		System.out.println("passe par le update UtilisateurDAOimpl");
 		MapSqlParameterSource paramSrc = new MapSqlParameterSource("pseudo", utilisateur.getPseudo());
 		paramSrc.addValue("nom", utilisateur.getNom());
 		paramSrc.addValue("prenom", utilisateur.getPrenom());
@@ -117,10 +118,12 @@ public class UtilisateurDAOImpl implements UtilisateurDAO {
 		paramSrc.addValue("code_postal", utilisateur.getCodePostal());
 		paramSrc.addValue("ville", utilisateur.getVille());
 		paramSrc.addValue("mot_de_passe", utilisateur.getMotDePasse());
-		paramSrc.addValue("credit", 0);
-		paramSrc.addValue("administrateur", false);
+		paramSrc.addValue("no_utilisateur", utilisateur.getNoUtilisateur());
+		//paramSrc.addValue("credit", 0);
+		//paramSrc.addValue("administrateur", false);
 		njt.update(UPDATE, paramSrc);
 		System.out.println("passe par le update UtilisateurDAOimpl");
+		System.out.println("Valeurs de paramSrc : " + paramSrc.toString());
 		System.out.println(utilisateur);
 	}
 	
@@ -135,8 +138,8 @@ public class UtilisateurDAOImpl implements UtilisateurDAO {
 	public Integer findNoUtilisateurByPseudo(String pseudo) {
 		Integer noUtilisateur;
 		MapSqlParameterSource paramSrc = new MapSqlParameterSource("pseudo", pseudo);
-		
-noUtilisateur = njt.queryForObject(FIND_NO_USER_BY_PSEUDO, paramSrc, Integer.class);
+
+		noUtilisateur = njt.queryForObject(FIND_NO_USER_BY_PSEUDO, paramSrc, Integer.class);
 		return noUtilisateur;
 	}
 }

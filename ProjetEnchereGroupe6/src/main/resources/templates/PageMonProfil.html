@@ -16,24 +16,19 @@
 <div data-th-replace="~{/fragments/fragment-entete :: frag-entete}"></div>
 <h1>Page mon Profil</h1>
 <fieldset th:object="${utilisateur}">
-		
-	<label for="pseudo">Pseudo : </label>
-	<input type="text" id="pseudo" th:field="*{pseudo}"><br>
-	<label for="nom">Nom : </label>
-	<input type="text" id="nom" th:field="*{nom}"><br>
-	<label for="email">Email : </label>
-	<input type="text" id="email" th:field="*{email}"><br>
-	<label for="rue">Rue : </label>
-	<input type="text" id="rue" th:field="*{rue}"><br>
-	<label for="codePostal">codePostal : </label>
-	<input type="text" id="codePostal" th:field="*{codePostal}"><br>
-	<label for="ville">Ville : </label>
-	<input type="text" id="ville" th:field="*{ville}"><br>
-	
+
+	<p>Pseudo : <span data-th-text="${utilisateur.pseudo}"></span><p>
+	<p>Nom : <span data-th-text="${utilisateur.nom}"></span><p>
+	<p>Prénom : <span data-th-text="${utilisateur.prenom}"></span><p>
+	<p>Email : <span data-th-text="${utilisateur.email}"></span><p>
+	<p>Téléphone : <span data-th-text="${utilisateur.telephone}"></span><p>
+	<p>Rue : <span data-th-text="${utilisateur.rue}"></span><p>
+	<p>Code postal : <span data-th-text="${utilisateur.codePostal}"></span><p>
+	<p>Ville : <span data-th-text="${utilisateur.ville}"></span><p>
+
 </fieldset>
-
-
-	<a href="/modifierMonProfil"><button>Modifier</button></a>
+	<a data-th-href="@{/modifierMonProfil(noUtilisateur=${utilisateur.noUtilisateur})}">
+	<button>Modifier</button></a>
 
 <div data-th-replace="~{/fragments/frag-piedpage :: frag-piedpage}"></div>
 </body>
