@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 
 import fr.eni.enchere.groupe6.bo.ArticleVendu;
 import fr.eni.enchere.groupe6.bo.Categorie;
+import fr.eni.enchere.groupe6.bo.Utilisateur;
 import fr.eni.enchere.groupe6.dal.ArticleVenduDAO;
 
 @Service
@@ -58,6 +59,12 @@ public class ArticleVenduServiceImpl implements ArticleVenduService {
         articleVenduDao.update(articleVendu);
         
     }
+
+	@Override
+	public List<ArticleVendu> afficherResultatParNoUtilisateur(Utilisateur utilisateur) {
+		
+		return articleVenduDao.findByNoUtilisateur(utilisateur);
+	}
 	
 
 }

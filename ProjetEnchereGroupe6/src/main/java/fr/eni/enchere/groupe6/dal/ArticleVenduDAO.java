@@ -6,6 +6,7 @@ import org.springframework.security.core.Authentication;
 
 import fr.eni.enchere.groupe6.bo.ArticleVendu;
 import fr.eni.enchere.groupe6.bo.Categorie;
+import fr.eni.enchere.groupe6.bo.Utilisateur;
 
 
 public interface ArticleVenduDAO {
@@ -23,5 +24,5 @@ public interface ArticleVenduDAO {
 	
 	List<ArticleVendu> findByCategorie(Categorie categorie);
 	
-	
+	List<ArticleVendu> findByNoUtilisateur(Utilisateur utilisateur);
 }
