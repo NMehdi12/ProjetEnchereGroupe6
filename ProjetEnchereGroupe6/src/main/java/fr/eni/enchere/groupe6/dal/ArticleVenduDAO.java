@@ -19,6 +19,8 @@ public interface ArticleVenduDAO {
 	void delete(ArticleVendu articleVendu);
 	
 	void update(ArticleVendu articleVendu);
+	
+	void updatePrixVente(ArticleVendu articleVendu, Integer nouveauPrixVente);
 
 	List<ArticleVendu> findByNom(String nomArticle);
 	
