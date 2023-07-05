@@ -27,6 +27,7 @@ public class ArticleVenduDAOImpl implements ArticleVenduDAO {
 	private final static String FIND_ID = "SELECT * FROM ARTICLES_VENDUS WHERE no_article=:no_article ";
 	//private final String FIND_ALL = "SELECT nom_article, description, date_debut_encheres, date_fin_encheres, prix_initial, prix_vente FROM ARTICLES_VENDUS";
 	private final static String UPDATE = "update ARTICLES_VENDUS set nom_article = :nom_article, description = :description, date_debut_encheres = :date_debut_encheres, date_fin_encheres = :date_fin_encheres, prix_initial = :prix_initial, no_categorie = :no_categorie where no_article = :no_article";
+	
 	@Autowired
 	private NamedParameterJdbcTemplate npJdbcTemplate;
 	
@@ -175,10 +176,18 @@ public class ArticleVenduDAOImpl implements ArticleVenduDAO {
 		System.out.println("categoerie : " + categorie.getNoCategorie());
 		
 		return coucou;
-		
-		
 	}
 
+	@Override
+	public List<ArticleVendu> findByNoUtilisateur(Utilisateur utilisateur) {
+		String FIND_BY_NO_UTILISATEUR= "SELECT * FROM ARTICLES_VENDUS WHERE no_utilisateur=:no_utilisateur";
+		Map<String, Object>params = new HashMap<>();
+		params.put("no_utilisateur", utilisateur.getNoUtilisateur());
+		
+		return npJdbcTemplate.query(FIND_BY_NO_UTILISATEUR, params, new ArticleRowMapper());
+	}
+	
+	
 	@Override
 	public void update(ArticleVendu articleVendu) {
 		MapSqlParameterSource paramSrc = new MapSqlParameterSource("nom_article", articleVendu.getNomArticle());
@@ -194,6 +203,8 @@ public class ArticleVenduDAOImpl implements ArticleVenduDAO {
         
         npJdbcTemplate.update(UPDATE, paramSrc);
 	}
+
+
 	
 	
 }

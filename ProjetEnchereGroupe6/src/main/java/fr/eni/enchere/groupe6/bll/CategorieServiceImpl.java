@@ -29,6 +29,7 @@ public class CategorieServiceImpl implements CategorieService {
 
 	@Override
 	public List<Categorie> afficherListeCategorie() {
+		
 		System.out.println("Je passe par la méthode afficherListeCategorie() de CategorieServiceImpl");
 		return categorieDAO.findAll();
 	}
