@@ -106,8 +106,8 @@
       }
       
       if (checkbox4.checked) {
-        var userId = checkbox4.dataset.userid;
-        link = "/FiltreMesVentesEnCours?noUtilisateur=" + userId;
+        
+        var link = "/FiltreMesVentesEnCours";
         window.location.href = link;
       }
     }
@@ -151,7 +151,7 @@
   </label>
   <br>
    <label>
-   <input type="checkbox" name="checkbox4"  data-userid="${noUtilisateur}" th:value="noUtilisateur" onclick="goToLink()">
+   <input type="checkbox" name="checkbox4" onclick="goToLink()">
     Mes ventes en cours :
   </label>
   <br>
