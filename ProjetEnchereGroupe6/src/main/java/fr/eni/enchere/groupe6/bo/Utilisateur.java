@@ -27,12 +27,15 @@ public class Utilisateur {
 	@NotBlank(message = "Champ nom requis")
 	private String pseudo;
 	
+	
 	@NotNull
 	@NotBlank(message = "Champ nom requis")
+	@Pattern(regexp = "^[a-zA-Z]+$", message = "Nom invalide")
 	private String nom;
 	
 	@NotNull
-	@NotBlank(message = "Champ prenom requis")
+	@NotBlank(message = "Champ nom requis")
+	@Pattern(regexp = "^[a-zA-Z]+$", message = "Prenom invalide")
 	private String prenom;
 	
 	@NotNull

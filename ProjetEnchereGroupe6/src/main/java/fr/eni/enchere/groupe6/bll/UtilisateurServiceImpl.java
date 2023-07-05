@@ -84,7 +84,7 @@ public class UtilisateurServiceImpl implements UtilisateurService {
 	@Override
 	public void majUtilisateur(Utilisateur utilisateur) {
 		try {
-			if (!passwordEncoder.matches(utilisateur.getMotDePasse(),recupererMdpUtilisateurConnecte())){
+			if (!passwordEncoder.matches(utilisateur.getMotDePasse(), recupererMdpUtilisateurConnecte())) {
 				System.out.println("Le mot de passe actuel est incorrect");
 				// lever une exception
 			} else if (!utilisateur.getPseudo().equalsIgnoreCase(recupererUtilisateurConnecte())
