@@ -36,3 +36,23 @@ footer {
   position : absolute;
   bottom : auto;
 }
+
+.lecssctop{
+	display: flex;
+	
+}
+
+.blockCheck1{
+	display: inline;
+	margin-bottom: 15px;
+	margin-left : auto;
+	
+}
+.blockCheck2{
+	display: inline-block;
+	margin-bottom: 15px;
+	margin-left : 80px;
+	margin-right: auto;
+	
+	
+}

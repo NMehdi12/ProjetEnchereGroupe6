@@ -42,7 +42,7 @@ public class EnchereController {
     }
 
 	@GetMapping({ "/", "/encheres" })
-	public String afficherListeEnchere(@ModelAttribute("categorie") Categorie categorie, Model model) {
+	public String afficherListeEnchere(@ModelAttribute("categorie") Categorie categorie,Authentication authentications, Model model) {
 		List<ArticleVendu> articlesVendus = articleVenduService.afficherArticlesVendus();
 		List<Categorie> categories = categorieService.afficherListeCategorie();
 		Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
