@@ -51,17 +51,17 @@ public class EnchereController {
 	}
 
 	
-//	@GetMapping({ "/", "/Radio" })
-//	public String afficherListeEnchereRadio(@ModelAttribute ("categorie") Categorie categorie,Model model) {
-//		List<ArticleVendu> articlesVendus = articleVenduService.afficherArticlesVendus();
-//		List<Categorie> categories = categorieService.afficherListeCategorie();
-//		
-//		model.addAttribute("articlesVendus", articlesVendus);
-//		model.addAttribute("categories", categories);
-//		System.out.println(articlesVendus.toString());
-//		
-//		return "PageAccueilNonConnecte";
-//	}
+	@GetMapping("/FiltreMesVentesEnCours")
+	public String afficherListeEnchereRadio(Authentication authentication, Model model) {
+	    String username = authentication.getName(); // Obtenez le nom d'utilisateur de l'authentification
+	    Utilisateur utilisateur = utilisateurService.afficherNoUtilisateurViaPseudo(username); // Obtenez l'objet Utilisateur à partir du nom d'utilisateur
+	    Integer noUtilisateur = utilisateur.getNoUtilisateur(); // Obtenez le numéro d'utilisateur de l'objet Utilisateur
+	    
+	    // Votre code de traitement ici
+	    // Utilisez le noUtilisateur dans votre logique
+	    
+	    return "PageAccueilNonConnecte";
+	}
 //	@PostMapping("/logout") ///// à voir si util
 //	public String deconnexion() {
 //		return "PageAccueilNonConnecte";

@@ -90,13 +90,34 @@
       radio1.addEventListener('change', updateCheckboxState);
       radio2.addEventListener('change', updateCheckboxState);
       updateCheckboxState();
+      
+    
+   
     });
+    
+    
+    function goToLink() {
+      var checkbox1 = document.querySelector('input[name="checkbox1"]');
+      var checkbox4 = document.querySelector('input[name="checkbox4"]');
+      var link = "/encheres"; // Remplacez "/rechercher" par l'URL réelle que vous souhaitez utiliser
+      
+      if (checkbox1.checked) {
+        window.location.href = link;
+      }
+      
+      if (checkbox4.checked) {
+        var userId = checkbox4.dataset.userid;
+        link = "/FiltreMesVentesEnCours?noUtilisateur=" + userId;
+        window.location.href = link;
+      }
+    }
   </script>
 </head>
-<div>
+<!-- <div> -->
 <body>
-<form class="d-flex" role="search" th:action="@{/rechercher}"
-						method="get">
+<!--<form class="d-flex" role="search" th:action="@{/rechercher}"
+						method="get">  -->
+               
                 
   <label >
     <input type="radio" id="radio1" name="option" value="option1">
@@ -105,16 +126,16 @@
   
   <br>
   
-  <a th:href="@{/encheres}">
-    <input type="checkbox" name="checkbox1" onclick="" >
-   	Encheres 
- </a>
+  <label>
+    <input type="checkbox" name="checkbox1" onclick="goToLink()" >
+   	Encheres en cours :
+ </label>
   <br>
  
-   <a >
-    <input type="checkbox" name="checkbox2">
+   <label >
+    <input type="checkbox" name="checkbox2" onclick="goToLink()">
     Case à cocher 2
-  </a>
+  </label>
   <br>
    <label>
     <input type="checkbox" name="checkbox3">
@@ -130,8 +151,8 @@
   </label>
   <br>
    <label>
-    <input type="checkbox" name="checkbox4" >
-    Case à cocher 1
+   <input type="checkbox" name="checkbox4"  data-userid="${noUtilisateur}" th:value="noUtilisateur" onclick="goToLink()">
+    Mes ventes en cours :
   </label>
   <br>
    <label>
@@ -143,8 +164,8 @@
     <input type="checkbox" name="checkbox6">
     Case à cocher 3
   </label>
-  </form>
-</div>
+  <!-- </form> -->
+<!--  </div>-->
   <br>
  
 	

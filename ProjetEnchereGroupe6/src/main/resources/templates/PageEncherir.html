@@ -1,45 +1,73 @@
 <!DOCTYPE html>
+
 <html xmlns:th="http://www.thymeleaf.org">
+
 <head>
+
 <meta charset="UTF-8">
+
 <title>Détail vente</title>
+
 <link
-	href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css"
-	rel="stylesheet"
-	integrity="sha384-9ndCyUaIbzAi2FUVXJi0CjmCapSmO7SnpJef0486qhLnuZ2cdeRhO02iuK6FUUVM"
-	crossorigin="anonymous">
+    href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css"
+    rel="stylesheet"
+    integrity="sha384-9ndCyUaIbzAi2FUVXJi0CjmCapSmO7SnpJef0486qhLnuZ2cdeRhO02iuK6FUUVM"
+    crossorigin="anonymous">
 <link rel="stylesheet" href="./css/style.css">
+
 </head>
 
+ 
+
 <body>
+
 <!-- Intégration du fragment d'entête -->
+
 <div data-th-replace="~{/fragments/fragment-entete :: frag-entete}"></div>
 <h1>Vente en cours</h1>
 
 <form method="post" th:action="encherir" th:object="${articleVendu}">
 
-	<img>
-	
-	<div>
-	
-		<p th:text=*{nomArticle}></p>
-		<p>Description : <span th:text=*{description}></span></p>
-		<p>Catétorie : <span th:text=*{categorie.libelle}></span></p>
-		<p>Meilleure offre : <span th:text=*{prixVente}></span></p>
-		<p>Mise à prix : <span th:text=*{miseAPrix}></span> points</p>
-		<p>Fin de l'enchère : <span th:text=*{dateFinEncheres}></span></p>
-		<p>Retrait : <span></span></p>
-		<p>Vendeur : <span th:text="*{utilisateur.pseudo}"></span></p>
-		<label for="maProposition">Ma proposition : </label>
-		<input type="number" id="maProposition" th:value={}><br>
-		
-		<button>Enchérir</button>
-		
-	</div>
+ 
+
+    <img>
+
+    
+
+    <div>
+
+    
+
+        <p th:text=*{nomArticle}></p>
+        <p>Description : <span th:text=*{description}></span></p>
+        <p>Catétorie : <span th:text=*{categorie.libelle}></span></p>
+        <p>Meilleure offre : <span th:text=*{prixVente}></span></p>
+        <p>Mise à prix : <span th:text=*{miseAPrix}></span> points</p>
+        <p>Fin de l'enchère : <span th:text=*{dateFinEncheres}></span></p>
+        <p>Retrait : <span></span></p>
+        <p>Vendeur : <span th:text="*{utilisateur.pseudo}"></span></p>
+        <label for="maProposition">Ma proposition : </label>
+
+         <input type="number" id="maProposition" ><br>
+
+        
+
+        <button>Enchérir</button>
+
+        
+
+    </div>
+
+ 
 
 </form>
 
+ 
+
 <div data-th-replace="~{/fragments/frag-piedpage :: frag-piedpage}"></div>
 
+ 
+
 </body>
+
 </html>
