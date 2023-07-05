@@ -10,7 +10,7 @@ public interface EnchereDAO {
 	
 	Enchere findById(Integer id);
 
-	void save(Enchere enchere);
+	void save(ArticleVendu articleVendu, Enchere enchere);
 	
 	void delete(Enchere enchere);
 }
