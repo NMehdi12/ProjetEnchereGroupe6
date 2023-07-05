@@ -12,31 +12,39 @@ import jakarta.validation.constraints.Size;
 public class Utilisateur {
 
 	private Integer noUtilisateur;
+	
 	@NotNull
 	@NotBlank(message = "Le numéro de téléphone doit être renseigné")
 	//@Pattern(regexp = "^\\+(?:[0-9] ?){6,14}[0-9]$", message = "Numéro de téléphone invalide")
+	//@Pattern(regexp = "(0|\+33)[1-9]( *[0-9]{2}){4}", message = "Numéro de téléphone invalide")
 	private String telephone;
-	//@Pattern(regexp = "^\\d{5}$", message = "Code postal invalide")
+	
+	@Pattern(regexp = "^\\d{5}$", message = "Code postal invalide")
 	private String codePostal;
+	
 	//@Pattern(regexp = "^[a-zA-Z0-9]+$", message = "uniquement caractère alphanumériques")
+	@NotNull (message = "Champ nom requis")
+	@NotBlank(message = "Champ nom requis")
 	private String pseudo;
+	
 	@NotNull
-	@NotBlank(message = "Champ requis")
+	@NotBlank(message = "Champ nom requis")
 	private String nom;
+	
 	@NotNull
-	@NotBlank(message = "Champ requis")
+	@NotBlank(message = "Champ prenom requis")
 	private String prenom;
 	@NotNull
-	@NotBlank(message = "Champ requis")
+	@NotBlank(message = "Champ email requis")
 	//@Pattern(regexp = "^[A-Za-z0-9+_.-]+@[A-Za-z0-9.-]+$", message = "Adresse e-mail invalide")
 	private String email;
 	@NotNull
 	@NotBlank
 	private String rue;
 	@NotNull
-	@NotBlank
+	@NotBlank (message = "Champ email requis")
 	private String ville;
-	//@Size(min = 6, message = "Au moins 6 caractères")
+	@Size(min = 6, message = "Au moins 6 caractères")
 	private String motDePasse;
 	private String motDePasseConfirm;
 	private Integer credit;

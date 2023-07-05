@@ -35,25 +35,23 @@
   </div>
 -->
 
-
-
 <fieldset>
-	<form th:action="inscription" th:object="${utilisateur}" method="post">
+	<form th:action="@{/inscription}" th:object="${utilisateur}" method="post">
 
 		<div class="alert alert-danger" th:if="${#fields.hasErrors('*')}">
-			<p th:text="#{pageCreerCompte.erreurs}">Message d'erreur</p>
+			<p th:text="#{pageCreerCompte.erreurs}">Message d'erreur perso</p>
+
 		</div>
 
 		<fieldset>
 			<legend>Formulaire</legend>
 			<div class="form-group">
-				<label for="pseudo" class="form-label mt-4">Pseudo:</label> <input
-					type="text" id="pseudo" th:field="*{pseudo}" required /> <span
-					class="text-danger col-6" th:if="${#fields.hasErrors('pseudo')}">
-					<ul>
-						<li th:each="erreur: ${#fields.errors('pseudo')}"
-							th:text="${erreur}"></li>
-					</ul>
+				<label for="pseudo" class="form-label mt-4">Pseudo:</label> 
+				<input type="text" id="pseudo" th:field="*{pseudo}" required /> 
+				<span class="text-danger col-6" th:if="${#fields.hasErrors('pseudo')}">
+				<ul>
+					<li th:each="erreur: ${#fields.errors('pseudo')}" th:text="${erreur}"></li>
+				</ul>
 				</span>
 			</div>
 			<div class="form-group">
