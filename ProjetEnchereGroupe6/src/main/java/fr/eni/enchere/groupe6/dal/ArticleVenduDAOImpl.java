@@ -27,6 +27,7 @@ public class ArticleVenduDAOImpl implements ArticleVenduDAO {
 	private final static String FIND_ID = "SELECT * FROM ARTICLES_VENDUS WHERE no_article=:no_article ";
 	//private final String FIND_ALL = "SELECT nom_article, description, date_debut_encheres, date_fin_encheres, prix_initial, prix_vente FROM ARTICLES_VENDUS";
 	private final static String UPDATE = "update ARTICLES_VENDUS set nom_article = :nom_article, description = :description, date_debut_encheres = :date_debut_encheres, date_fin_encheres = :date_fin_encheres, prix_initial = :prix_initial, no_categorie = :no_categorie where no_article = :no_article";
+	private final static String UPDATE_PRIX_VENTE = "update ARTICLES_VENDUS set prix_vente = :prix_vente where no_article = :no_article";
 	
 	@Autowired
 	private NamedParameterJdbcTemplate npJdbcTemplate;
@@ -78,7 +79,7 @@ public class ArticleVenduDAOImpl implements ArticleVenduDAO {
 		paramSrc.addValue("date_debut_encheres", articleVendu.getDateDebutEncheres());
 		paramSrc.addValue("date_fin_encheres", articleVendu.getDateFinEncheres());
 		paramSrc.addValue("prix_initial", articleVendu.getMiseAPrix());
-		paramSrc.addValue("prix_vente", articleVendu.getPrixVente());
+		paramSrc.addValue("prix_vente", articleVendu.getMiseAPrix());
 		paramSrc.addValue("no_utilisateur", noUtilisateur);
 		paramSrc.addValue("no_categorie", articleVendu.getCategorie().getNoCategorie());
 		
@@ -204,6 +205,16 @@ public class ArticleVenduDAOImpl implements ArticleVenduDAO {
         System.out.println("Valeurs de paramSrc : " + paramSrc.toString());
         
         npJdbcTemplate.update(UPDATE, paramSrc);
+	}
+
+	@Override
+	public void updatePrixVente(ArticleVendu articleVendu, Integer nouveauPrixVente) {
+		MapSqlParameterSource paramSrc = new MapSqlParameterSource("prix_vente", nouveauPrixVente);
+		paramSrc.addValue("no_article", articleVendu.getNoArticle());
+		
+		System.out.println("Mise à jour de prixVente dans la table ARTICLES_VENDUS en base de données");
+		npJdbcTemplate.update(UPDATE_PRIX_VENTE, paramSrc);
+		
 	}
 
 

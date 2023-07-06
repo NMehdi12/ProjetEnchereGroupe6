@@ -9,8 +9,10 @@ import fr.eni.enchere.groupe6.bo.Enchere;
 
 public interface EnchereService {
 
-	public void enregistrerEnchere(ArticleVendu articleVendu, Enchere enchere);
+	public void enregistrerEnchere(ArticleVendu articleVendu, Authentication authentication);
 	
 	public Enchere afficherMeilleureEnchereParNoArticle(Integer noArticle);
+	
+	public void encherir(ArticleVendu articleVendu, Authentication authentication, Integer nouvelleEnchere);
 	
 }

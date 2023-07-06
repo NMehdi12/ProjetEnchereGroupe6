@@ -44,7 +44,7 @@ public class EnchereController {
 	}
 
 	@GetMapping({ "/", "/encheres" })
-	public String afficherListeEnchere(@ModelAttribute("categorie") Categorie categorie, Model model) {
+	public String afficherListeEnchere(@ModelAttribute("categorie") Categorie categorie,Authentication authentications, Model model) {
 		List<ArticleVendu> articlesVendus = articleVenduService.afficherArticlesVendus();
 		List<Categorie> categories = categorieService.afficherListeCategorie();
 		Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
@@ -217,12 +217,15 @@ public class EnchereController {
 			return "PageVendreUnArticle";
 		}  
 		articleVenduService.enregistrerArticle(articleVendu, authentication);
+		enchereService.enregistrerEnchere(articleVendu, authentication);
 		return "redirect:/encheresConnecte";
 	}
 
 	@PostMapping("/modifierVente")
 	public String modificationVente(@ModelAttribute("articleVendu") ArticleVendu articleVendu) {
 		articleVenduService.mettreAJourArticle(articleVendu);
+		
+		
 		return "redirect:/encheresMesVentes";
 	}
 
@@ -241,7 +244,6 @@ public class EnchereController {
 
 	// Enregistrement d'un nouvel article en base de données
 	@PostMapping("/encheresMesVentes")
-
 	public String enregistrerVente(@ModelAttribute("articleVendu") ArticleVendu articleVendu,
 			Authentication authentication) {
 
@@ -252,13 +254,18 @@ public class EnchereController {
 	}
 
 	@GetMapping("/encherir")
-
 	public String vueEncherir(@ModelAttribute("articleVendu") ArticleVendu articleVendu,
 			@RequestParam("noArticleVendu") Integer noArticleVendu, Model model) {
 		articleVendu = articleVenduService.afficherDetailParNoArticle(noArticleVendu);
 		model.addAttribute(articleVendu);
 		return "PageEncherir";
-
+	}
+	
+	@PostMapping("/encherir")
+	public String actionEncherir(@RequestParam("nouvelleProposition") Integer nouvelleProposition, ArticleVendu articleVendu, Authentication authentication) {
+		System.out.println("[Controller] Montant de la nouvelle proposition : " + nouvelleProposition);
+		enchereService.encherir(articleVendu, authentication, nouvelleProposition);
+		return "redirect:/";
 	}
 
 }

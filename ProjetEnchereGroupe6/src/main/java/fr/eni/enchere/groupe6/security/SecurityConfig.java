@@ -36,9 +36,13 @@ public class SecurityConfig {
 	public void configureGlobal( AuthenticationManagerBuilder auth ) throws Exception {
 		auth.jdbcAuthentication()
 			.dataSource( dataSource )
-			.usersByUsernameQuery( " SELECT pseudo, mot_de_passe, 1 FROM UTILISATEURS WHERE pseudo = ? " )
+			.usersByUsernameQuery( " SELECT pseudo, mot_de_passe, 1 FROM UTILISATEURS WHERE pseudo = ?" )
+			.usersByUsernameQuery( " SELECT email, mot_de_passe, 1 FROM UTILISATEURS WHERE email = ?" )
 			.authoritiesByUsernameQuery(" SELECT ?,'admin'" )
 			.passwordEncoder( passwordEncoder )
+			
+			
+			
 			;
 	}
 	
@@ -59,17 +63,6 @@ public class SecurityConfig {
 			
 			
 			.authorizeHttpRequests( auth -> auth
-				/*.requestMatchers( "/encheresMesVentes").authenticated()
-				.requestMatchers( "/encheresConnecte").authenticated()
-				.requestMatchers( "/monProfil").authenticated()
-				.requestMatchers( "/profil").authenticated()
-				.requestMatchers( "/encherir").authenticated()
-				.requestMatchers( "/nouvelleVente").authenticated()
-				.requestMatchers( "/modifierVente").authenticated()
-				.requestMatchers( "/inscription" ).permitAll()
-				.requestMatchers( "/connexion" ).permitAll()
-				.requestMatchers("/encheres").permitAll()
-				.requestMatchers("/").permitAll()*/
 				.requestMatchers("/css/**").permitAll()
 				.requestMatchers("/images/**").permitAll()
 					.requestMatchers("/inscription","/","/encheres","/connexion","/rechercher","/filtreCategorie").permitAll()
@@ -87,38 +80,7 @@ public class SecurityConfig {
 	
 	
 	
-	
-//	@Bean
-//	SecurityFilterChain filterChain(HttpSecurity http)throws Exception{
-//		http.authorizeHttpRequests(auth -> {
-//			auth 
-//				.requestMatchers (HttpMethod.GET,"/encheres").permitAll()
-//				.requestMatchers(HttpMethod.GET,"/").permitAll()
-//				.requestMatchers(HttpMethod.GET,"/connexion").permitAll()
-//				.requestMatchers(HttpMethod.POST,"/connexion").permitAll()
-//				.requestMatchers(HttpMethod.POST,"/inscription").permitAll()
-//				.requestMatchers(HttpMethod.GET,"/inscription").permitAll()
-//				
-//				.requestMatchers(HttpMethod.GET,"/encheresConnecte").hasRole("MEMBRE")
-//				.requestMatchers(HttpMethod.POST,"/encheresMesVentes").hasRole("MEMBRE")
-//				.requestMatchers(HttpMethod.GET,"/encheresMesVentes").hasRole("MEMBRE")
-//				.requestMatchers(HttpMethod.GET,"/profil").hasRole("MEMBRE")
-//				.requestMatchers(HttpMethod.GET,"/monProfil").hasRole("MEMBRE")
-//				.requestMatchers(HttpMethod.POST,"/monProfil").hasRole("MEMBRE")
-//				.requestMatchers(HttpMethod.GET,"/modifierVente").hasRole("MEMBRE")
-//				.requestMatchers(HttpMethod.GET,"/nouvelleVente").permitAll()
-//				.requestMatchers("/css/*").permitAll().requestMatchers("/images/*").permitAll()
-//				.anyRequest().authenticated();
-//		});
-		//formulaire de connexion
-		//http.formLogin(Customizer.withDefaults());
-		
-		
-//		http.formLogin(form -> {
-//			form.loginPage("/connexion").permitAll();
-//			form.defaultSuccessUrl("/encheresConnecte").permitAll();
-//		});
-		
+
 		
 		
 		
