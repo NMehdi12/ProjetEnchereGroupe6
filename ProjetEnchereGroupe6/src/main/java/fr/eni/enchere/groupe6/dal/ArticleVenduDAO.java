@@ -27,4 +27,12 @@ public interface ArticleVenduDAO {
 	List<ArticleVendu> findByCategorie(Categorie categorie);
 	
 	List<ArticleVendu> findByNoUtilisateur(Utilisateur utilisateur);
+	
+	List<ArticleVendu> findByVentesNonCommencees(Utilisateur utilisateur);
+	
+	List<ArticleVendu> findByVentesTerminees(Utilisateur utilisateur);
+	
+	List<ArticleVendu> findByMesEncheresEnCours(Utilisateur utilisateur);
+	
+	List<ArticleVendu> findByMesEncheresTerminees(Utilisateur utilisateur);
 }
