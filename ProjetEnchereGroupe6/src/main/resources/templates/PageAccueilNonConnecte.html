@@ -99,7 +99,7 @@
     function goToLink() {
       var checkbox1 = document.querySelector('input[name="checkbox1"]');
       var checkbox4 = document.querySelector('input[name="checkbox4"]');
-      var link = "/encheres"; // Remplacez "/rechercher" par l'URL réelle que vous souhaitez utiliser
+      var link = "/encheres"; 
       
       if (checkbox1.checked) {
         window.location.href = link;
@@ -113,62 +113,69 @@
     }
   </script>
 </head>
-<!-- <div> -->
+
 <body>
-<!--<form class="d-flex" role="search" th:action="@{/rechercher}"
-						method="get">  -->
-               
-                
+ <div class="lecssctop" data-th-if="${#authorization.expression('isAuthenticated()')}" >     
+ <div class="blockCheck1"> 
   <label >
     <input type="radio" id="radio1" name="option" value="option1">
-    Option 1
+    Achats :
   </label>
   
   <br>
-  
-  <label>
-    <input type="checkbox" name="checkbox1" onclick="goToLink()" >
+  <div class="form-check">
+  <label class="form-check-label" for="flexCheckDefault">
+    <input class="form-check-input" type="checkbox" name="checkbox1" id="flexCheckDefault" onclick="goToLink()" >
    	Encheres en cours :
  </label>
+ 
   <br>
  
-   <label >
-    <input type="checkbox" name="checkbox2" onclick="goToLink()">
+   <label class="form-check-label" for="flexCheckDefault" >
+    <input class="form-check-input" type="checkbox" name="checkbox2"  id="flexCheckDefault"  onclick="goToLink()">
     Case à cocher 2
   </label>
+  
   <br>
-   <label>
-    <input type="checkbox" name="checkbox3">
+  
+   <label class="form-check-label" for="flexCheckDefault">
+    <input class="form-check-input" type="checkbox" name="checkbox3" id="flexCheckDefault">
     Case à cocher 3
   </label>
-  
+  </div> 
+  </div>
   <br>
   
-  <label>
-  
+  <div class="blockCheck2">
+  <label >
     <input type="radio" id="radio2" name="option" value="option2">
-    Option 2
+    Ventes :
   </label>
+  
   <br>
-   <label>
-   <input type="checkbox" name="checkbox4" onclick="goToLink()">
+  
+   <label class="form-check-label" for="flexCheckDefault">
+   <input class="form-check-input" type="checkbox" name="checkbox4" id="flexCheckDefault" onclick="goToLink()">
     Mes ventes en cours :
   </label>
+  
   <br>
-   <label>
-    <input type="checkbox" name="checkbox5">
+  
+   <label class="form-check-label" for="flexCheckDefault">
+    <input class="form-check-input" type="checkbox" name="checkbox5" id="flexCheckDefault">
     Case à cocher 2
   </label>
+  
   <br>
-   <label>
-    <input type="checkbox" name="checkbox6">
+  
+   <label class="form-check-label" for="flexCheckDefault">
+    <input  class="form-check-input" type="checkbox" name="checkbox6" id="flexCheckDefault">
     Case à cocher 3
   </label>
-  <!-- </form> -->
-<!--  </div>-->
-  <br>
  
-	
+  <br>
+  </div>
+ </div>  
     
     
 	<div class="container">
