@@ -113,75 +113,80 @@ public class EnchereController {
 	}
 
 	@GetMapping("/FiltreMesVentesEnCours")
-	public String afficherListeEnchereRadio(Authentication authentication, Utilisateur utilisateur, Model model) {
-
+	public String afficherListeEnchereRadio(Authentication authentication, Utilisateur utilisateur,Categorie categorie, Model model) {
+		
 		String username = authentication.getName(); // Obtenez le nom d'utilisateur de l'authentification
 		Integer noUtilisateurConnecte = utilisateurService.afficherNoUtilisateurViaPseudo(username);
 		utilisateur.setNoUtilisateur(noUtilisateurConnecte);
-
+		List<Categorie> categories = categorieService.afficherListeCategorie();
 		List<ArticleVendu> articlesVendus = articleVenduService.afficherResultatParNoUtilisateur(utilisateur);
 		model.addAttribute("noUtilisateur", noUtilisateurConnecte);
 		model.addAttribute("articleVendu", articlesVendus);
+		model.addAttribute("categories", categories);
 		System.out.println(noUtilisateurConnecte);
 
 		return "PageAccueilNonConnecte";
 	}
 	
 	@GetMapping("/FiltreMesVentesNonCommencees")
-	public String afficherListeEnchereNonCommencees(Authentication authentication, Utilisateur utilisateur, Model model) {
+	public String afficherListeEnchereNonCommencees(Authentication authentication, Utilisateur utilisateur,Categorie categorie, Model model) {
 
 		String username = authentication.getName(); // Obtenez le nom d'utilisateur de l'authentification
 		Integer noUtilisateurConnecte = utilisateurService.afficherNoUtilisateurViaPseudo(username);
 		utilisateur.setNoUtilisateur(noUtilisateurConnecte);
-
+		List<Categorie> categories = categorieService.afficherListeCategorie();
 		List<ArticleVendu> articlesVendus = articleVenduService.afficherResultatParNoUtilisateurEtNonCommence(utilisateur);
 		model.addAttribute("noUtilisateur", noUtilisateurConnecte);
 		model.addAttribute("articleVendu", articlesVendus);
+		model.addAttribute("categories", categories);
 		System.out.println(noUtilisateurConnecte);
 
 		return "PageAccueilNonConnecte";
 	}
 	
 	@GetMapping("/FiltreMesVentesTerminees")
-	public String afficherListeEnchereTerminees(Authentication authentication, Utilisateur utilisateur, Model model) {
+	public String afficherListeEnchereTerminees(Authentication authentication, Utilisateur utilisateur,Categorie categorie, Model model) {
 
 		String username = authentication.getName(); // Obtenez le nom d'utilisateur de l'authentification
 		Integer noUtilisateurConnecte = utilisateurService.afficherNoUtilisateurViaPseudo(username);
 		utilisateur.setNoUtilisateur(noUtilisateurConnecte);
-
+		List<Categorie> categories = categorieService.afficherListeCategorie();
 		List<ArticleVendu> articlesVendus = articleVenduService.afficherResultatParNoUtilisateurEtTermine(utilisateur);
 		model.addAttribute("noUtilisateur", noUtilisateurConnecte);
 		model.addAttribute("articleVendu", articlesVendus);
+		model.addAttribute("categories", categories);
 		System.out.println(noUtilisateurConnecte);
 
 		return "PageAccueilNonConnecte";
 	}
 	
 	@GetMapping("/FiltreMesEncheresEnCours")
-	public String afficherListeEnchereParticipation(Authentication authentication, Utilisateur utilisateur, Model model) {
+	public String afficherListeEnchereParticipation(Authentication authentication, Utilisateur utilisateur,Categorie categorie, Model model) {
 
 		String username = authentication.getName(); // Obtenez le nom d'utilisateur de l'authentification
 		Integer noUtilisateurConnecte = utilisateurService.afficherNoUtilisateurViaPseudo(username);
 		utilisateur.setNoUtilisateur(noUtilisateurConnecte);
-
+		List<Categorie> categories = categorieService.afficherListeCategorie();
 		List<ArticleVendu> articlesVendus = articleVenduService.afficherResultatParEncheresEnCours(utilisateur);
 		model.addAttribute("noUtilisateur", noUtilisateurConnecte);
 		model.addAttribute("articleVendu", articlesVendus);
+		model.addAttribute("categories", categories);
 		System.out.println(noUtilisateurConnecte);
 
 		return "PageAccueilNonConnecte";
 	}
 	
 	@GetMapping("/FiltreMesEncheresTerminee")
-	public String afficherListeEnchereParticipationTerminees(Authentication authentication, Utilisateur utilisateur, Model model) {
+	public String afficherListeEnchereParticipationTerminees(Authentication authentication, Utilisateur utilisateur,Categorie categorie, Model model) {
 
 		String username = authentication.getName(); // Obt le nom d'utilisateur de l'authentification
 		Integer noUtilisateurConnecte = utilisateurService.afficherNoUtilisateurViaPseudo(username);
 		utilisateur.setNoUtilisateur(noUtilisateurConnecte);
-
+		List<Categorie> categories = categorieService.afficherListeCategorie();
 		List<ArticleVendu> articlesVendus = articleVenduService.afficherResultatParEncheresEnCours(utilisateur);
 		model.addAttribute("noUtilisateur", noUtilisateurConnecte);
 		model.addAttribute("articleVendu", articlesVendus);
+		model.addAttribute("categories", categories);
 		System.out.println(noUtilisateurConnecte);
 
 		return "PageAccueilNonConnecte";
@@ -283,7 +288,7 @@ public class EnchereController {
 		}  
 		articleVenduService.enregistrerArticle(articleVendu, authentication);
 		enchereService.enregistrerEnchere(articleVendu, authentication);
-		return "redirect:/encheresConnecte";
+		return "redirect:/";
 	}
 
 	@PostMapping("/modifierVente")

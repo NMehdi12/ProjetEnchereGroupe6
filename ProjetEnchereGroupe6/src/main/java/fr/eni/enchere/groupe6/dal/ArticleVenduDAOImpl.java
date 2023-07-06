@@ -170,7 +170,7 @@ public class ArticleVenduDAOImpl implements ArticleVenduDAO {
 
 	@Override
 	public List<ArticleVendu> findByCategorie(Categorie categorie) {
-		String FIN_BY_CATEGORIE = "SELECT * FROM ARTICLES_VENDUS WHERE no_categorie=:no_categorie AND ";
+		String FIN_BY_CATEGORIE = "SELECT * FROM ARTICLES_VENDUS WHERE no_categorie=:no_categorie";
 		
 		Map<String, Object> params1 = new HashMap<>();
 		params1.put("no_categorie", categorie.getNoCategorie());

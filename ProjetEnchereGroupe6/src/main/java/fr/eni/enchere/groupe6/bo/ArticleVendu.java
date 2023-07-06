@@ -25,7 +25,7 @@ public class ArticleVendu {
 	
 	@NotNull
 	@DateTimeFormat(pattern = "yyyy-MM-dd")
-	@FutureOrPresent (message = "renseignez une date valide")
+	//@FutureOrPresent (message = "renseignez une date valide")
 	private Date dateDebutEncheres;
 /////////////////////Ajouter contraintye date superieure à la date de début/////////////
 	
