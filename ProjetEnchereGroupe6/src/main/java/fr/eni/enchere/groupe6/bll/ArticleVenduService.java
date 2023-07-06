@@ -17,5 +17,8 @@ void enregistrerArticle(ArticleVendu articleVendu, Authentication authentication
 List<ArticleVendu> afficherResultatParCategorie(Categorie categorie);
 void mettreAJourArticle(ArticleVendu articleVendu);
 List<ArticleVendu> afficherResultatParNoUtilisateur(Utilisateur utilisateur);
-
+List<ArticleVendu> afficherResultatParNoUtilisateurEtNonCommence(Utilisateur utilisateur);
+List<ArticleVendu> afficherResultatParNoUtilisateurEtTermine(Utilisateur utilisateur);
+List<ArticleVendu> afficherResultatParEncheresEnCours(Utilisateur utilisateur);//participation de l'utilisateur
+List<ArticleVendu> afficherResultatParEncheresTermine(Utilisateur utilisateur);//participation de l'utilisateur et termine
 }
