@@ -15,8 +15,8 @@ public class ArticleVendu {
 	
 	private Integer noArticle;
 	
-//	@NotNull (message="Renseignez le nom de l'article!!!!!!!!!")
-//	@NotBlank (message="Le nom de l'article doit être renseigné!!!!!!!!!")
+	@NotNull (message="Renseignez le nom de l'article.")
+	@NotBlank (message="Le nom de l'article doit être renseigné.")
 	private String nomArticle;
 	
 	@NotNull (message="Renseignez une description")
@@ -38,9 +38,9 @@ public class ArticleVendu {
 	@Min (1)
 	private int miseAPrix;
 	
-//	@NotNull
-//	@PositiveOrZero
-//	@Min (1)            //////////////ajouter prix superieur au prix de mise en vente
+	//@NotNull
+	@PositiveOrZero
+	//@Min (1)            //////////////ajouter prix superieur au prix de mise en vente
 	private Integer prixVente;
 	
 	private int etatVente; //3 etats possible ?? (en cour d'enchere, vendu, en attente)

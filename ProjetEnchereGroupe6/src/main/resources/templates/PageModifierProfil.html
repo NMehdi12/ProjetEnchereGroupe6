@@ -149,11 +149,15 @@
 					id="exampleInputPassword1" placeholder="Password">
 			</div> -->
 		<p>Crédit : <span data-th-text="${utilisateur.credit}"></span><p>
+		
 			<button type="submit" class="btn btn-primary">Enregistrer</button>
+				
 		</fieldset>
-		
-		
 	</form>
+
+<form th:action="supprimerProfil" th:object="${utilisateur}" method="post">
+<button type="submit" th:href="@{/supprimerProfil}" class="btn btn-danger ml-2">Supprimer le profil</button>
+</form>
 
 <div data-th-replace="~{/fragments/frag-piedpage :: frag-piedpage}"></div>
 </body>
