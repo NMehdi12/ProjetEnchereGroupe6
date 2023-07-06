@@ -38,15 +38,17 @@
 
     
 
-        <p th:text=*{nomArticle}></p>
+        <h2 th:text=*{nomArticle}></h2>
         <p>Description : <span th:text=*{description}></span></p>
-        <p>Catétorie : <span th:text=*{categorie.libelle}></span></p>
+        <p>Cathégorie : <span th:text=*{categorie.libelle}></span></p>
         <p>Meilleure offre : <span th:text=*{prixVente}></span></p>
         <p>Mise à prix : <span th:text=*{miseAPrix}></span> points</p>
         <p>Fin de l'enchère : <span th:text=*{dateFinEncheres}></span></p>
         <p>Retrait : <span></span></p>
         <p>Vendeur : <span th:text="*{utilisateur.pseudo}"></span></p>
         <label for="maProposition">Ma proposition : </label>
+        
+        <input type="hidden" th:field=*{noArticle}>
 
          <input type="number" id="maProposition" th:name="nouvelleProposition" th:value="nouvelleProposition"><br>
 
