@@ -38,7 +38,7 @@
 <fieldset>
 	<form th:action="@{/inscription}" th:object="${utilisateur}" method="post">
 
-		<div class="alert alert-danger" th:if="${#fields.hasErrors('*')}">
+		 <div class="alert alert-danger" th:if="${#fields.hasErrors('*')}">
 			<p th:text="#{pageCreerCompte.erreurs}">Message d'erreur perso</p>
 
 		</div>
@@ -75,7 +75,7 @@
 			</div>
 			<div class="form-group">
 				<label for="email" class="form-label mt-4">email:</label> <input
-					type="text" id="email" th:field="*{email}" required /> <span
+					type="email" id="email" th:field="*{email}" required /> <span
 					class="text-danger col-6" th:if="${#fields.hasErrors('email')}">
 					<ul>
 						<li th:each="erreur: ${#fields.errors('email')}"
@@ -162,7 +162,11 @@
 				<label for="exampleInputPassword1" class="form-label mt-4">confirmation
 					mot de passe</label> <input type="password" class="form-control"
 					id="exampleInputPassword1" placeholder="Password">
-			</div> -->
+			</div> 
+			
+			<span th:if="${#fields.hasErrors('motDePasseConfirm')}">
+			-->
+
 
 			<button type="submit" class="btn btn-primary">Créer</button>
 		</fieldset>

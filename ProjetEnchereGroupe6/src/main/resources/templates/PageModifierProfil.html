@@ -103,8 +103,19 @@
 				</span>
 			</div>
 			<div class="form-group">
-				<label for="motDePasse" class="form-label mt-4">mot de
-					passe actuel:</label> <input type="password" id="motDePasse"
+				<label for="motDePasseActuel" class="form-label mt-4">mot de
+					passe actuel:</label> <input type="password" id="motDePasseActuel"
+					th:field="*{motDePasseActuel}" required /> <span
+					class="text-danger col-6"
+					th:if="${#fields.hasErrors('motDePasseActuel')}">
+					<ul>
+						<li th:each="erreur: ${#fields.errors('motDePasseActuel')}"
+							th:text="${erreur}"></li>
+					</ul>
+				</span>
+			</div>
+			<div class="form-group">
+				<label for="motDePasse" class="form-label mt-4">Nouveau mot de passe :</label> <input type="password" id="motDePasse"
 					th:field="*{motDePasse}" required /> <span
 					class="text-danger col-6"
 					th:if="${#fields.hasErrors('motDePasse')}">
@@ -116,7 +127,7 @@
 			</div>
 			<div class="form-group">
 				<label for="motDePasseConfirm" class="form-label mt-4">confirmation
-					mot de passe:</label> <input type="password" id="motDePasseConfirm"
+					nouveau mot de passe:</label> <input type="password" id="motDePasseConfirm"
 					th:field="*{motDePasseConfirm}" required /> <span
 					class="text-danger col-6"
 					th:if="${#fields.hasErrors('motDePasseConfirm')}">

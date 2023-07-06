@@ -27,12 +27,15 @@ public class Utilisateur {
 	@NotBlank(message = "Champ nom requis")
 	private String pseudo;
 	
+	
 	@NotNull
 	@NotBlank(message = "Champ nom requis")
+	@Pattern(regexp = "^[a-zA-Z]+$", message = "Nom invalide")
 	private String nom;
 	
 	@NotNull
-	@NotBlank(message = "Champ prenom requis")
+	@NotBlank(message = "Champ nom requis")
+	@Pattern(regexp = "^[a-zA-Z]+$", message = "Prenom invalide")
 	private String prenom;
 	
 	@NotNull
@@ -51,6 +54,7 @@ public class Utilisateur {
 	@Size(min = 6, message = "Au moins 6 caractères")
 	private String motDePasse;
 	private String motDePasseConfirm;
+	private String motDePasseActuel;
 	private Integer credit;
 	
 	private List<ArticleVendu> articleVendu; // faire l'injection par constructeur
@@ -248,6 +252,14 @@ public class Utilisateur {
 
 	public void setMotDePasseConfirm(String motDePasseConfirm) {
 		this.motDePasseConfirm = motDePasseConfirm;
+	}
+
+	public String getMotDePasseActuel() {
+		return motDePasseActuel;
+	}
+
+	public void setMotDePasseActuel(String motDePasseActuel) {
+		this.motDePasseActuel = motDePasseActuel;
 	}
 
 }
