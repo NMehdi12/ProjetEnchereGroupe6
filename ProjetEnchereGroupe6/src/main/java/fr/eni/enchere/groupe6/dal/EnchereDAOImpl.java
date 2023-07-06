@@ -27,7 +27,7 @@ public class EnchereDAOImpl implements EnchereDAO{
 	private final static String INSERT = "insert into ENCHERES (no_utilisateur, no_article, date_enchere, montant_enchere) values (:no_utilisateur, (select max(no_article) from ARTICLES_VENDUS), :date_enchere, :montant_enchere)";
 	
 	private final static String UPDATE = "update ENCHERES set no_utilisateur = :no_utilisateur, date_enchere = :date_enchere, montant_enchere = :montant_enchere where no_article = :no_article";
-
+	
 	@Override
 	public List<Enchere> findAll() {
 		// TODO Auto-generated method stub
@@ -79,5 +79,8 @@ public class EnchereDAOImpl implements EnchereDAO{
 		
 		articleVenduDAO.updatePrixVente(articleVendu, nouvelleEnchere);
 	}
+
+
+	
 
 }

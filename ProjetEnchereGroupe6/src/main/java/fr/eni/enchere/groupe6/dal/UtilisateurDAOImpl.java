@@ -9,6 +9,7 @@ import org.springframework.jdbc.core.RowMapper;
 import org.springframework.jdbc.core.namedparam.BeanPropertySqlParameterSource;
 import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
+import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Repository;
 
 import fr.eni.enchere.groupe6.bo.Utilisateur;
@@ -23,9 +24,15 @@ public class UtilisateurDAOImpl implements UtilisateurDAO {
 			+ "values (:pseudo, :nom, :prenom, :email, :telephone, :rue, :code_postal, :ville, :mot_de_passe, :credit, :administrateur)";
 
 	private static final String UPDATE = "update UTILISATEURS set pseudo=:pseudo, nom=:nom, prenom=:prenom, email=:email, telephone=:telephone, rue=:rue, code_postal=:code_postal, ville=:ville, mot_de_passe=:mot_de_passe where no_utilisateur=:no_utilisateur";
-	private final static String DELETE = "delete  UTILISATEURS where no_utilisateur= :noUtilisateur";
+//  private final static String DELETE = "delete from UTILISATEURS where no_utilisateur= :noUtilisateur";
+    private final static String DELETE = "delete from UTILISATEURS where no_utilisateur= ?";
 	private final static String FIND_NO_USER_BY_PSEUDO = "select no_utilisateur from UTILISATEURS where pseudo = :pseudo";
 	private final static String FIND_NO_USER_BY_EMAIL = "select * from UTILISATEURS where email = :email";
+	private final static String CREDITER = "update UTILISATEURS set credit = (select credit from UTILISATEURS where no_utilisateur = (select no_utilisateur from ENCHERES where no_article = :no_article)) + :credit where no_utilisateur = (select no_utilisateur from ENCHERES where no_article = :no_article)";
+	private final static String DEBITER = "BEGIN TRANSACTION; update UTILISATEURS set credit = (select credit from UTILISATEURS where no_utilisateur = :no_utilisateur) - :credit where no_utilisateur = :no_utilisateur";
+
+
+
 
 	private NamedParameterJdbcTemplate njt;
 
@@ -99,7 +106,7 @@ public class UtilisateurDAOImpl implements UtilisateurDAO {
 		paramSrc.addValue("code_postal", utilisateur.getCodePostal());
 		paramSrc.addValue("ville", utilisateur.getVille());
 		paramSrc.addValue("mot_de_passe", utilisateur.getMotDePasse());
-		paramSrc.addValue("credit", 0);
+		paramSrc.addValue("credit", 1000);
 		paramSrc.addValue("administrateur", false);
 		njt.update(INSERT, paramSrc);
 		System.out.println("passe par le save UtilisateurDAOimpl");
@@ -129,10 +136,12 @@ public class UtilisateurDAOImpl implements UtilisateurDAO {
 	}
 
 	@Override
-	public void delete(Integer noUtilisateur) {
-		Utilisateur utilisateur = new Utilisateur();
-		njt.update(DELETE, new BeanPropertySqlParameterSource(utilisateur));
-	}
+    public void delete(Integer noUtilisateur) {
+//      Utilisateur utilisateur = new Utilisateur();
+//      utilisateur.setNoUtilisateur(noUtilisateur);
+//      njt.update(DELETE, new BeanPropertySqlParameterSource(utilisateur));
+        njt.getJdbcOperations().update(DELETE, noUtilisateur);
+    }
 
 	@Override
 	public Integer findNoUtilisateurByPseudo(String pseudo) {
@@ -155,5 +164,30 @@ public class UtilisateurDAOImpl implements UtilisateurDAO {
 			System.out.println("passe par findbyEmail l'utilisateur existe");
 			return utilisateurs.get(0);
 		}
+	}
+
+	@Override
+	public void crediter(Integer nouveauMontant, Integer noArticle) {
+		
+		
+		MapSqlParameterSource paramSrc = new MapSqlParameterSource("credit", nouveauMontant);
+		paramSrc.addValue("no_article", noArticle);
+		
+		System.out.println("Je passe par la méthode crediter() de UtilisateurDAOImpl");
+		
+		njt.update(CREDITER, paramSrc);
+	}
+
+	@Override
+	public void debiter(Integer nouveauMontant, Authentication authentication) {
+		String pseudo = authentication.getName();
+		Integer noUtilisateur = findNoUtilisateurByPseudo(pseudo);
+		MapSqlParameterSource paramSrc = new MapSqlParameterSource("credit", nouveauMontant);
+		paramSrc.addValue("no_utilisateur", noUtilisateur);
+		
+		System.out.println("Je passe par la méthode debiter() de UtilisateurDAOImpl");
+		
+		njt.update(DEBITER, paramSrc);
+		
 	}
 }
