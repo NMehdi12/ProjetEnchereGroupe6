@@ -2,11 +2,10 @@ package fr.eni.enchere.groupe6.bo;
 
 import java.util.List;
 
-import org.hibernate.validator.constraints.Email;
-
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Pattern;
+import jakarta.validation.constraints.PositiveOrZero;
 import jakarta.validation.constraints.Size;
 
 public class Utilisateur {
@@ -55,6 +54,8 @@ public class Utilisateur {
 	private String motDePasse;
 	private String motDePasseConfirm;
 	private String motDePasseActuel;
+	
+	@PositiveOrZero
 	private Integer credit;
 	
 	private List<ArticleVendu> articleVendu; // faire l'injection par constructeur

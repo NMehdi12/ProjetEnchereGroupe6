@@ -2,11 +2,9 @@ package fr.eni.enchere.groupe6.dal;
 
 import java.util.List;
 
-import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
+import org.springframework.security.core.Authentication;
 
-import fr.eni.enchere.groupe6.bo.ArticleVendu;
 import fr.eni.enchere.groupe6.bo.Utilisateur;
-import fr.eni.enchere.groupe6.dal.UtilisateurDAOImpl.UtilisateurRowMapper;
 
 public interface UtilisateurDAO {
 	List<Utilisateur> findAll();
@@ -17,4 +15,6 @@ public interface UtilisateurDAO {
 	Integer findNoUtilisateurByPseudo(String pseudo);
 	void update(Utilisateur utilisateur);
 	Utilisateur findByEmail(String email);
+	void crediter(Integer nouveauMontant, Integer noArticle);
+	void debiter(Integer nouveauMontant, Authentication authentication);
 }

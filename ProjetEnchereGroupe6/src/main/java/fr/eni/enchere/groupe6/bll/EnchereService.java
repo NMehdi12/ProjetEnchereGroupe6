@@ -1,6 +1,7 @@
 package fr.eni.enchere.groupe6.bll;
 
 import java.security.Timestamp;
+import java.sql.SQLException;
 
 import org.springframework.security.core.Authentication;
 
@@ -13,6 +14,6 @@ public interface EnchereService {
 	
 	public Enchere afficherMeilleureEnchereParNoArticle(Integer noArticle);
 	
-	public void encherir(ArticleVendu articleVendu, Authentication authentication, Integer nouvelleEnchere);
+	public void encherir(ArticleVendu articleVendu, Authentication authentication, Integer nouvelleEnchere) throws SQLException;
 	
 }
