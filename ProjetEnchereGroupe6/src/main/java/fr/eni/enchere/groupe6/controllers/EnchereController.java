@@ -296,7 +296,7 @@ public class EnchereController {
 		articleVenduService.mettreAJourArticle(articleVendu);
 		
 		
-		return "redirect:/encheresMesVentes";
+		return "redirect:/encheres";
 	}
 
 	@GetMapping("/modifierVente")
