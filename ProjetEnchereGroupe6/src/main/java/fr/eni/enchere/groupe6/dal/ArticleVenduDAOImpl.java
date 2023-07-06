@@ -84,7 +84,9 @@ public class ArticleVenduDAOImpl implements ArticleVenduDAO {
 		
 		System.out.println("Enregistrement de l'article");
 		
-		npJdbcTemplate.update(INSERT, paramSrc);
+		int result =npJdbcTemplate.update(INSERT, paramSrc);
+		System.out.println("voici ce qu'il faut regarder:"  + result);
+	
 		
 		
 	}

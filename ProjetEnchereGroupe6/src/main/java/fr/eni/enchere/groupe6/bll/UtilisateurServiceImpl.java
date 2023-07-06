@@ -82,11 +82,12 @@ public class UtilisateurServiceImpl implements UtilisateurService {
 	}
 
 	@Override
-	public void majUtilisateur(Utilisateur utilisateur) {
+	public void majUtilisateur(Utilisateur utilisateur){
 		try {
-			if (!passwordEncoder.matches(utilisateur.getMotDePasse(), recupererMdpUtilisateurConnecte())) {
+			if (!passwordEncoder.matches(utilisateur.getMotDePasseActuel(), recupererMdpUtilisateurConnecte())) {
 				System.out.println("Le mot de passe actuel est incorrect");
-				// lever une exception
+			} else if (!utilisateur.getMotDePasse().equals(utilisateur.getMotDePasseConfirm())) {
+				System.out.println("Le nouveau mot passe est différent de sa confirmation");
 			} else if (!utilisateur.getPseudo().equalsIgnoreCase(recupererUtilisateurConnecte())
 					&& afficherParPseudo(utilisateur.getPseudo()) != null) {
 				System.out.println("Le pseudo existe déjà");
@@ -94,7 +95,7 @@ public class UtilisateurServiceImpl implements UtilisateurService {
 					&& afficherParMail(utilisateur.getEmail()) != null) {
 				System.out.println("L'email existe déjà");
 			} else {
-				utilisateur.setMotDePasse(passwordEncoder.encode(utilisateur.getMotDePasseConfirm()));
+				utilisateur.setMotDePasse(passwordEncoder.encode(utilisateur.getMotDePasse()));
 				System.out.println(utilisateur.getMotDePasse());
 				System.out.println("Je passe par la méthode majUtilisateur de UtilsateurServiceImpl");
 				utilisateurDAO.update(utilisateur);

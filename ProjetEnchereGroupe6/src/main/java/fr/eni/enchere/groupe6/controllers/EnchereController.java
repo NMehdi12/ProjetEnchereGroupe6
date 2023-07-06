@@ -22,6 +22,7 @@ import fr.eni.enchere.groupe6.bo.Categorie;
 import fr.eni.enchere.groupe6.bo.Utilisateur;
 import jakarta.validation.Valid;
 import org.springframework.validation.BindingResult;
+import org.springframework.validation.ObjectError;
 
 @Controller
 @RequestMapping
@@ -34,12 +35,13 @@ public class EnchereController {
 	private CategorieService categorieService;
 	private EnchereService enchereService;
 
-	public EnchereController(ArticleVenduService articleVenduService, CategorieService categorieService, EnchereService enchereService) {
-        super();
-        this.articleVenduService = articleVenduService;
-        this.categorieService = categorieService;
-        this.enchereService = enchereService;
-    }
+	public EnchereController(ArticleVenduService articleVenduService, CategorieService categorieService,
+			EnchereService enchereService) {
+		super();
+		this.articleVenduService = articleVenduService;
+		this.categorieService = categorieService;
+		this.enchereService = enchereService;
+	}
 
 	@GetMapping({ "/", "/encheres" })
 	public String afficherListeEnchere(@ModelAttribute("categorie") Categorie categorie, Model model) {
@@ -83,12 +85,10 @@ public class EnchereController {
 			BindingResult validationResult) {
 		if (validationResult.hasErrors()) {
 			return "PageCreerCompte";
-		}
-		else if (!utilisateur.getMotDePasse().equals(utilisateur.getMotDePasseConfirm())) {
+		} else if (!utilisateur.getMotDePasse().equals(utilisateur.getMotDePasseConfirm())) {
 			System.out.println("inscription utilisateur condition");
 			return "PageCreerCompte";
-		} 
-		else {
+		} else {
 			utilisateurService.enregistrerUtilisateur(utilisateur);
 			System.out.println("inscription utilisateur");
 			return "redirect:/encheres";
@@ -119,21 +119,21 @@ public class EnchereController {
 		return "PageAccueilNonConnecte";
 
 	}
-	
+
 	@GetMapping("/FiltreMesVentesEnCours")
-    public String afficherListeEnchereRadio(Authentication authentication,Utilisateur utilisateur,Model model) {
+	public String afficherListeEnchereRadio(Authentication authentication, Utilisateur utilisateur, Model model) {
 
-        String username = authentication.getName(); // Obtenez le nom d'utilisateur de l'authentification
-        Integer noUtilisateurConnecte = utilisateurService.afficherNoUtilisateurViaPseudo(username);
-        utilisateur.setNoUtilisateur(noUtilisateurConnecte);
+		String username = authentication.getName(); // Obtenez le nom d'utilisateur de l'authentification
+		Integer noUtilisateurConnecte = utilisateurService.afficherNoUtilisateurViaPseudo(username);
+		utilisateur.setNoUtilisateur(noUtilisateurConnecte);
 
-        List<ArticleVendu> articlesVendus = articleVenduService.afficherResultatParNoUtilisateur(utilisateur);
-        model.addAttribute("noUtilisateur",noUtilisateurConnecte );
-        model.addAttribute("articleVendu", articlesVendus);
-        System.out.println(noUtilisateurConnecte);
-       
-        return "PageAccueilNonConnecte";
-    }
+		List<ArticleVendu> articlesVendus = articleVenduService.afficherResultatParNoUtilisateur(utilisateur);
+		model.addAttribute("noUtilisateur", noUtilisateurConnecte);
+		model.addAttribute("articleVendu", articlesVendus);
+		System.out.println(noUtilisateurConnecte);
+
+		return "PageAccueilNonConnecte";
+	}
 
 	@GetMapping("/encheresConnecte")
 	public String afficherListeEnchereConnecte() {
@@ -188,7 +188,7 @@ public class EnchereController {
 		Integer noUtilisateur = utilisateurService.afficherNoUtilisateurViaPseudo(noUser);
 		utilisateur.setNoUtilisateur(noUtilisateur);
 		// System.out.println("Utilisateur connecté : " + utilisateur);
-		utilisateurService.majUtilisateur(utilisateur);
+			utilisateurService.majUtilisateur(utilisateur);
 		// System.out.println("Utilisateur mis à jour : " + noUser);
 		return "redirect:/monProfil";
 	}
@@ -210,9 +210,12 @@ public class EnchereController {
 	}
 
 	@PostMapping("/nouvelleVente")
-	public String ajouterVente(@ModelAttribute("articleVendu") ArticleVendu articleVendu,
-			Authentication authentication) {
-
+	public String ajouterVente(@Valid @ModelAttribute("articleVendu") ArticleVendu articleVendu,BindingResult validationResult,Utilisateur utilisateur,
+			Authentication authentication ) {
+		System.out.println("passe dans ajouterVente post");
+		if (validationResult.hasErrors()) {
+			return "PageVendreUnArticle";
+		}  
 		articleVenduService.enregistrerArticle(articleVendu, authentication);
 		return "redirect:/encheresConnecte";
 	}

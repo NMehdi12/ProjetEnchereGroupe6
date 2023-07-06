@@ -2,6 +2,8 @@ package fr.eni.enchere.groupe6.bo;
 
 import java.util.Date;
 
+import org.springframework.format.annotation.DateTimeFormat;
+
 import jakarta.validation.constraints.Future;
 import jakarta.validation.constraints.FutureOrPresent;
 import jakarta.validation.constraints.Min;
@@ -13,30 +15,32 @@ public class ArticleVendu {
 	
 	private Integer noArticle;
 	
-	@NotNull (message="Renseignez le nom de l'article")
-	@NotBlank (message="Le nom de l'article doit être renseigné")
+//	@NotNull (message="Renseignez le nom de l'article!!!!!!!!!")
+//	@NotBlank (message="Le nom de l'article doit être renseigné!!!!!!!!!")
 	private String nomArticle;
 	
 	@NotNull (message="Renseignez une description")
 	@NotBlank (message="Renseignez une description")
 	private String description;
 	
-//	@NotNull
-//	@FutureOrPresent (message = "renseignez une date valide")
+	@NotNull
+	@DateTimeFormat(pattern = "yyyy-MM-dd")
+	@FutureOrPresent (message = "renseignez une date valide")
 	private Date dateDebutEncheres;
 /////////////////////Ajouter contraintye date superieure à la date de début/////////////
 	
-//	@NotNull
-//	@Future(message = "renseignez une date superieure à la date de début")
+	@NotNull (message="Renseignez une date de fin d'enchères")
+	@DateTimeFormat(pattern = "yyyy-MM-dd")
+	@Future(message = "renseignez une date superieure à la date de début")
 	private Date dateFinEncheres;
 	
 	@NotNull
 	@Min (1)
 	private int miseAPrix;
 	
-	@NotNull
-	@PositiveOrZero
-	@Min (1)            //////////////ajouter prix superieur au prix de mise en vente
+//	@NotNull
+//	@PositiveOrZero
+//	@Min (1)            //////////////ajouter prix superieur au prix de mise en vente
 	private Integer prixVente;
 	
 	private int etatVente; //3 etats possible ?? (en cour d'enchere, vendu, en attente)
