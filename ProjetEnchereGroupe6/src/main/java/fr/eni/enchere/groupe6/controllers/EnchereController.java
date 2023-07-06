@@ -58,15 +58,6 @@ public class EnchereController {
 		return "PageAccueilNonConnecte";
 	}
 
-//	@PostMapping("/logout") ///// à voir si util
-//	public String deconnexion() {
-//		return "PageAccueilNonConnecte";
-//	}
-
-//	@GetMapping("/login")
-//	public String vueSeConnecter() {
-//		return "PageConnexion";
-//	}
 
 	@PostMapping("/connexion")
 	public String seConnecter() {
