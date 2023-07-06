@@ -98,18 +98,49 @@
     
     function goToLink() {
       var checkbox1 = document.querySelector('input[name="checkbox1"]');
+      var checkbox2 = document.querySelector('input[name="checkbox2"]');
+      var checkbox3 = document.querySelector('input[name="checkbox3"]');
       var checkbox4 = document.querySelector('input[name="checkbox4"]');
+      var checkbox5 = document.querySelector('input[name="checkbox5"]')
+      var checkbox6 = document.querySelector('input[name="checkbox6"]')
       var link = "/encheres"; 
       
       if (checkbox1.checked) {
         window.location.href = link;
       }
       
+      if (checkbox2.checked) {
+    	  
+      	var link = "/FiltreMesEncheresEnCours"
+      	window.location.href = link;
+      }
+      
+      if (checkbox3.checked) {
+    	  
+        	var link = "/FiltreMesEncheresTerminee"
+        	window.location.href = link;
+        }
+      
       if (checkbox4.checked) {
         
         var link = "/FiltreMesVentesEnCours";
         window.location.href = link;
       }
+      
+      if (checkbox5.checked) {
+    	  
+    	var link = "/FiltreMesVentesNonCommencees"
+    	window.location.href = link;
+      }
+      
+      if (checkbox6.checked) {
+    	  
+      	var link = "/FiltreMesVentesTerminees"
+      	window.location.href = link;
+      }
+      
+     
+      
     }
   </script>
 </head>
@@ -126,21 +157,21 @@
   <div class="form-check">
   <label class="form-check-label" for="flexCheckDefault">
     <input class="form-check-input" type="checkbox" name="checkbox1" id="flexCheckDefault" onclick="goToLink()" >
-   	Encheres en cours :
+   	Encheres en cours 
  </label>
  
   <br>
  
    <label class="form-check-label" for="flexCheckDefault" >
     <input class="form-check-input" type="checkbox" name="checkbox2"  id="flexCheckDefault"  onclick="goToLink()">
-    Case à cocher 2
+   	Mes enchères en cours
   </label>
   
   <br>
   
    <label class="form-check-label" for="flexCheckDefault">
-    <input class="form-check-input" type="checkbox" name="checkbox3" id="flexCheckDefault">
-    Case à cocher 3
+    <input class="form-check-input" type="checkbox" name="checkbox3" id="flexCheckDefault" onclick="goToLink()">
+    Mes enchères remportées
   </label>
   </div> 
   </div>
@@ -156,21 +187,21 @@
   
    <label class="form-check-label" for="flexCheckDefault">
    <input class="form-check-input" type="checkbox" name="checkbox4" id="flexCheckDefault" onclick="goToLink()">
-    Mes ventes en cours :
+    Mes ventes en cours 
   </label>
   
   <br>
   
    <label class="form-check-label" for="flexCheckDefault">
-    <input class="form-check-input" type="checkbox" name="checkbox5" id="flexCheckDefault">
-    Case à cocher 2
+    <input class="form-check-input" type="checkbox" name="checkbox5" id="flexCheckDefault" onclick="goToLink()">
+    Mes ventes non débutées
   </label>
   
   <br>
   
    <label class="form-check-label" for="flexCheckDefault">
-    <input  class="form-check-input" type="checkbox" name="checkbox6" id="flexCheckDefault">
-    Case à cocher 3
+    <input  class="form-check-input" type="checkbox" name="checkbox6" id="flexCheckDefault" onclick="goToLink()">
+    Mes ventes terminées
   </label>
  
   <br>

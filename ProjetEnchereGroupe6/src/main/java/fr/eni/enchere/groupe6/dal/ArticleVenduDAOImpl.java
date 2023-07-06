@@ -21,7 +21,7 @@ import fr.eni.enchere.groupe6.bo.Utilisateur;
 @Repository
 public class ArticleVenduDAOImpl implements ArticleVenduDAO {
 	
-	private final String FIND_ALL = "SELECT * FROM ARTICLES_VENDUS";
+	private final String FIND_ALL = "SELECT * FROM ARTICLES_VENDUS WHERE date_debut_encheres <= GETDATE() AND date_fin_encheres >= GETDATE()";
 	
 	private final static String INSERT = "insert into ARTICLES_VENDUS (nom_article, description, date_debut_encheres, date_fin_encheres, prix_initial, prix_vente, no_utilisateur, no_categorie) values (:nom_article, :description, :date_debut_encheres, :date_fin_encheres, :prix_initial, :prix_vente, :no_utilisateur, :no_categorie)";
 	private final static String FIND_ID = "SELECT * FROM ARTICLES_VENDUS WHERE no_article=:no_article ";
@@ -170,7 +170,7 @@ public class ArticleVenduDAOImpl implements ArticleVenduDAO {
 
 	@Override
 	public List<ArticleVendu> findByCategorie(Categorie categorie) {
-		String FIN_BY_CATEGORIE = "SELECT * FROM ARTICLES_VENDUS WHERE no_categorie=:no_categorie";
+		String FIN_BY_CATEGORIE = "SELECT * FROM ARTICLES_VENDUS WHERE no_categorie=:no_categorie AND ";
 		
 		Map<String, Object> params1 = new HashMap<>();
 		params1.put("no_categorie", categorie.getNoCategorie());
@@ -183,12 +183,49 @@ public class ArticleVenduDAOImpl implements ArticleVenduDAO {
 
 	@Override
 	public List<ArticleVendu> findByNoUtilisateur(Utilisateur utilisateur) {
-		String FIND_BY_NO_UTILISATEUR= "SELECT * FROM ARTICLES_VENDUS WHERE no_utilisateur=:no_utilisateur";
+		String FIND_BY_NO_UTILISATEUR= "SELECT * FROM ARTICLES_VENDUS WHERE no_utilisateur=:no_utilisateur AND date_debut_encheres <= GETDATE() AND date_fin_encheres >= GETDATE()";
 		Map<String, Object>params = new HashMap<>();
 		params.put("no_utilisateur", utilisateur.getNoUtilisateur());
 		
 		return npJdbcTemplate.query(FIND_BY_NO_UTILISATEUR, params, new ArticleRowMapper());
 	}
+	
+	@Override
+	public List<ArticleVendu> findByVentesNonCommencees(Utilisateur utilisateur) {
+		String FIND_BY_NON_COMMENCE= "SELECT * FROM ARTICLES_VENDUS WHERE no_utilisateur=:no_utilisateur AND date_debut_encheres > GETDATE() AND date_fin_encheres > GETDATE()";
+		Map<String, Object>params = new HashMap<>();
+		params.put("no_utilisateur", utilisateur.getNoUtilisateur());
+		return npJdbcTemplate.query(FIND_BY_NON_COMMENCE, params, new ArticleRowMapper());
+	}
+	
+	
+	@Override
+	public List<ArticleVendu> findByVentesTerminees(Utilisateur utilisateur) {
+		String FIND_BY_VENTES_TERMINE= "SELECT * FROM ARTICLES_VENDUS WHERE no_utilisateur=:no_utilisateur AND date_debut_encheres < GETDATE() AND date_fin_encheres <= GETDATE()";
+		Map<String, Object>params = new HashMap<>();
+		params.put("no_utilisateur", utilisateur.getNoUtilisateur());
+		return npJdbcTemplate.query(FIND_BY_VENTES_TERMINE, params, new ArticleRowMapper());
+	}
+	
+	@Override
+	public List<ArticleVendu> findByMesEncheresEnCours(Utilisateur utilisateur) {
+		String FIND_BY_ENCHERES_EN_COURS= 	"SELECT av. * FROM ARTICLES_VENDUS av INNER JOIN ENCHERES e ON av.no_article = e.no_article AND"
+				+ " av.no_utilisateur != e.no_utilisateur WHERE e.no_utilisateur =:no_utilisateur AND date_debut_encheres <= GETDATE() AND date_fin_encheres >= GETDATE()";
+		Map<String, Object>params = new HashMap<>();
+		params.put("no_utilisateur", utilisateur.getNoUtilisateur());
+		return npJdbcTemplate.query(FIND_BY_ENCHERES_EN_COURS, params, new ArticleRowMapper());
+	}
+	
+	@Override
+	public List<ArticleVendu> findByMesEncheresTerminees(Utilisateur utilisateur) {
+		String FIND_BY_ENCHERES_EN_COURS = "SELECT av. * FROM ARTICLES_VENDUS av INNER JOIN ENCHERES e ON av.no_article = e.no_article AND "
+				+ "av.no_utilisateur != e.no_utilisateur  INNER JOIN UTILISATEURS u ON av.no_utilisateur =:no_utilisateur "
+				+ "WHERE e.no_utilisateur = 2 AND av.date_debut_encheres < GETDATE() AND av.date_fin_encheres <= GETDATE()";
+		Map<String, Object>params = new HashMap<>();
+		params.put("no_utilisateur", utilisateur.getNoUtilisateur());
+		return npJdbcTemplate.query(FIND_BY_ENCHERES_EN_COURS, params, new ArticleRowMapper());
+	}
+	
 	
 	
 	@Override
@@ -216,6 +253,14 @@ public class ArticleVenduDAOImpl implements ArticleVenduDAO {
 		npJdbcTemplate.update(UPDATE_PRIX_VENTE, paramSrc);
 		
 	}
+
+	
+
+	
+
+	
+
+
 
 
 	

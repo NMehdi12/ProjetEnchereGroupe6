@@ -65,6 +65,30 @@ public class ArticleVenduServiceImpl implements ArticleVenduService {
 		
 		return articleVenduDao.findByNoUtilisateur(utilisateur);
 	}
+
+	@Override
+	public List<ArticleVendu> afficherResultatParNoUtilisateurEtNonCommence(Utilisateur utilisateur) {
+		
+		return articleVenduDao.findByVentesNonCommencees(utilisateur);
+	}
+
+	@Override
+	public List<ArticleVendu> afficherResultatParNoUtilisateurEtTermine(Utilisateur utilisateur) {
+		
+		return articleVenduDao.findByVentesTerminees(utilisateur);
+	}
+
+	@Override
+	public List<ArticleVendu> afficherResultatParEncheresEnCours(Utilisateur utilisateur) {
+		
+		return articleVenduDao.findByMesEncheresEnCours(utilisateur);
+	}
+
+	@Override
+	public List<ArticleVendu> afficherResultatParEncheresTermine(Utilisateur utilisateur) {
+		
+		return articleVenduDao.findByMesEncheresTerminees(utilisateur);
+	}
 	
 
 }
