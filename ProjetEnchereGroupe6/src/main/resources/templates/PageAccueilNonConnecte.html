@@ -218,7 +218,7 @@
 								alt="image categorie">
 								<p>Prix : <span class="card-text" th:text="${l.prixVente}"></span> points</p>
 								<p>Fin de l'enchère : <span class="card-text" th:text="${l.dateFinEncheres}"></span></p>
-								<p>Pseudo utilisateur : <span class="card-text" th:text="${l.utilisateur.pseudo}"></span></p>
+								<p>Vendeur : <span class="card-text" th:text="${l.utilisateur.pseudo}"></span></p>
 								<p>Catégorie : <span class="card-text" th:text="${l.categorie.libelle}"></span></p>
 							</div>
 						</div>
@@ -251,7 +251,7 @@
 								alt="image categorie">
 								<p>Prix : <span class="card-text" th:text="${articleVendu.prixVente}"></span> points</p>
 								<p>Fin de l'enchère : <span class="card-text" th:text="${articleVendu.dateFinEncheres}"></span></p>
-								<p>Pseudo utilisateur : <a
+								<p>Vendeur : <a
 										data-th-text="${articleVendu.utilisateur.pseudo}"
 										data-th-href="@{/profil(pseudo=${articleVendu.utilisateur.pseudo})}">
 									</a></p>
