@@ -79,37 +79,4 @@ public class SecurityConfig {
 }	 
 	
 	
-	
-
-		
-		
-		
-		
-		
-	
-	
-	
-	
-//	@Bean
-//	UserDetailsManager userDetailsManager() {
-//		var userDetailService = new InMemoryUserDetailsManager();
-//		var user = User.withUsername("admin").password("azerty").roles("MEMBRE").build();
-//		var user2 = User.withUsername("bob").password("azertyu").roles("MEMBRE").build();
-//		userDetailService.createUser(user);
-//		
-//		
-//		//var user2 = User.withUsername("bob").password("qwerty").roles("MEMBRE").build();
-//		//userDetailService.createUser(user2);
-//		return userDetailService;
-//		
-//	}
-	
-//	@Bean
-//	public PasswordEncoder passwordEncoder() {
-//		
-//		return NoOpPasswordEncoder.getInstance();
-//		//return new BCryptPasswordEncoder();
-//	}
-	
-	
 }
