@@ -219,8 +219,8 @@ public class ArticleVenduDAOImpl implements ArticleVenduDAO {
 	@Override
 	public List<ArticleVendu> findByMesEncheresTerminees(Utilisateur utilisateur) {
 		String FIND_BY_ENCHERES_EN_COURS = "SELECT av. * FROM ARTICLES_VENDUS av INNER JOIN ENCHERES e ON av.no_article = e.no_article AND "
-				+ "av.no_utilisateur != e.no_utilisateur  INNER JOIN UTILISATEURS u ON av.no_utilisateur =:no_utilisateur "
-				+ "WHERE e.no_utilisateur = 2 AND av.date_debut_encheres < GETDATE() AND av.date_fin_encheres <= GETDATE()";
+				+ "av.no_utilisateur != e.no_utilisateur "
+				+ "WHERE e.no_utilisateur =:no_utilisateur AND av.date_fin_encheres <= GETDATE()";
 		Map<String, Object>params = new HashMap<>();
 		params.put("no_utilisateur", utilisateur.getNoUtilisateur());
 		return npJdbcTemplate.query(FIND_BY_ENCHERES_EN_COURS, params, new ArticleRowMapper());
