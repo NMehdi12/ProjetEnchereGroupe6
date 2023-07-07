@@ -50,7 +50,7 @@
         
         <input type="hidden" th:field=*{noArticle}>
 
-         <input type="number" id="maProposition" th:name="nouvelleProposition" th:value="nouvelleProposition"><br>
+         <input type="number" id="maProposition" th:name="nouvelleProposition" th:value="nouvelleProposition" th:min="*{prixVente}+1" th:max="${utilisateur.credit}"><br>
 
         
 

@@ -183,7 +183,7 @@ public class EnchereController {
 		Integer noUtilisateurConnecte = utilisateurService.afficherNoUtilisateurViaPseudo(username);
 		utilisateur.setNoUtilisateur(noUtilisateurConnecte);
 		List<Categorie> categories = categorieService.afficherListeCategorie();
-		List<ArticleVendu> articlesVendus = articleVenduService.afficherResultatParEncheresEnCours(utilisateur);
+		List<ArticleVendu> articlesVendus = articleVenduService.afficherResultatParEncheresTermine(utilisateur);
 		model.addAttribute("noUtilisateur", noUtilisateurConnecte);
 		model.addAttribute("articleVendu", articlesVendus);
 		model.addAttribute("categories", categories);
@@ -327,9 +327,16 @@ public class EnchereController {
 
 	@GetMapping("/encherir")
 	public String vueEncherir(@ModelAttribute("articleVendu") ArticleVendu articleVendu,
-			@RequestParam("noArticleVendu") Integer noArticleVendu, Model model) {
+			@RequestParam("noArticleVendu") Integer noArticleVendu, Model model, @ModelAttribute("utilisateur") Utilisateur utilisateur) {
 		articleVendu = articleVenduService.afficherDetailParNoArticle(noArticleVendu);
 		model.addAttribute(articleVendu);
+		
+		Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+		String noUser = authentication.getName();
+
+		utilisateur = utilisateurService.afficherParPseudo(noUser);
+		model.addAttribute("utilisateur", utilisateur);
+		
 		return "PageEncherir";
 	}
 	
@@ -341,10 +348,15 @@ public class EnchereController {
             enchereService.encherir(articleVendu, authentication, nouvelleProposition); 
         } catch(SQLException e) {
             System.out.println("Passe dans le catch du Controller");
-            return "redirect:/encherir";
+            return "redirect:/erreur";
         }
         
         return "redirect:/";
     }
+	
+	@GetMapping("/erreur")
+	public String messageErreur() {
+		return "PageErreur";
+	}
 
 }

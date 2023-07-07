@@ -28,7 +28,7 @@ public class UtilisateurDAOImpl implements UtilisateurDAO {
     private final static String DELETE = "delete from UTILISATEURS where no_utilisateur= ?";
 	private final static String FIND_NO_USER_BY_PSEUDO = "select no_utilisateur from UTILISATEURS where pseudo = :pseudo";
 	private final static String FIND_NO_USER_BY_EMAIL = "select * from UTILISATEURS where email = :email";
-	private final static String CREDITER = "update UTILISATEURS set credit = (select credit from UTILISATEURS where no_utilisateur = (select no_utilisateur from ENCHERES where no_article = :no_article)) + :credit where no_utilisateur = (select no_utilisateur from ENCHERES where no_article = :no_article)";
+	private final static String CREDITER = "update UTILISATEURS set credit = (select credit from UTILISATEURS where no_utilisateur = (select no_utilisateur from ENCHERES where no_article = :no_article)) + (select montant_enchere from ENCHERES where no_article = :no_article) where no_utilisateur = (select no_utilisateur from ENCHERES where no_article = :no_article)";
 	private final static String DEBITER = "BEGIN TRANSACTION; update UTILISATEURS set credit = (select credit from UTILISATEURS where no_utilisateur = :no_utilisateur) - :credit where no_utilisateur = :no_utilisateur";
 
 
@@ -167,11 +167,11 @@ public class UtilisateurDAOImpl implements UtilisateurDAO {
 	}
 
 	@Override
-	public void crediter(Integer nouveauMontant, Integer noArticle) {
+	public void crediter(Integer noArticle) {
 		
 		
-		MapSqlParameterSource paramSrc = new MapSqlParameterSource("credit", nouveauMontant);
-		paramSrc.addValue("no_article", noArticle);
+		MapSqlParameterSource paramSrc = new MapSqlParameterSource("no_article", noArticle);
+		
 		
 		System.out.println("Je passe par la méthode crediter() de UtilisateurDAOImpl");
 		
@@ -179,13 +179,18 @@ public class UtilisateurDAOImpl implements UtilisateurDAO {
 	}
 
 	@Override
-	public void debiter(Integer nouveauMontant, Authentication authentication) {
+	public void debiter(Integer nouveauMontant, Authentication authentication) throws SQLException {
 		String pseudo = authentication.getName();
 		Integer noUtilisateur = findNoUtilisateurByPseudo(pseudo);
+		Utilisateur utilisateur = findById(noUtilisateur);
 		MapSqlParameterSource paramSrc = new MapSqlParameterSource("credit", nouveauMontant);
 		paramSrc.addValue("no_utilisateur", noUtilisateur);
 		
 		System.out.println("Je passe par la méthode debiter() de UtilisateurDAOImpl");
+		
+		if(utilisateur.getCredit() < nouveauMontant) {
+			throw new SQLException();
+		}
 		
 		njt.update(DEBITER, paramSrc);
 		

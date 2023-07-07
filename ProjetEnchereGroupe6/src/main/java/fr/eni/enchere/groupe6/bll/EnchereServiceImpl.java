@@ -53,7 +53,7 @@ public class EnchereServiceImpl implements EnchereService {
 		    connection.setAutoCommit(false);
 		    
 		    utilisateurDAO.debiter(nouvelleEnchere, authentication);
-		    utilisateurDAO.crediter(nouvelleEnchere, articleVendu.getNoArticle());
+		    utilisateurDAO.crediter(articleVendu.getNoArticle());
 		    enchereDAO.update(articleVendu, authentication, nouvelleEnchere);
 		    
 		    System.out.println("Transaction : Try");
@@ -64,6 +64,7 @@ public class EnchereServiceImpl implements EnchereService {
 		        connection.rollback();
 		        
 		        System.out.println("Transaction : Catch");
+		        throw e;
 		    }
 		    
 		} finally {

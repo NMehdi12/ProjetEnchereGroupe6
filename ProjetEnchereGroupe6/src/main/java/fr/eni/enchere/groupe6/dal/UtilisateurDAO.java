@@ -1,5 +1,6 @@
 package fr.eni.enchere.groupe6.dal;
 
+import java.sql.SQLException;
 import java.util.List;
 
 import org.springframework.security.core.Authentication;
@@ -15,6 +16,6 @@ public interface UtilisateurDAO {
 	Integer findNoUtilisateurByPseudo(String pseudo);
 	void update(Utilisateur utilisateur);
 	Utilisateur findByEmail(String email);
-	void crediter(Integer nouveauMontant, Integer noArticle);
-	void debiter(Integer nouveauMontant, Authentication authentication);
+	void crediter(Integer noArticle);
+	void debiter(Integer nouveauMontant, Authentication authentication) throws SQLException;
 }

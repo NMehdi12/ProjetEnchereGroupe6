@@ -24,7 +24,7 @@ public class EnchereDAOImpl implements EnchereDAO{
 	@Autowired
 	private NamedParameterJdbcTemplate npJdbcTemplate;
 	
-	private final static String INSERT = "insert into ENCHERES (no_utilisateur, no_article, date_enchere, montant_enchere) values (:no_utilisateur, (select max(no_article) from ARTICLES_VENDUS), :date_enchere, :montant_enchere)";
+	private final static String INSERT = "insert into ENCHERES (no_utilisateur, no_article, date_enchere, montant_enchere) values (:no_utilisateur, (select max(no_article) from ARTICLES_VENDUS), :date_enchere, 0)";
 	
 	private final static String UPDATE = "update ENCHERES set no_utilisateur = :no_utilisateur, date_enchere = :date_enchere, montant_enchere = :montant_enchere where no_article = :no_article";
 	
@@ -54,7 +54,7 @@ public class EnchereDAOImpl implements EnchereDAO{
 		
 		MapSqlParameterSource paramSrc = new MapSqlParameterSource("no_utilisateur", noUtilisateur);
 		paramSrc.addValue("date_enchere", articleVendu.getDateDebutEncheres());
-		paramSrc.addValue("montant_enchere", articleVendu.getMiseAPrix());
+		//paramSrc.addValue("montant_enchere", articleVendu.getMiseAPrix());
 		
 		System.out.println("Enregistrement de la première enchère ! Les valeurs entrées en base de données : " + paramSrc.toString());
 		
