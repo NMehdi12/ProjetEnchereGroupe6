@@ -16,6 +16,7 @@
 <div data-th-replace="~{/fragments/fragment-entete :: frag-entete}"></div>
 
 	<h1>Inscription</h1>
+	<main>
 
 <!--  <form th:action="inscription" th:object="${utilisateur}" method="post">
   <div class="row mb-3">
@@ -35,16 +36,20 @@
   </div>
 -->
 
-<fieldset>
-	<form th:action="@{/inscription}" th:object="${utilisateur}" method="post">
+<fieldset >
+
+<div class="row justify-content-center align-items-center vh-50">
+<div class="col-md-5 col-lg-7">
+	<form  th:action="@{/inscription}" th:object="${utilisateur}" method="post">
 
 		 <div class="alert alert-danger" th:if="${#fields.hasErrors('*')}">
 			<p th:text="#{pageCreerCompte.erreurs}">Message d'erreur perso</p>
-
 		</div>
-
+	
 		<fieldset>
 			<legend>Formulaire</legend>
+			<div class="row g-3 ">
+			<div class="col-sm-6">
 			<div class="form-group">
 				<label for="pseudo" class="form-label mt-4">Pseudo:</label> 
 				<input type="text" id="pseudo" th:field="*{pseudo}" required /> 
@@ -53,6 +58,7 @@
 					<li th:each="erreur: ${#fields.errors('pseudo')}" th:text="${erreur}"></li>
 				</ul>
 				</span>
+			</div>
 			</div>
 			<div class="form-group">
 				<label for="nom" class="form-label mt-4">nom:</label> <input
@@ -170,11 +176,15 @@
 
 			<button type="submit" class="btn btn-primary">Créer</button>
 			<a href="/encheres"><button type="button" class="btn btn-primary">Annuler</button></a>
+			</div>
+			</div>
 		</fieldset>
+		</div>
 	</form>
+	</div>
 
 </fieldset>
-
+</main>
 <div data-th-replace="~{/fragments/frag-piedpage :: frag-piedpage}"></div>
 </body>
 </html>

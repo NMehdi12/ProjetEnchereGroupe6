@@ -1,46 +1,30 @@
 html {
     height:100%;
+    background-color : #c5d5cb;
 	background-image: linear-gradient(-60deg, #6c3 50%, #09f 50%);
 	margin:30;
 }
- 
+
 body {
     margin:30;
-	background-image: linear-gradient(-60deg, #6c3 50%, #09f 50%);
+	background-color : #c5d5cb;
 }
 
-.corps
-{
+main {
     margin:30;
-     background-image: linear-gradient(-60deg, #6c3 50%, #09f 50%);
-
+	background-color : #c5d5cb;
 }
 
-img {
-max-width : 100px;
-max-height : 80px;
+.eniWish{
+   font-size:2rem;
+   font-weight: bold;
+   font-family: 'Tsukimi Rounded', sans-serif;
+   color:#629394;
 }
-.row row-cols-1 row-cols-md-2 g-4{
-max-width : 30rem;
-max-height : 30rem;
-margin:30;
-}
-
-.col {
-max-width : 30rem;
-max-height : 30rem;
-margin:30;
-}
-
-footer {
-  position : absolute;
-  bottom : auto;
-}
-
 
 .lecssctop{
 	display: flex;
-	
+	background-color : #c5d5cb;
 }
 
 .blockCheck1{
@@ -53,7 +37,42 @@ footer {
 	display: inline-block;
 	margin-bottom: 15px;
 	margin-left : 80px;
-	margin-right: auto;
-	
-	
+	margin-right: auto;	
 }
+
+.card{
+   text-align: center;
+}
+
+img {
+
+max-height : 200px;
+}
+
+.nav-item{
+margin : 7px;
+}
+
+
+footer {
+  position : bottom;
+}
+/*
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+*/
