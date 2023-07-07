@@ -1,7 +1,6 @@
 html {
     height:100%;
     background-color : #c5d5cb;
-	background-image: linear-gradient(-60deg, #6c3 50%, #09f 50%);
 	margin:30;
 }
 
@@ -15,11 +14,20 @@ main {
 	background-color : #c5d5cb;
 }
 
+h1{
+   font-size:2rem;
+}
+
+
 .eniWish{
    font-size:2rem;
    font-weight: bold;
    font-family: 'Tsukimi Rounded', sans-serif;
    color:#629394;
+}
+
+form {
+	margin : auto;
 }
 
 .lecssctop{
@@ -54,9 +62,7 @@ margin : 7px;
 }
 
 
-footer {
-  position : bottom;
-}
+footer {position: relative; bottom: 0; background-color : #c5d5cb;}
 /*
 
 

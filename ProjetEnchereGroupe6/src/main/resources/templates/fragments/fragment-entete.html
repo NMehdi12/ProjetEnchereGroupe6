@@ -1,10 +1,10 @@
 <header xmlns:th="http://www.thymeleaf.org" data-th-fragment="frag-entete">
-	<nav class="navbar navbar-light bg-light">
-		<a class="navbar-brand" href="/encheres"> 
-		<img src="/images/LogoSansFond.png" width="80" height="60"
-			class="d-inline-block align-bottom" alt=""> ENI Enchères
+<nav class="navbar navbar-light bg-light">
+		<a class="navbar-brand" href="/encheres"> <img
+			src="/images/LogoSansFond.png" width="80" height="60"
+			class="d-inline-block align-bottom" alt=""> <span class="eniWish"> ENI Wish?</span>
 		</a>
-	</nav>
+		</nav>
 <nav class="navbar navbar-expand-lg bg-body-tertiary">
 		<div class="container-fluid">
 			<a class="navbar-brand" href="/encheres">Ventes en cours</a>
@@ -18,9 +18,9 @@
 				<ul class="navbar-nav me-auto mb-2 mb-lg-0">
 					<li class="nav-item"><a class="nav-link active"
 						aria-current="page" href="/login">Se connecter</a></li>
-					<li class="nav-item"><a class="nav-link active"
+					<li class="nav-item"><a class="nav-link active" data-th-if="${#authorization.expression('isAuthenticated()')}"
 						aria-current="page" href="/logout">Se déconnecter</a></li>
-					<li class="nav-item"><a class="nav-link active"
+					<li class="nav-item"><a class="nav-link active" data-th-if="${not #authorization.expression('isAuthenticated()')}"
 						aria-current="page" href="/inscription">S'inscrire</a></li>
 					<li class="nav-item"><a class="nav-link active"
 						aria-current="page" href="/nouvelleVente">Créer une vente</a></li>
